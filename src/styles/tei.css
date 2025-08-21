@@ -63,8 +63,9 @@ tei-l {
   gap: 0.25rem;
 }
 
-tei-l + tei-l {
-  margin-top: 2rem;
+tei-l + tei-l,
+tei-head + tei-l {
+  margin-top: 1.5rem;
 }
 
 tei-choice {

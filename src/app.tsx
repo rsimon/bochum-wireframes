@@ -11,6 +11,8 @@ interface AppProps {
 
   url: string;
 
+  isRTL?: boolean;
+
 }
 
 export const App = (props: AppProps) => {
@@ -38,7 +40,7 @@ export const App = (props: AppProps) => {
         <NavigationPane tei={tei}  />
       </div>
 
-      <div className="reading">
+      <div className="reading" dir={props.isRTL ? 'rtl': undefined}>
         <TEIAnnotator>
           <AnnotationPane tei={tei} />
 

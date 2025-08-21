@@ -11,6 +11,8 @@ const URL = '/True_udu82q.xml';
 
 ReactDOM.createRoot(document.getElementById('app')!).render(
   <Annotorious>
-    <App url={URL} />
+    <App 
+      // isRTL 
+      url={URL} />
   </Annotorious>
 );
