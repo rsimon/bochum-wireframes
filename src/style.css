@@ -19,7 +19,7 @@ tei-lg {
 }
 
 tei-lg + tei-lg {
-  margin-top: 3rem;
+  margin-top: 4rem;
 }
 
 tei-lg::before {
@@ -40,7 +40,7 @@ tei-l {
 }
 
 tei-l + tei-l {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 tei-choice {
