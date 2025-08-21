@@ -2,8 +2,10 @@ import { TableOfContents, TableOfContentsNode } from '../types';
 
 export const buildTableOfContents = (div: Element) => {
   const walkChildren = (parent: Element): TableOfContentsNode[] => {
-    const childDivs = Array.from(parent.children).filter(e => e.nodeName.toLowerCase() === 'tei-div');
-    return childDivs.map(teiDiv => ({
+    const childSections = Array.from(parent.children).filter(e => 
+      e.nodeName.toLowerCase() === 'tei-div' && e.getAttribute('type'));
+
+    return childSections.map(teiDiv => ({
       label: `${teiDiv.getAttribute('type')} ${teiDiv.getAttribute('n')}`,
       element: teiDiv,
       childNodes: walkChildren(teiDiv)
