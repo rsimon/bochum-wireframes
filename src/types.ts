@@ -1,15 +1,15 @@
-export interface ToC {
+export interface TableOfContents {
 
-  root: ToCNode;
+  root: TableOfContentsNode;
 
 }
 
-export interface ToCNode {
+export interface TableOfContentsNode {
 
   label: string;
 
   element: Element;
 
-  childNodes: ToCNode[];
+  childNodes: TableOfContentsNode[];
 
 }

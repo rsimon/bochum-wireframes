@@ -1,62 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
-import { buildToC } from './utils';
-import { MockStorage, TableOfContents } from './annotation-pane';
-import { ToC } from './types';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
+import { MockStorage } from './annotation-pane';
 import { TEIPane } from './annotation-pane/TEIPane';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
+import { NavigationPane } from './navigation-pane';
 
 interface AppProps {
 
-  tei: string;
+  url: string;
 
 }
 
 export const App = (props: AppProps) => {
 
-  const ref = useRef<HTMLDivElement>(null);
+  const [tei, setTEI] = useState<Element | undefined>();
 
-  // const [toc, setToC] = useState<ToC | undefined>();
-
-  /*
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
 
-    CETEIcean.getHTML5(props.tei, (data: DocumentFragment) => {
+    CETEIcean.getHTML5(props.url, (data: DocumentFragment) => {
       if (!(data.firstChild instanceof Element))
         throw new Error('Error parsing TEI');
-
-      if (!ref.current) 
-        throw new Error('Error rendering TEI');
 
       const firstDiv = (data.firstChild as Element).getElementsByTagName('tei-div')[0];
       if (!firstDiv)
         throw new Error('Error parsing TEI');
 
-      ref.current.appendChild(data);
-
-      // Build ToC
-      const toc = buildToC(firstDiv);
-      setToC(toc);
+      setTEI(firstDiv);
     });
-  }, [props.tei]);
-  */
+  }, [props.url]);
 
   return (
     <div className="container">
       <div className="toc">
-        {/* toc && (
-          <TableOfContents toc={toc} />
-        ) */}
+        <NavigationPane tei={tei}  />
       </div>
 
       <div className="reading">
         <TEIAnnotator>
+          {/*
           <TEIPane tei={props.tei} />
 
           <MockStorage />
+          */}
         </TEIAnnotator>
       </div>
     </div>

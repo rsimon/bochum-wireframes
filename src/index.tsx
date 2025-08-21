@@ -1,12 +1,11 @@
 import ReactDOM from 'react-dom/client';
 import { Annotorious } from '@annotorious/react';
-import { App } from './App';
+import { App } from './apps';
 
-import './style.css';
-import './layout.css';
+import './styles/index.css';
 
 ReactDOM.createRoot(document.getElementById('app')!).render(
   <Annotorious>
-    <App tei="/chapter_BCar_incl_sandhi.xml" />
+    <App url="/chapter_BCar_incl_sandhi.xml" />
   </Annotorious>
 );
