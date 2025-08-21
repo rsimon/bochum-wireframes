@@ -16,10 +16,10 @@ tei-div[type="chapter"] + tei-div[type="chapter"]::before {
 
 tei-lg {
   position: relative;
-  padding-left: 3.5rem;
 }
 
 tei-lg + tei-lg {
+  display: block;
   margin-top: 4rem;
 }
 
@@ -34,7 +34,7 @@ tei-lg::before {
 }
 
 tei-l {
-  padding-left: 0.5rem;
+  padding-left: 3.5rem;
   display: flex;
   align-items: flex-end;
   gap: 0.25rem;
