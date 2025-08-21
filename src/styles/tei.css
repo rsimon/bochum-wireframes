@@ -2,6 +2,10 @@ tei-text {
   font-family: 'Source Serif 4';
 }
 
+tei-div {
+  display: block;
+}
+
 tei-div[type="chapter"]::before {
   display: block;
   content: attr(type) " " attr(n);
@@ -12,6 +16,25 @@ tei-div[type="chapter"]::before {
 
 tei-div[type="chapter"] + tei-div[type="chapter"]::before {
   padding-top: 2rem;
+}
+
+tei-div[type="replies"] {
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+:is(tei-div[type="thread"], tei-post) + :is(tei-div[type="thread"], tei-post) {
+  margin-top: 1rem;
+}
+
+tei-head {
+  display: block;
+  font-weight: 700;
+}
+
+tei-post {
+  display: block;
+  position: relative;
 }
 
 tei-lg {

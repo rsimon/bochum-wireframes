@@ -6,7 +6,7 @@ export const buildTableOfContents = (div: Element) => {
       e.nodeName.toLowerCase() === 'tei-div' && e.getAttribute('type'));
 
     return childSections.map(teiDiv => ({
-      label: `${teiDiv.getAttribute('type')} ${teiDiv.getAttribute('n')}`,
+      label: `${teiDiv.getAttribute('type')} ${teiDiv.getAttribute('n') || ''}`.trim(),
       element: teiDiv,
       childNodes: walkChildren(teiDiv)
     } as TableOfContentsNode));
@@ -14,7 +14,7 @@ export const buildTableOfContents = (div: Element) => {
 
   return { 
     root: {
-      label: `${div.getAttribute('type')} ${div.getAttribute('n')}`,
+      label: `${div.getAttribute('type')} ${div.getAttribute('n') || ''}`.trim(),
       element: div, 
       childNodes: walkChildren(div)
     } as TableOfContentsNode

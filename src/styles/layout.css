@@ -21,6 +21,8 @@ html, body {
   flex-shrink: 0; 
   line-height: 180%;
   border-right: 1px solid #e2e2e2;
+  max-width: 220px;
+  overflow-y: auto;
 }
 
 .toc ul {
@@ -35,5 +37,5 @@ html, body {
 .reading {
   flex: 1;
   padding: 2rem 4rem;
-  line-height: 160%;
+  line-height: 180%;
 }
