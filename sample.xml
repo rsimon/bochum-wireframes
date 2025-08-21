@@ -1,0 +1,72 @@
+<lg n="1">
+  <l xml:id="l.473174">
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550356.s">aikṣvāka</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550356">aikṣvākaḥ</w>
+      </reg>
+    </choice>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550877_2550878_2550879.s">ikṣvākusamaprabhāvaḥ</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550877">ikṣvāku</w>
+        <w xml:id="w.2550878">sama</w>
+        <w xml:id="w.2550879">prabhāvaḥ</w>
+      </reg>
+    </choice>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550880_2550881.s">śākyeṣvaśakyeṣu</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550880">śākyeṣu</w>
+        <w xml:id="w.2550881">aśakyeṣu</w>
+      </reg>
+    </choice>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550357_2550358.s">viśuddhavṛttaḥ</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550357">viśuddha</w>
+        <w xml:id="w.2550358">vṛttaḥ</w>
+      </reg>
+    </choice>
+  </l>
+  <l xml:id="l.473175">
+    <w xml:id="w.2550359">priyaḥ</w>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550919_2550920.s">śaraccandra</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550919">śarad</w>
+        <w xml:id="w.2550920">candraḥ</w>
+      </reg>
+    </choice>
+    <w xml:id="w.2550360">iva</w>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550361.s">prajānāṃ</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550361">prajānām</w>
+      </reg>
+    </choice>
+    <choice n="sandhi">
+      <orig>
+        <w xml:id="w.2550362.s">śuddhodano</w>
+      </orig>
+      <reg>
+        <w xml:id="w.2550362">śuddhodanaḥ</w>
+      </reg>
+    </choice>
+    <w xml:id="w.2550363">nāma</w>
+    <w xml:id="w.2550364">babhūva</w>
+    <w xml:id="w.2550365">rājā</w>
+  </l>
+</lg>
