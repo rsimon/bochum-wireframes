@@ -1,1 +1,1 @@
-# bochum-tei-exploration
+# Bochum TEI Exploration

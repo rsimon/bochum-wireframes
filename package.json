@@ -1,0 +1,30 @@
+{
+  "name": "bochum-tei-exploration",
+  "version": "0.1.0",
+  "homepage": "https://github.com/rsimon/bochum-tei-exploration#readme",
+  "bugs": {
+    "url": "https://github.com/rsimon/bochum-tei-exploration/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsimon/bochum-tei-exploration.git"
+  },
+  "type": "module",
+  "main": "src/index.tsx",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
