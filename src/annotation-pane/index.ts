@@ -1,2 +1,1 @@
-export * from './TableOfContents';
-export * from './MockStorage';
+export * from './annotation-pane';

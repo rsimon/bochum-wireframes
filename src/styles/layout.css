@@ -10,7 +10,8 @@ html, body {
 }
 
 .toc {
-  font-family: 'Noto Sans';
+  font-family: 'Noto Serif';
+  font-style: italic;
   position: sticky;
   text-transform: capitalize;
   top: 0; 

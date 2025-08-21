@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
-import { MockStorage } from './annotation-pane';
-import { TEIPane } from './annotation-pane/TEIPane';
+import { AnnotationPane } from './annotation-pane';
+import { NavigationPane } from './navigation-pane';
+import { MockStorage } from './mock-storage';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
-import { NavigationPane } from './navigation-pane';
 
 interface AppProps {
 
@@ -40,11 +40,9 @@ export const App = (props: AppProps) => {
 
       <div className="reading">
         <TEIAnnotator>
-          {/*
-          <TEIPane tei={props.tei} />
+          <AnnotationPane tei={tei} />
 
           <MockStorage />
-          */}
         </TEIAnnotator>
       </div>
     </div>
