@@ -10,12 +10,16 @@ tei-div[type="chapter"]::before {
   content: attr(type) " " attr(n);
   font-size: 1.25rem;
   text-transform: capitalize;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+tei-div[type="chapter"] + tei-div[type="chapter"]::before {
+  padding-top: 2rem;
 }
 
 tei-lg {
   position: relative;
-  padding-left: 2.25rem;
+  padding-left: 3.5rem;
 }
 
 tei-lg + tei-lg {
@@ -24,12 +28,12 @@ tei-lg + tei-lg {
 
 tei-lg::before {
   content: attr(n);
-  border-right: 1px solid #1a1a1a;
+  border-right: 1px solid #c0c0c0;
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
-  width: 1.75rem;
+  width: 2rem;
 }
 
 tei-l {

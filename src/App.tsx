@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { buildToC } from './utils';
-import { TableOfContents } from './annotation-pane';
+import { MockStorage, TableOfContents } from './annotation-pane';
 import { ToC } from './types';
+import { TEIAnnotator } from '@recogito/react-text-annotator';
+import { TEIPane } from './annotation-pane/TEIPane';
+
+import '@recogito/react-text-annotator/react-text-annotator.css';
 
 interface AppProps {
 
@@ -14,8 +18,9 @@ export const App = (props: AppProps) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const [toc, setToC] = useState<ToC | undefined>();
+  // const [toc, setToC] = useState<ToC | undefined>();
 
+  /*
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
 
@@ -37,17 +42,22 @@ export const App = (props: AppProps) => {
       setToC(toc);
     });
   }, [props.tei]);
+  */
 
   return (
     <div className="container">
       <div className="toc">
-        {toc && (
+        {/* toc && (
           <TableOfContents toc={toc} />
-        )}
+        ) */}
       </div>
 
       <div className="reading">
-        <div ref={ref} />
+        <TEIAnnotator>
+          <TEIPane tei={props.tei} />
+
+          <MockStorage />
+        </TEIAnnotator>
       </div>
     </div>
   )

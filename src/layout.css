@@ -2,7 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  scroll-padding: 1.5rem;
 }
 
 .container {
@@ -34,5 +33,5 @@ html, body {
 
 .reading {
   flex: 1;
-  padding: 1rem 2rem;
+  padding: 2rem 4rem;
 }
