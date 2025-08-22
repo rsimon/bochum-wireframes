@@ -25,7 +25,7 @@ export const MockStorage = () => {
 
         if (intersecting.length > 0) {
           const quotes = intersecting.map(a => a.target.selector.map(s => s.quote).join(' '));
-          alert('Intersects: ' + quotes.join(', '));
+          console.log('Intersects: ' + quotes.join(', '));
         }
       });
 
@@ -34,7 +34,7 @@ export const MockStorage = () => {
       });
 
       r.on('selectionChanged', (annotations: TextAnnotation[]) => {
-        console.log('selection changed', annotations);
+        // console.log('selection changed', annotations);
       });
 
       r.on('updateAnnotation', (annotation: TextAnnotation, previous: TextAnnotation) => {
