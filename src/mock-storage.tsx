@@ -10,6 +10,23 @@ export const MockStorage = () => {
     if (r) {
       r.on('createAnnotation', (annotation: TextAnnotation) => {
         console.log('create', annotation);
+
+        const { store } = r.state;
+
+        const bounds = store.getAnnotationBounds(annotation.id);
+        if (!bounds) return; // Should never happen
+
+        const { x, y, width, height } = bounds;
+        
+        const intersecting = store.getIntersecting(x, y, x + width, y + height)
+          .filter(rects => rects.annotation.id !== annotation.id)
+          .map(rects => rects.annotation)
+          .sort((a, b) => a.target.selector[0].start - b.target.selector[0].start)
+
+        if (intersecting.length > 0) {
+          const quotes = intersecting.map(a => a.target.selector.map(s => s.quote).join(' '));
+          alert('Intersects: ' + quotes.join(', '));
+        }
       });
 
       r.on('deleteAnnotation', (annotation: TextAnnotation) => {
