@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
+import { TEIAnnotator } from '@recogito/react-text-annotator';
 import { LeftDrawer } from '@/components/left-drawer';
 import { RightDrawer } from '@/components/right-drawer';
 import { AnnotationPane } from '@/components/annotation-pane/annotation-pane';
+import { MockStorage } from './mock-storage';
 
 interface AppProps {
 
@@ -18,7 +20,7 @@ export const App = (props: AppProps) => {
 
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
 
-  const [rightDrawerOpen, setRightDrawerOpen] = useState(true);
+  const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
 
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
@@ -41,14 +43,20 @@ export const App = (props: AppProps) => {
         open={leftDrawerOpen} 
         onOpenChange={setLeftDrawerOpen} />
 
-      <AnnotationPane
-        tei={tei}
-        leftDrawerOpen={leftDrawerOpen}
-        setLeftDrawerOpen={setLeftDrawerOpen}
-        rightDrawerOpen={rightDrawerOpen}
-        setRightDrawerOpen={setRightDrawerOpen} />
+      <TEIAnnotator>
+        <AnnotationPane
+          tei={tei}
+          leftDrawerOpen={leftDrawerOpen}
+          setLeftDrawerOpen={setLeftDrawerOpen}
+          rightDrawerOpen={rightDrawerOpen}
+          setRightDrawerOpen={setRightDrawerOpen} />
 
-      <RightDrawer />
+        <MockStorage />
+      </TEIAnnotator>
+
+      <RightDrawer 
+        open={rightDrawerOpen}
+        onOpenChange={setRightDrawerOpen} />
     </div>
   )
 

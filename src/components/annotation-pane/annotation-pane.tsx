@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { PanelLeft, PanelRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { InlineToolbar } from './inline-toolbar';
+
+import '@recogito/react-text-annotator/react-text-annotator.css';
 
 interface AnnotationPaneProps {
 
@@ -61,6 +64,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           className="max-w-4xl mx-auto prose prose-lg dark:prose-invert"
           ref={ref}>
         </div>
+
+        <InlineToolbar />
       </main>
     </div>
   )
