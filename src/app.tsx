@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
-import { HighlightStyle, TEIAnnotation, TEIAnnotator } from '@recogito/react-text-annotator';
-import { AnnotationPane } from './annotation-pane';
-import { NavigationPane } from './navigation-pane';
-import { MockStorage } from './mock-storage';
-
-import '@recogito/react-text-annotator/react-text-annotator.css';
-import { AnnotationState } from '@annotorious/react';
+import { LeftDrawer } from '@/components/left-drawer';
+import { RightDrawer } from '@/components/right-drawer';
+import { AnnotationPane } from '@/components/annotation-pane/annotation-pane';
 
 interface AppProps {
 
@@ -16,24 +12,13 @@ interface AppProps {
 
 }
 
-const getQuote = (annotation: TEIAnnotation) =>
-  annotation.target.selector.map(s => s.quote).join(' ');
-
-const style = (annotation: TEIAnnotation, _: AnnotationState, zIndex?: number): HighlightStyle => 
-  getQuote(annotation).includes(' ') 
-  ? {
-    fillOpacity: 0,
-    underlineColor: '#1a1a1a',
-    underlineThickness: 1.5,
-    underlineOffset: 1 + 2.5 * (zIndex || 1)
-  } : {
-    fill: '#00ff00',
-    fillOpacity: 0.5
-  }
-
 export const App = (props: AppProps) => {
 
   const [tei, setTEI] = useState<Element | undefined>();
+
+  const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
+
+  const [rightDrawerOpen, setRightDrawerOpen] = useState(true);
 
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
@@ -51,19 +36,19 @@ export const App = (props: AppProps) => {
   }, [props.url]);
 
   return (
-    <div className="container">
-      <div className="toc">
-        <NavigationPane tei={tei}  />
-      </div>
+    <div className="flex h-screen bg-background">
+      <LeftDrawer
+        open={leftDrawerOpen} 
+        onOpenChange={setLeftDrawerOpen} />
 
-      <div className="reading" dir={props.isRTL ? 'rtl': undefined}>
-        <TEIAnnotator
-          style={style}>
-          <AnnotationPane tei={tei} />
+      <AnnotationPane
+        tei={tei}
+        leftDrawerOpen={leftDrawerOpen}
+        setLeftDrawerOpen={setLeftDrawerOpen}
+        rightDrawerOpen={rightDrawerOpen}
+        setRightDrawerOpen={setRightDrawerOpen} />
 
-          <MockStorage />
-        </TEIAnnotator>
-      </div>
+      <RightDrawer />
     </div>
   )
 
