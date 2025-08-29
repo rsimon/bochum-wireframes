@@ -166,12 +166,19 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
           </TooltipContent>
         </Tooltip>
 
-        <Button
-          disabled
-          variant="ghost"
-          size="icon">
-          <GitCompareArrows className="size-3.5" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon">
+              <GitCompareArrows className="size-3.5" />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Link words & metaphors</p>
+          </TooltipContent>
+        </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
