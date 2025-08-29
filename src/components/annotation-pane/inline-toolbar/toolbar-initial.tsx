@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { createBody, useAnnotator } from '@annotorious/react';
+import { useAnnotationStore, useAnnotator } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Ellipsis, GitCompareArrows, Replace, ReplaceAll, Trash2 } from 'lucide-react';
 import { AnnotationType } from '@/types';
+import { getAnnotationType, setAnnotationType } from '@/utils';
 import type { 
   RecogitoTEIAnnotator, 
   TEIAnnotation, 
@@ -27,32 +28,22 @@ const getSuggestedType = (annotation: TextAnnotation): AnnotationType => {
 
 export const ToolbarInitial = (props: ToolbarInitialProps) => {
 
-  const anno = useAnnotator<RecogitoTEIAnnotator>();
+  const store = useAnnotationStore();
 
-  const currentType = (props.annotation.bodies || []).find(b => b.purpose === 'classifying')?.value;
+  const currentType = getAnnotationType(props.annotation as TEIAnnotation);
 
   const suggestedType = currentType ? null : getSuggestedType(props.annotation);
 
   useEffect(() => {
-    if (!anno || !suggestedType) return;
+    if (!store || !suggestedType) return;
 
     // Apply the suggested type if the annotation doesn't yet have one
-    const updated: TEIAnnotation = {
-      ...(props.annotation as TEIAnnotation),
-      bodies: [
-        ...(props.annotation.bodies || []).filter(b => b.purpose !== 'classifying'),
-        createBody(props.annotation, {
-          purpose: 'classifying',
-          value: suggestedType
-        })
-      ]
-    }
-
-    anno.state.store.updateAnnotation(updated);
-  }, [anno, suggestedType, props.annotation]);
+    const updated = setAnnotationType(props.annotation as TEIAnnotation, suggestedType);
+    store.updateAnnotation(updated);
+  }, [store, suggestedType, props.annotation]);
 
   const onToggleType = (type: AnnotationType) => (pressed: boolean) => {
-    if (!anno) return;
+    if (!store) return;
 
     // No-op
     if (currentType === type && pressed) return;
@@ -67,28 +58,15 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
         bodies: (props.annotation.bodies || []).filter(b => b.purpose !== 'classifying')
       }
 
-      anno.state.store.updateAnnotation(next);
+      store.updateAnnotation(next);
     } else if (pressed) {
-      // Switch type
-      const body = createBody(props.annotation, {
-        purpose: 'classifying',
-        value: type
-      });
-
-      const next: TEIAnnotation = {
-        ...(props.annotation as TEIAnnotation),
-        bodies: [
-          ...(props.annotation.bodies || []).filter(b => b.purpose !== 'classifying'),
-          body
-        ]
-      }
-
-      anno.state.store.updateAnnotation(next);
+      const next = setAnnotationType(props.annotation as TEIAnnotation, type);
+      store.updateAnnotation(next);
     }
   }
 
   const onDelete = () => {
-    anno.state.store.deleteAnnotation(props.annotation.id);
+    store.deleteAnnotation(props.annotation.id);
     window.getSelection().empty();
   }
 
