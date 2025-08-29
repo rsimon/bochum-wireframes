@@ -1,4 +1,4 @@
-import { List, Map, X } from 'lucide-react';
+import { ChartNoAxesGantt, ListTree, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -27,12 +27,12 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
         <Tabs defaultValue="toc" className="h-full">
           <TabsList className="grid w-full grid-cols-2 rounded-none border-b">
             <TabsTrigger value="toc" className="flex items-center gap-2">
-              <List className="h-4 w-4" />
-              Contents
+              <ListTree className="size-4" />
+              Document
             </TabsTrigger>
             <TabsTrigger value="minimap" className="flex items-center gap-2">
-              <Map className="h-4 w-4" />
-              Mini-map
+              <ChartNoAxesGantt className="size-4" />
+              Minimap
             </TabsTrigger>
           </TabsList>
 
@@ -46,10 +46,10 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
 
           <TabsContent value="minimap" className="mt-0 h-full">
             <div className="p-4 h-full flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
-                <Map className="h-12 w-12 mx-auto mb-2" />
-                <p className="text-sm">Mini-map view</p>
-                <p className="text-xs">To be implemented</p>
+              <div className="text-muted-foreground">
+                <ChartNoAxesGantt 
+                  strokeWidth={1.5}
+                  className="h-12 w-12 mx-auto mb-2" />
               </div>
             </div>
           </TabsContent>
