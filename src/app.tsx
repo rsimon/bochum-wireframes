@@ -3,7 +3,7 @@ import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
 import { LeftDrawer } from '@/components/left-drawer';
 import { RightDrawer } from '@/components/right-drawer';
-import { AnnotationPane } from '@/components/annotation-pane/annotation-pane';
+import { AnnotationPane, AnnotationStyle } from '@/components/annotation-pane';
 import { MockStorage } from './mock-storage';
 
 interface AppProps {
@@ -37,19 +37,26 @@ export const App = (props: AppProps) => {
     });
   }, [props.url]);
 
+  const onFocusRightDrawer = () => {
+    // TODO
+    setRightDrawerOpen(true);
+  }
+
   return (
     <div className="flex h-screen bg-background">
       <LeftDrawer
         open={leftDrawerOpen} 
         onOpenChange={setLeftDrawerOpen} />
 
-      <TEIAnnotator>
+      <TEIAnnotator
+        style={AnnotationStyle}>
         <AnnotationPane
           tei={tei}
           leftDrawerOpen={leftDrawerOpen}
           setLeftDrawerOpen={setLeftDrawerOpen}
           rightDrawerOpen={rightDrawerOpen}
-          setRightDrawerOpen={setRightDrawerOpen} />
+          setRightDrawerOpen={setRightDrawerOpen} 
+          onFocusRightDrawer={onFocusRightDrawer} />
 
         <MockStorage />
       </TEIAnnotator>

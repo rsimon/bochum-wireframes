@@ -1,3 +1,5 @@
+export type AnnotationType = 'metaphor' | 'mrw';
+
 export interface TableOfContents {
 
   root: TableOfContentsNode;

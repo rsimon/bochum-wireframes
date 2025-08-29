@@ -17,6 +17,8 @@ interface AnnotationPaneProps {
 
   setRightDrawerOpen(open: boolean): void;
 
+  onFocusRightDrawer(): void;
+
   onLoad?(element: Element): void;
 
 }
@@ -65,7 +67,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           ref={ref}>
         </div>
 
-        <InlineToolbar />
+        <InlineToolbar 
+          onClickAdvanced={props.onFocusRightDrawer} />
       </main>
     </div>
   )
