@@ -12,5 +12,14 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'dep-recogito': ['@recogito/react-text-annotator']
+        }
+      }
+    }
   }
 });

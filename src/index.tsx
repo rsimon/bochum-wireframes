@@ -4,7 +4,7 @@ import { App } from './app';
 
 import './styles/index.css';
 
-const URL = '/chapter_BCar_incl_sandhi.xml';
+const URL = 'chapter_BCar_incl_sandhi.xml';
 // const URL = '/Rumi_Masnavi_1.xml';
 // const URL = '/True_udu82q.xml';
 // const URL = '/Videvdad.xml';
