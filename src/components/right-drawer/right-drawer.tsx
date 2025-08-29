@@ -1,4 +1,4 @@
-import { FileText, MessageSquare, X } from 'lucide-react';
+import { FileText, MessagesSquare, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -28,12 +28,10 @@ export const RightDrawer = (props: RightDrawerProps) => {
         <Tabs defaultValue="details" className="grow">
           <TabsList className="grid w-full grid-cols-2 rounded-none border-b">
             <TabsTrigger value="details" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Details
+              <FileText className="size-4" /> Details
             </TabsTrigger>
             <TabsTrigger value="list" className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
-              Annotations
+              <MessagesSquare className="size-4" /> List
             </TabsTrigger>
           </TabsList>
 

@@ -1,18 +1,13 @@
 import { useEffect } from 'react';
-import { useAnnotationStore, useAnnotator } from '@annotorious/react';
+import { useAnnotationStore } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Ellipsis, GitCompareArrows, Replace, ReplaceAll, Trash2 } from 'lucide-react';
 import { AnnotationType } from '@/types';
-import { getAnnotationType, setAnnotationType } from '@/utils';
-import type { 
-  RecogitoTEIAnnotator, 
-  TEIAnnotation, 
-  TextAnnotation, 
-  TextAnnotationPopupContentProps 
-} from '@recogito/react-text-annotator';
+import { getAnnotationType, getQuote, setAnnotationType } from '@/utils';
+import type { TEIAnnotation, TextAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
 
 interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 
@@ -21,10 +16,8 @@ interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 }
 
 // Trivial heuristic for "suggesting" initial annotation type
-const getSuggestedType = (annotation: TextAnnotation): AnnotationType => {
-  const quote = annotation.target.selector.map(s => s.quote).join(' ');
-  return quote.includes(' ') ? 'metaphor' : 'mrw';
-}
+const getSuggestedType = (annotation: TEIAnnotation): AnnotationType =>
+  getQuote(annotation).includes(' ') ? 'metaphor' : 'mrw';
 
 export const ToolbarInitial = (props: ToolbarInitialProps) => {
 
@@ -32,7 +25,7 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
 
   const currentType = getAnnotationType(props.annotation as TEIAnnotation);
 
-  const suggestedType = currentType ? null : getSuggestedType(props.annotation);
+  const suggestedType = currentType ? null : getSuggestedType(props.annotation as TEIAnnotation);
 
   useEffect(() => {
     if (!store || !suggestedType) return;

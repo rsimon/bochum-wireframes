@@ -4,6 +4,9 @@ import { AnnotationType } from './types';
 export const getAnnotationType = (annotation: TEIAnnotation): AnnotationType => 
   (annotation.bodies || []).find(b => b.purpose === 'classifying')?.value as AnnotationType;
 
+export const getQuote = (annotation: TEIAnnotation): string =>
+  annotation.target.selector.map(s => s.quote).join(' ');
+
 export const setAnnotationType = (annotation: TEIAnnotation, type: AnnotationType): TEIAnnotation => {
   const body = createBody(annotation, {
     purpose: 'classifying',

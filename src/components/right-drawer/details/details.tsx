@@ -1,6 +1,6 @@
-import { TextCursorInput, Trash2 } from 'lucide-react';
-import { useAnnotationStore, useAnnotator, useSelection } from '@annotorious/react';
-import { RecogitoTEIAnnotator, TEIAnnotation } from '@recogito/react-text-annotator';
+import { GitCompareArrows, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
+import { useAnnotationStore, useSelection } from '@annotorious/react';
+import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Button } from '@/components/ui/button';
 import { TypeSelector } from './components/type-selector';
 import { SpanTools } from './components/span-tools';
@@ -12,6 +12,10 @@ import {
 } from '@/components/ui/accordion';
 import { AnnotationType } from '@/types';
 import { getAnnotationType, setAnnotationType } from '@/utils';
+import { MetaphorLinkedWords } from './components/metaphor-linked-words';
+import { MetaphorAnalysis } from './components/metaphor-analysis';
+import { MetaphorPreview } from './components/metaphor-preview';
+import { MetaphorTags } from './components/metaphor-tags';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -33,7 +37,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
   return (
     <div className="grow flex flex-col">
-      <div className="grow p-4">
+      <div className="grow p-3">
         <div className="flex gap-1.5 justify-between">
           <div className="grow relative">
             <TypeSelector 
@@ -44,8 +48,51 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           <SpanTools />
         </div>
 
-        <Accordion type="multiple">
+        <div>
+          <MetaphorPreview 
+            annotation={props.annotation} />
+        </div>
 
+        <Accordion 
+          type="multiple"
+          className="p-1">
+          <AccordionItem value="metaphor-linked-words">
+            <AccordionTrigger>
+              <div className="flex gap-2 items-center">
+                <GitCompareArrows className="size-4" /> Linked Words
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent>
+              <MetaphorLinkedWords />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="metaphor-tags">
+            <AccordionTrigger>
+              <div className="flex gap-2 items-center">
+                <Tags className="size-4" /> Tags
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent>
+              <MetaphorTags />
+            </AccordionContent>
+          </AccordionItem>
+          
+          {type === 'metaphor' && (
+            <AccordionItem value="metaphor-analysis">
+              <AccordionTrigger>
+                <div className="flex gap-2 items-center">
+                  <Microscope className="size-4" /> Analysis
+                </div>
+              </AccordionTrigger>
+
+              <AccordionContent>
+                <MetaphorAnalysis />
+              </AccordionContent>
+            </AccordionItem>
+          )}
         </Accordion>
       </div>
 

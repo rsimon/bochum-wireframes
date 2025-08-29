@@ -1,5 +1,9 @@
 export const MetaphorLinkedWords = () => {
 
-  return null;
+  return (
+    <div>
+      Linked words...
+    </div>
+  );
 
 }
