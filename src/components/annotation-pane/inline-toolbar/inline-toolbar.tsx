@@ -32,7 +32,7 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
         props => (
           <div className="bg-white p-2 shadow-[0_0px_2px_rgba(0,0,0,0.12),2px_8px_18px_rgba(0,0,0,0.09)] rounded">
             {state === 'initial' ? (
-              <ToolbarInitial />
+              <ToolbarInitial {...props} />
             ) : null}
           </div>
         )
