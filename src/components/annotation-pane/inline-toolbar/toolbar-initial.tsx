@@ -148,7 +148,7 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
           </TooltipTrigger>
 
           <TooltipContent>
-            <p>Reselect & replace span</p>
+            <p>Re-select & replace span</p>
           </TooltipContent>
         </Tooltip>
 

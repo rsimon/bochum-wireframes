@@ -36,7 +36,7 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
       placement="bottom"
       popup={
         props => (
-          <div className="bg-white p-1 rounded-lg shadow-[0_0px_1px_rgba(0,0,0,0.35),2px_4px_12px_rgba(0,0,0,0.08),2px_20px_34px_rgba(0,0,0,0.08)]">
+          <div className="bg-white p-1.5 rounded-lg shadow-[0_0px_2px_rgba(0,0,0,0.25),2px_4px_12px_rgba(0,0,0,0.12),2px_20px_34px_rgba(0,0,0,0.12)]">
             {state === 'initial' ? (
               <ToolbarInitial 
                 {...props} 
