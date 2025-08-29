@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import { RecogitoTEIAnnotator, TEIAnnotation, TextAnnotationPopup } from '@recogito/react-text-annotator';
 import { useSelection, useAnnotator } from '@annotorious/react';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { ToolbarInitial } from './toolbar-initial';
 
 interface InlineToolbarProps {
@@ -36,7 +35,8 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
       placement="bottom"
       popup={
         props => (
-          <div className="bg-white p-1.5 rounded-lg shadow-[0_0px_2px_rgba(0,0,0,0.25),2px_4px_12px_rgba(0,0,0,0.12),2px_20px_34px_rgba(0,0,0,0.12)]">
+          <div className="bg-white p-1.5 rounded-xl 
+            border border-[#e5e5e5] shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
             {state === 'initial' ? (
               <ToolbarInitial 
                 {...props} 

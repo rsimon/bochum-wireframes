@@ -2,6 +2,7 @@ import { FileText, MessageSquare, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Details } from './details';
 
 interface RightDrawerProps {
 
@@ -16,7 +17,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
   return (
     <div
       className={`bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
-      <div className="w-80 h-full">
+      <div className="w-80 flex flex-col h-full">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Annotations</h3>
           <Button variant="ghost" size="icon" onClick={() => props.onOpenChange(false)}>
@@ -24,7 +25,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </Button>
         </div>
 
-        <Tabs defaultValue="details" className="h-full">
+        <Tabs defaultValue="details" className="grow">
           <TabsList className="grid w-full grid-cols-2 rounded-none border-b">
             <TabsTrigger value="details" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
@@ -36,17 +37,11 @@ export const RightDrawer = (props: RightDrawerProps) => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="details" className="mt-0 h-full">
-            <div className="p-4 h-full flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
-                <FileText className="h-12 w-12 mx-auto mb-2" />
-                <p className="text-sm">Annotation details</p>
-                <p className="text-xs">Select an annotation to view details</p>
-              </div>
-            </div>
+          <TabsContent value="details" className="flex flex-col mt-0 grow">
+            <Details />
           </TabsContent>
 
-          <TabsContent value="list" className="mt-0 h-full">
+          <TabsContent value="list" className="mt-0 grow">
             <ScrollArea className="h-full p-4">
               <div className="space-y-3">
                 {/* annotations.map((annotation) => (
