@@ -19,8 +19,8 @@ export const ToC = (props: ToCProps) => {
   }, [props.tei]);
 
   return toc ? (
-    <div>
-      <h3>{toc.root.label}</h3>
+    <div className="leading-relaxed">
+      <h3 className="pl-2 font-semibold capitalize mb-2">{toc.root.label}</h3>
       <ToCLevel nodes={toc.root.childNodes} />
     </div>
   ) : null;

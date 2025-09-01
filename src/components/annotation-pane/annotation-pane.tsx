@@ -61,7 +61,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         </Button>
       </div>
 
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-8 overflow-auto scroll-smooth">
         <div 
           className="max-w-4xl mx-auto prose prose-lg dark:prose-invert"
           ref={ref}>
