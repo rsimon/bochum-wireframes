@@ -45,6 +45,7 @@ export const App = (props: AppProps) => {
   return (
     <div className="flex h-screen bg-background">
       <LeftDrawer
+        tei={tei}
         open={leftDrawerOpen} 
         onOpenChange={setLeftDrawerOpen} />
 

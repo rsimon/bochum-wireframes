@@ -1,4 +1,4 @@
-import { TableOfContentsNode } from '../types';
+import { TableOfContentsNode } from '@/types';
 
 interface ToCLevelProps {
 

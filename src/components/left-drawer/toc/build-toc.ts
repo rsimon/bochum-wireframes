@@ -1,4 +1,4 @@
-import { TableOfContents, TableOfContentsNode } from '../types';
+import { TableOfContents, TableOfContentsNode } from '@/types';
 
 export const buildTableOfContents = (div: Element) => {
   const walkChildren = (parent: Element): TableOfContentsNode[] => {

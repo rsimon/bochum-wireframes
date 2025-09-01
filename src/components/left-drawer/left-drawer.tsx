@@ -2,8 +2,11 @@ import { ChartNoAxesGantt, ListTree, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ToC } from './toc';
 
 interface LeftDrawerProps {
+
+  tei?: Element;
 
   open: boolean;
 
@@ -38,9 +41,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
 
           <TabsContent value="toc" className="mt-0 h-full">
             <ScrollArea className="h-full p-4">
-              <div className="space-y-2">
-                
-              </div>
+              <ToC tei={props.tei} />
             </ScrollArea>
           </TabsContent>
 

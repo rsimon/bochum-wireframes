@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { ToCLevel } from "./toc-level";
-import { buildTableOfContents } from "./build-toc";
-import { TableOfContents } from "../types";
+import { useEffect, useState } from 'react';
+import { TableOfContents } from '@/types';
+import { ToCLevel } from './toc-level';
+import { buildTableOfContents } from './build-toc';
 
-interface NavigationPaneProps {
+interface ToCProps {
 
   tei?: Element;
 
 }
 
-export const NavigationPane = (props: NavigationPaneProps) => {
+export const ToC = (props: ToCProps) => {
 
   const [toc, setToC] = useState<TableOfContents | undefined>();
 
