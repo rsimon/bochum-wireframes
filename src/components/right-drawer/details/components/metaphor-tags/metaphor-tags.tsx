@@ -1,13 +1,39 @@
 
-import { useState } from 'react';
+import { useMemo } from 'react';
+import { ListTree } from 'lucide-react';
+import { TEIAnnotation } from '@recogito/react-text-annotator';
+import { Button } from '@/components/ui/button';
 import { AutosuggestSearch } from './autosuggest-search';
 import { Tag } from './tag';
-import { Button } from '@/components/ui/button';
-import { ListTree } from 'lucide-react';
+import { createBody, useAnnotationStore } from '@annotorious/react';
 
-export const MetaphorTags = () => {
+interface MetaphorTagsProps {
 
-  const [tags, setTags] = useState<string[]>([]);
+  annotation: TEIAnnotation;
+
+}
+
+export const MetaphorTags = (props: MetaphorTagsProps) => {
+
+  const store = useAnnotationStore();
+
+  const tags = useMemo(() => {
+    return props.annotation.bodies.filter(b => b.purpose === 'tagging' &&  b.value).map(b => b.value);
+  }, [props.annotation]);
+
+  const setTags = (tags: string[]) => {
+    if (!store) return;
+
+    const updated = {
+      ...props.annotation,
+      bodies: [
+        ...props.annotation.bodies.filter(b => b.purpose !== 'tagging'),
+        ...tags.map(value => createBody(props.annotation, { purpose: 'tagging', value }))
+      ]
+    } as TEIAnnotation;
+
+    store.updateAnnotation(updated);
+  }
 
   const onAddTag = (tag: string) => {
     if (tags.includes(tag)) return;

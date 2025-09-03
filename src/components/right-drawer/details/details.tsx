@@ -11,6 +11,8 @@ import { MetaphorLinkedWords } from './components/metaphor-linked-words';
 import { MetaphorAnalysis } from './components/metaphor-analysis';
 import { MetaphorPreview } from './components/metaphor-preview';
 import { MetaphorTags } from './components/metaphor-tags';
+import { useMemo } from 'react';
+import { Badge } from '@/components/ui/badge';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -23,6 +25,9 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
   const store = useAnnotationStore();
 
   const type = getAnnotationType(props.annotation);
+
+  const tagCount = useMemo(() => 
+    props.annotation.bodies.filter(b => b.purpose === 'tagging').length, [props.annotation]);
 
   const onChangeType = (type: AnnotationType) => {
     if (!store) return;
@@ -67,12 +72,19 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           <AccordionItem value="metaphor-tags">
             <AccordionTrigger>
               <div className="flex gap-2 items-center">
-                <Tags className="size-4" /> Tags
+                <Tags className="size-4" /> 
+                Tags
+                {tagCount > 0 && (
+                  <Badge variant="secondary">
+                    {tagCount}
+                  </Badge>
+                )}
               </div>
             </AccordionTrigger>
 
             <AccordionContent className="pb-12">
-              <MetaphorTags />
+              <MetaphorTags 
+                annotation={props.annotation} />
             </AccordionContent>
           </AccordionItem>
           
