@@ -26,6 +26,9 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
   const type = getAnnotationType(props.annotation);
 
+  const linkCount = useMemo(() => 
+    props.annotation.bodies.filter(b => b.purpose === 'linking').length, [props.annotation]);
+
   const tagCount = useMemo(() => 
     props.annotation.bodies.filter(b => b.purpose === 'tagging').length, [props.annotation]);
 
@@ -60,7 +63,13 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           <AccordionItem value="metaphor-linked-words">
             <AccordionTrigger>
               <div className="flex gap-2 items-center">
-                <GitCompareArrows className="size-4" /> Linked Words
+                <GitCompareArrows className="size-4" /> 
+                Linked Words
+                {linkCount > 0 && (
+                  <Badge variant="secondary">
+                    {linkCount}
+                  </Badge>
+                )}
               </div>
             </AccordionTrigger>
 
