@@ -22,6 +22,8 @@ export const App = (props: AppProps) => {
 
   const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
 
+  const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
 
@@ -53,13 +55,15 @@ export const App = (props: AppProps) => {
         style={AnnotationStyle}>
         <AnnotationPane
           tei={tei}
+          saving={saving}
           leftDrawerOpen={leftDrawerOpen}
           setLeftDrawerOpen={setLeftDrawerOpen}
           rightDrawerOpen={rightDrawerOpen}
           setRightDrawerOpen={setRightDrawerOpen} 
           onFocusRightDrawer={onFocusRightDrawer} />
 
-        <MockStorage />
+        <MockStorage 
+          onChangeSaveStatus={setSaving} />
       </TEIAnnotator>
 
       <RightDrawer 

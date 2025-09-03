@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { PanelLeft, PanelRight } from 'lucide-react';
+import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InlineToolbar } from './inline-toolbar';
 
@@ -8,6 +8,8 @@ import '@recogito/react-text-annotator/react-text-annotator.css';
 interface AnnotationPaneProps {
 
   tei?: Element;
+
+  saving: boolean;
 
   leftDrawerOpen: boolean;
 
@@ -50,7 +52,21 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <h1 className="text-lg font-semibold">Text Annotation Interface</h1>
+        <div className="flex gap-2 items-center">
+          <h1 className="text-lg font-semibold">
+            Text Annotation Interface
+          </h1>
+
+          {props.saving ? (
+            <div className="text-xs flex gap-1 items-center w-20 mt-0.5">
+              <FolderSync className="size-4" /> Saving
+            </div>
+          ) : (
+            <div className="w-20">
+              <FolderCheck className="size-4 mt-0.5" />
+            </div>
+          )}
+        </div>
 
         <Button
           variant="outline"
