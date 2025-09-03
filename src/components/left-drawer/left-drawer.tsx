@@ -1,4 +1,4 @@
-import { ChartNoAxesGantt, ListTree, X } from 'lucide-react';
+import { CodeXml, ListTree, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -31,11 +31,10 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
           <TabsList className="grid w-full grid-cols-2 rounded-none border-b">
             <TabsTrigger value="toc" className="flex items-center gap-2">
               <ListTree className="size-4" />
-              Document
+              Content
             </TabsTrigger>
-            <TabsTrigger value="minimap" className="flex items-center gap-2">
-              <ChartNoAxesGantt className="size-4" />
-              Minimap
+            <TabsTrigger value="metadata" className="flex items-center gap-2">
+              <CodeXml className="size-4" /> Metadata
             </TabsTrigger>
           </TabsList>
 
@@ -45,13 +44,10 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
             </ScrollArea>
           </TabsContent>
 
-          <TabsContent value="minimap" className="mt-0 h-full">
-            <div className="p-4 h-full flex items-center justify-center">
-              <div className="text-muted-foreground">
-                <ChartNoAxesGantt 
-                  strokeWidth={1.5}
-                  className="h-12 w-12 mx-auto mb-2" />
-              </div>
+          <TabsContent value="metadata" className="mt-0 h-full flex items-center justify-center">
+            <div className="text-center space-y-2">
+              <div className="text-lg font-medium">TBD</div>
+              <div className="text-sm text-muted-foreground">TEI header vs. DB?</div>
             </div>
           </TabsContent>
         </Tabs>

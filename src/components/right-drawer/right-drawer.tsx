@@ -1,4 +1,4 @@
-import { MessagesSquare, SquareMousePointer, X } from 'lucide-react';
+import { ChartNoAxesGantt, CodeXml, MessagesSquare, SquareMousePointer, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -26,12 +26,15 @@ export const RightDrawer = (props: RightDrawerProps) => {
         </div>
 
         <Tabs defaultValue="details" className="grow">
-          <TabsList className="grid w-full grid-cols-2 rounded-none border-b sticky top-0 z-10">
+          <TabsList className="grid w-full grid-cols-3 rounded-none border-b sticky top-0 z-10">
             <TabsTrigger value="details" className="flex items-center gap-2">
               <SquareMousePointer className="size-4" /> Details
             </TabsTrigger>
             <TabsTrigger value="list" className="flex items-center gap-2">
               <MessagesSquare className="size-4" /> List
+            </TabsTrigger>
+            <TabsTrigger value="minimap" className="flex items-center gap-2">
+              <ChartNoAxesGantt className="size-4" /> Minimap
             </TabsTrigger>
           </TabsList>
 
@@ -62,6 +65,16 @@ export const RightDrawer = (props: RightDrawerProps) => {
                 )) */}
               </div>
             </ScrollArea>
+          </TabsContent>
+
+          <TabsContent value="minimap" className="mt-0 h-full">
+            <div className="p-4 h-full flex items-center justify-center">
+              <div className="text-muted-foreground">
+                <ChartNoAxesGantt 
+                  strokeWidth={1.5}
+                  className="h-12 w-12 mx-auto mb-2" />
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
