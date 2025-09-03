@@ -52,7 +52,11 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
       setLinked(intersecting.map(a => a.id));
   }
 
-  return (
+  return intersecting.length === 0 ? (
+    <div className="py-4 text-center text-muted-foreground font-light">
+      No intersecting annotations
+    </div>
+  ) : (
     <div className="space-y-2.5 py-2 px-0.5">
       <div 
         className="flex items-center gap-3 font-light border-b pb-2">
