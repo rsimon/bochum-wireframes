@@ -55,6 +55,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
         <Accordion 
           type="multiple"
+          defaultValue={['metaphor-linked-words']}
           className="p-1">
           <AccordionItem value="metaphor-linked-words">
             <AccordionTrigger>
@@ -63,8 +64,8 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               </div>
             </AccordionTrigger>
 
-            <AccordionContent>
-              <MetaphorLinkedWords />
+            <AccordionContent className="pb-12">
+              <MetaphorLinkedWords annotation={props.annotation} />
             </AccordionContent>
           </AccordionItem>
 
@@ -75,7 +76,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               </div>
             </AccordionTrigger>
 
-            <AccordionContent>
+            <AccordionContent className="pb-12">
               <MetaphorTags />
             </AccordionContent>
           </AccordionItem>
@@ -88,7 +89,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
                 </div>
               </AccordionTrigger>
 
-              <AccordionContent>
+              <AccordionContent className="pb-12">
                 <MetaphorAnalysis />
               </AccordionContent>
             </AccordionItem>

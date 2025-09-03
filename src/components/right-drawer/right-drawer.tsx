@@ -16,7 +16,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
 
   return (
     <div
-      className={`bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
+      className={`not-annotatable bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
       <div className="w-80 flex flex-col h-full overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Annotations</h3>
