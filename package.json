@@ -47,7 +47,6 @@
     "CETEIcean": "^1.9.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-autosuggest": "^10.1.0",
