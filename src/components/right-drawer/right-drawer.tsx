@@ -1,4 +1,4 @@
-import { ChartNoAxesGantt, CodeXml, MessagesSquare, SquareMousePointer, X } from 'lucide-react';
+import { ChartNoAxesGantt, MessagesSquare, SquareMousePointer, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -16,7 +16,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
 
   return (
     <div
-      className={`not-annotatable bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
+      className={`bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
       <div className="w-80 flex flex-col h-full overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Annotations</h3>
