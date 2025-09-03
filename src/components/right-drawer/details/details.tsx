@@ -1,17 +1,12 @@
 import { GitCompareArrows, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
 import { useAnnotationStore, useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { TypeSelector } from './components/type-selector';
-import { SpanTools } from './components/span-tools';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
 import { AnnotationType } from '@/types';
 import { getAnnotationType, setAnnotationType } from '@/utils';
+import { TypeSelector } from './components/type-selector';
+import { SpanTools } from './components/span-tools';
 import { MetaphorLinkedWords } from './components/metaphor-linked-words';
 import { MetaphorAnalysis } from './components/metaphor-analysis';
 import { MetaphorPreview } from './components/metaphor-preview';
