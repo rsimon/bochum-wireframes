@@ -12,7 +12,7 @@ export const AnnotationStyle: HighlightStyleExpression = (
       fillOpacity: 0,
       underlineColor: '#1a1a1a',
       underlineThickness: 1.5,
-      underlineOffset: 1 + 2.5 * (z || 1)
+      underlineOffset: 1 + 3 * (2 * z || 1)
     }
   } else if (type === 'mrw') {
     return {
