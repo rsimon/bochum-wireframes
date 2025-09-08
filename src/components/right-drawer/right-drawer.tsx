@@ -1,9 +1,9 @@
 import { MessagesSquare, SlidersHorizontal, SquareMousePointer, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Selected } from './selected';
 import { Settings } from './settings';
+import { List } from './list';
 
 interface RightDrawerProps {
 
@@ -44,9 +44,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </TabsContent>
 
           <TabsContent value="list" className="mt-0 grow">
-            <ScrollArea className="h-full p-4">
-              
-            </ScrollArea>
+            <List />
           </TabsContent>
 
           <TabsContent value="settings" className="mt-0 h-full">
