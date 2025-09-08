@@ -1,8 +1,9 @@
-import { ChartNoAxesGantt, MessagesSquare, SquareMousePointer, X } from 'lucide-react';
+import { MessagesSquare, SlidersHorizontal, SquareMousePointer, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Details } from './details';
+import { Selected } from './selected';
+import { Settings } from './settings';
 
 interface RightDrawerProps {
 
@@ -25,56 +26,31 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </Button>
         </div>
 
-        <Tabs defaultValue="details" className="grow">
+        <Tabs defaultValue="selected" className="grow">
           <TabsList className="grid w-full grid-cols-3 rounded-none border-b sticky top-0 z-10">
-            <TabsTrigger value="details" className="flex items-center gap-2">
-              <SquareMousePointer className="size-4" /> Details
+            <TabsTrigger value="selected" className="flex items-center gap-2">
+              <SquareMousePointer className="size-4" /> Selected
             </TabsTrigger>
             <TabsTrigger value="list" className="flex items-center gap-2">
               <MessagesSquare className="size-4" /> List
             </TabsTrigger>
-            <TabsTrigger value="minimap" className="flex items-center gap-2">
-              <ChartNoAxesGantt className="size-4" /> Minimap
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <SlidersHorizontal className="size-4" /> Settings
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="details" className="flex flex-col mt-0 grow">
-            <Details />
+          <TabsContent value="selected" className="flex flex-col mt-0 grow">
+            <Selected />
           </TabsContent>
 
           <TabsContent value="list" className="mt-0 grow">
             <ScrollArea className="h-full p-4">
-              <div className="space-y-3">
-                {/* annotations.map((annotation) => (
-                  <Card key={annotation.id} className="cursor-pointer hover:bg-accent/50 transition-colors font-mono">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-sm flex items-center gap-2">
-                        {annotation.type === "highlight" ? (
-                          <Hash className="h-3 w-3 text-yellow-500" />
-                        ) : (
-                          <MessageSquare className="h-3 w-3 text-blue-500" />
-                        )}
-                        {annotation.type === "highlight" ? "Highlight" : "Comment"}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-xs text-muted-foreground mb-2">"{annotation.text}"</p>
-                      <p className="text-sm">{annotation.note}</p>
-                    </CardContent>
-                  </Card>
-                )) */}
-              </div>
+              
             </ScrollArea>
           </TabsContent>
 
-          <TabsContent value="minimap" className="mt-0 h-full">
-            <div className="p-4 h-full flex items-center justify-center">
-              <div className="text-muted-foreground">
-                <ChartNoAxesGantt 
-                  strokeWidth={1.5}
-                  className="h-12 w-12 mx-auto mb-2" />
-              </div>
-            </div>
+          <TabsContent value="settings" className="mt-0 h-full">
+            <Settings />
           </TabsContent>
         </Tabs>
       </div>

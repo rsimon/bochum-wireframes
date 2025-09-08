@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
+import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface AnnotationPaneProps {
 
@@ -25,6 +26,15 @@ interface AnnotationPaneProps {
 
 }
 
+const getColor = (str: string) => {
+  let hash = 0;
+
+  for (let i = 0; i < str.length; i++)
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+
+  return `hsl(${hash % 360}, 35%, 48%)`;
+}
+
 export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +53,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   return (
     <div className="flex-1 flex flex-col min-w-0">
-      <div className="flex items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex gap-2 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Button
           variant="outline"
           size="icon"
@@ -52,7 +62,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center grow">
           <h1 className="text-lg font-semibold">
             Text Annotation Interface
           </h1>
@@ -66,6 +76,42 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
               <FolderCheck className="size-4 mt-0.5" />
             </div>
           )}
+        </div>
+
+        <div className="flex gap-2">
+          <div className="*:data-[slot=avatar]:ring-background flex -space-x-1 *:data-[slot=avatar]:ring-2">
+            <Avatar>
+              <AvatarFallback
+                className="text-white font-medium text-xs"
+                style={{ backgroundColor: getColor('jamiefolsom') }}>
+                JF
+              </AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback
+                className="text-white font-medium text-xs"
+                style={{ backgroundColor: getColor('rainersimon') }}>
+                RS
+              </AvatarFallback>
+            </Avatar>
+            <Avatar>
+              <AvatarFallback
+                className="text-white font-medium text-xs"
+                style={{ backgroundColor: getColor('lorinjameson') }}>
+                LJ
+              </AvatarFallback>
+            </Avatar>
+          </div>
+
+          <div>
+            <Button variant="ghost">
+              <Undo2 />
+            </Button>
+
+            <Button variant="ghost">
+              <Redo2 />
+            </Button>
+          </div>
         </div>
 
         <Button

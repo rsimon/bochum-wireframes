@@ -125,7 +125,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
   )
 }
 
-export const Details = () => {
+export const Selected = () => {
 
   const { selected } = useSelection<TEIAnnotation>();
 

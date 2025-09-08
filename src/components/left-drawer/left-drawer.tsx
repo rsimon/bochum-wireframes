@@ -1,4 +1,4 @@
-import { CodeXml, ListTree, X } from 'lucide-react';
+import { ChartNoAxesGantt, CodeXml, ListTree, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -28,13 +28,16 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
         </div>
 
         <Tabs defaultValue="toc" className="h-full">
-          <TabsList className="grid w-full grid-cols-2 rounded-none border-b">
+          <TabsList className="grid w-full grid-cols-3 rounded-none border-b">
             <TabsTrigger value="toc" className="flex items-center gap-2">
               <ListTree className="size-4" />
               Content
             </TabsTrigger>
             <TabsTrigger value="metadata" className="flex items-center gap-2">
-              <CodeXml className="size-4" /> Metadata
+              <CodeXml className="size-4" /> Info
+            </TabsTrigger>
+            <TabsTrigger value="minimap" className="flex items-center gap-2">
+              <ChartNoAxesGantt className="size-4" /> Map
             </TabsTrigger>
           </TabsList>
 
