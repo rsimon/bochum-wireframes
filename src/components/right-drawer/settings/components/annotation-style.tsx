@@ -32,6 +32,22 @@ export const AnnotationStyle = () => {
         <RadioGroupItem value="by-tag" id="by-tag" />
         <Label htmlFor="by-tag" className="font-normal">By first tag</Label>
       </div>
+
+      {coding === 'by-tag' && (
+        <div className="p-2 border text-muted-foreground space-y-2 rounded">
+          <div className="flex gap-2.5">
+            <div className="bg-teal-600 size-5 rounded" /> Place
+          </div>
+
+          <div className="flex gap-2.5">
+            <div className="bg-amber-500 size-5 rounded" /> Person
+          </div>
+
+          <div className="flex gap-2.5">
+            <div className="bg-fuchsia-500 size-5 rounded" /> Event
+          </div>
+        </div>
+      )}
     </RadioGroup>
   )
 
