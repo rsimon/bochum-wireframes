@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Skeleton } from '../ui/skeleton';
 
 interface AnnotationPaneProps {
 
@@ -39,6 +40,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
+  const [title, setTitle] = useState<string | undefined>();
+
   useEffect(() => {
     if (!props.tei || !ref.current) return;
 
@@ -47,13 +50,16 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     // Apply not-annotatable
     Array.from(props.tei.querySelectorAll('tei-orig')).forEach(el => el.setAttribute('class', 'not-annotatable'));
 
+    const title = props.tei.getAttribute('n');
+    setTitle(title ? title : 'Text Annotation Interface')
+
     if (props.onLoad)
       props.onLoad(ref.current);
   }, [props.tei]);
 
   return (
     <div className="flex-1 flex flex-col min-w-0">
-      <div className="flex gap-2 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Button
           variant="outline"
           size="icon"
@@ -63,8 +69,17 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         </Button>
 
         <div className="flex gap-2 items-center grow">
+          <Button 
+            size="sm"
+            variant="secondary"
+            className="h-9">
+            SFB1475
+          </Button>
+
           <h1 className="text-lg font-semibold">
-            Text Annotation Interface
+            {title ? title : (
+              <Skeleton className="h-6 w-52" />
+            )}
           </h1>
 
           {props.saving ? (

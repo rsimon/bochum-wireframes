@@ -21,7 +21,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
       className={`bg-card border-r transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
       <div className="w-80 h-full">
         <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="font-semibold">Navigation</h3>
+          <h3 className="font-semibold">Document</h3>
           <Button variant="ghost" size="icon" onClick={() => props.onOpenChange(false)}>
             <X className="h-4 w-4" />
           </Button>
