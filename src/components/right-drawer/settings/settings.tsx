@@ -12,7 +12,7 @@ export const Settings = () => {
       <AccordionItem value="color">
         <AccordionTrigger className="p-3">
           <div className="flex gap-2 items-center">
-            <Palette className="size-4" /> Annotation Style
+            <Palette className="size-4" /> Highlight Style
           </div>
         </AccordionTrigger>
 
