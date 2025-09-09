@@ -176,7 +176,7 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
         </TooltipTrigger>
 
         <TooltipContent>
-          <p>Link all words to this metaphors</p>
+          <p>Link all words to this metaphor</p>
         </TooltipContent>
       </Tooltip>
 
