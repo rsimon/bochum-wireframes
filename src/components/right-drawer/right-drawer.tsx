@@ -31,7 +31,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
         <Tabs 
           value={props.tab || 'selected'} 
           onValueChange={props.onStateChange}
-          className="grow">
+          className="grow gap-0">
           <TabsList className="grid w-full grid-cols-3 rounded-none border-b sticky top-0 z-10">
             <TabsTrigger value="selected" className="flex items-center gap-2">
               <SquareMousePointer className="size-4" /> Selected
