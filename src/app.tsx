@@ -3,7 +3,7 @@ import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
 import { LeftDrawer } from '@/components/left-drawer';
 import { RightDrawer, RightDrawerTab } from '@/components/right-drawer';
-import { AnnotationPane, AnnotationStyle } from '@/components/annotation-pane';
+import { AnnotationPane, useAnnotationsStyle } from '@/components/annotation-pane';
 import { MockStorage } from './mock-storage';
 
 interface AppProps {
@@ -23,6 +23,8 @@ export const App = (props: AppProps) => {
   const [rightDrawer, setRightDrawer] = useState<RightDrawerTab | undefined>();
 
   const [saving, setSaving] = useState(false);
+
+  const style = useAnnotationsStyle();
 
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });
@@ -50,8 +52,7 @@ export const App = (props: AppProps) => {
         open={leftDrawerOpen} 
         onOpenChange={setLeftDrawerOpen} />
 
-      <TEIAnnotator
-        style={AnnotationStyle}>
+      <TEIAnnotator style={style}>
         <AnnotationPane
           tei={tei}
           saving={saving}
