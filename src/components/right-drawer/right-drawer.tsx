@@ -7,26 +7,31 @@ import { List } from './list';
 
 interface RightDrawerProps {
 
-  open: boolean;
+  tab?: RightDrawerTab;
 
-  onOpenChange(open: boolean): void;
+  onStateChange(tab?: RightDrawerTab): void;
 
 }
+
+export type RightDrawerTab = 'selected' | 'list' | 'settings';
 
 export const RightDrawer = (props: RightDrawerProps) => {
 
   return (
     <div
-      className={`bg-card border-l transition-all duration-300 ${props.open ? 'w-80' : 'w-0'} overflow-hidden`}>
+      className={`bg-card border-l transition-all duration-300 ${props.tab ? 'w-80' : 'w-0'} overflow-hidden`}>
       <div className="w-80 flex flex-col h-full overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Annotations</h3>
-          <Button variant="ghost" size="icon" onClick={() => props.onOpenChange(false)}>
+          <Button variant="ghost" size="icon" onClick={() => props.onStateChange(undefined)}>
             <X className="h-4 w-4" />
           </Button>
         </div>
 
-        <Tabs defaultValue="selected" className="grow">
+        <Tabs 
+          value={props.tab || 'selected'} 
+          onValueChange={props.onStateChange}
+          className="grow">
           <TabsList className="grid w-full grid-cols-3 rounded-none border-b sticky top-0 z-10">
             <TabsTrigger value="selected" className="flex items-center gap-2">
               <SquareMousePointer className="size-4" /> Selected

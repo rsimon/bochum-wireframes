@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { getAvatarColor } from '@/utils';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Skeleton } from '../ui/skeleton';
 
 interface AnnotationPaneProps {
 
@@ -25,15 +26,6 @@ interface AnnotationPaneProps {
 
   onLoad?(element: Element): void;
 
-}
-
-const getColor = (str: string) => {
-  let hash = 0;
-
-  for (let i = 0; i < str.length; i++)
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-
-  return `hsl(${hash % 360}, 35%, 48%)`;
 }
 
 export const AnnotationPane = (props: AnnotationPaneProps) => {
@@ -58,7 +50,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   }, [props.tei]);
 
   return (
-    <div className="flex-1 flex flex-col min-w-0">
+    <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
       <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Button
           variant="outline"
@@ -98,27 +90,27 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <Avatar>
               <AvatarFallback
                 className="text-white font-medium text-xs"
-                style={{ backgroundColor: getColor('jamiefolsom') }}>
+                style={{ backgroundColor: getAvatarColor('jamiefolsom') }}>
                 JF
               </AvatarFallback>
             </Avatar>
             <Avatar>
               <AvatarFallback
                 className="text-white font-medium text-xs"
-                style={{ backgroundColor: getColor('rainersimon') }}>
+                style={{ backgroundColor: getAvatarColor('rainersimon') }}>
                 RS
               </AvatarFallback>
             </Avatar>
             <Avatar>
               <AvatarFallback
                 className="text-white font-medium text-xs"
-                style={{ backgroundColor: getColor('lorinjameson') }}>
+                style={{ backgroundColor: getAvatarColor('lorinjameson') }}>
                 LJ
               </AvatarFallback>
             </Avatar>
           </div>
 
-          <div>
+          <div className="whitespace-nowrap">
             <Button variant="ghost">
               <Undo2 />
             </Button>

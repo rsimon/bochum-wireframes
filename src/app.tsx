@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
 import { LeftDrawer } from '@/components/left-drawer';
-import { RightDrawer } from '@/components/right-drawer';
+import { RightDrawer, RightDrawerTab } from '@/components/right-drawer';
 import { AnnotationPane, AnnotationStyle } from '@/components/annotation-pane';
 import { MockStorage } from './mock-storage';
 
@@ -20,7 +20,7 @@ export const App = (props: AppProps) => {
 
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(true);
 
-  const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+  const [rightDrawer, setRightDrawer] = useState<RightDrawerTab | undefined>();
 
   const [saving, setSaving] = useState(false);
 
@@ -40,8 +40,7 @@ export const App = (props: AppProps) => {
   }, [props.url]);
 
   const onFocusRightDrawer = () => {
-    // TODO
-    setRightDrawerOpen(true);
+    setRightDrawer('selected');
   }
 
   return (
@@ -58,8 +57,8 @@ export const App = (props: AppProps) => {
           saving={saving}
           leftDrawerOpen={leftDrawerOpen}
           setLeftDrawerOpen={setLeftDrawerOpen}
-          rightDrawerOpen={rightDrawerOpen}
-          setRightDrawerOpen={setRightDrawerOpen} 
+          rightDrawerOpen={Boolean(rightDrawer)}
+          setRightDrawerOpen={open => open ? setRightDrawer('selected') : setRightDrawer(undefined)} 
           onFocusRightDrawer={onFocusRightDrawer} />
 
         <MockStorage 
@@ -67,8 +66,8 @@ export const App = (props: AppProps) => {
       </TEIAnnotator>
 
       <RightDrawer 
-        open={rightDrawerOpen}
-        onOpenChange={setRightDrawerOpen} />
+        tab={rightDrawer}
+        onStateChange={setRightDrawer} />
     </div>
   )
 

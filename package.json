@@ -50,6 +50,7 @@
     "CETEIcean": "^1.9.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-autosuggest": "^10.1.0",
