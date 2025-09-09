@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useAnnotationStore } from '@annotorious/react';
+import { useEffect, useMemo } from 'react';
+import { createBody, useAnnotationStore } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
@@ -7,7 +7,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Ellipsis, GitCompareArrows, Replace, ReplaceAll, Trash2 } from 'lucide-react';
 import { AnnotationType } from '@/types';
 import { getAnnotationType, getQuote, setAnnotationType } from '@/utils';
-import type { TEIAnnotation, TextAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
+import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
+import { useIntersectingAnnotations } from '@/hooks';
 
 interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 
@@ -26,6 +27,8 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
   const currentType = getAnnotationType(props.annotation as TEIAnnotation);
 
   const suggestedType = currentType ? null : getSuggestedType(props.annotation as TEIAnnotation);
+
+  const { getIntersecting } = useIntersectingAnnotations();
 
   useEffect(() => {
     if (!store || !suggestedType) return;
@@ -61,6 +64,31 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
   const onDelete = () => {
     store.deleteAnnotation(props.annotation.id);
     window.getSelection().empty();
+  }
+
+  const canLinkAll = useMemo(() => {
+    const type = getAnnotationType(props.annotation as TEIAnnotation);
+    if (type === 'mrw') return false;
+
+    const intersecting = getIntersecting(props.annotation as TEIAnnotation);
+    return intersecting.length > 0;
+  }, [getIntersecting, props.annotation])
+
+  const onLinkAll = () => {
+    const intersecting = getIntersecting(props.annotation as TEIAnnotation);
+
+    const updated = {
+      ...props.annotation,
+      bodies: [
+        ...props.annotation.bodies.filter(b => b.purpose !== 'linking'),
+        ...intersecting.map(a => createBody(props.annotation, {
+          purpose: 'linking', 
+          value: a.id
+        }))
+      ]
+    } as TEIAnnotation;
+
+    store.updateAnnotation(updated);
   }
 
   return (
@@ -139,14 +167,16 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
+            disabled={!canLinkAll}
             variant="ghost"
-            size="icon">
+            size="icon"
+            onClick={onLinkAll}>
             <GitCompareArrows className="size-3.5" />
           </Button>
         </TooltipTrigger>
 
         <TooltipContent>
-          <p>Link words & metaphors</p>
+          <p>Link all words to this metaphors</p>
         </TooltipContent>
       </Tooltip>
 

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { useIntersectingAnnotations } from '../hooks';
+import { useIntersectingAnnotations } from '@/hooks';
 import { getQuote } from '@/utils';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { createBody, useAnnotationStore } from '@annotorious/react';
