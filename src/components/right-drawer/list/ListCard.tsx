@@ -61,7 +61,7 @@ export const ListCard = (props: ListCardProps) => {
           </div>
         )}
 
-        <div>{renderQuote()}</div>
+        <div className="font-serif italic">{renderQuote()}</div>
         {props.linked.length > 0 && (
           <div className="space-y-0.5 mt-2">
             {props.linked.map(a => (
