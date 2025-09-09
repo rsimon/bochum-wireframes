@@ -11,6 +11,8 @@ interface ListCardProps {
 
   linked: TEIAnnotation[];
 
+  hasPresence?: boolean;
+
 }
 
 export const ListCard = (props: ListCardProps) => {
@@ -35,10 +37,30 @@ export const ListCard = (props: ListCardProps) => {
 
   return (
     <Card className={cn(
-      'p-1 mb-2 rounded',
+      'p-1 mt-4 rounded',
       type === 'metaphor' ? 'border-b-black border-b-2' : 'bg-green-600/15 border-green-600/30 opacity-50'
     )}>
-      <CardContent className="p-2 leading-relaxed">
+      <CardContent className="p-2 leading-relaxed relative">
+        {props.hasPresence && (
+          <div className="absolute -top-3.5 left-2 flex -space-x-0.5 *:data-[slot=avatar]:ring *:data-[slot=avatar]:ring-background">
+            <Avatar className="size-5">
+              <AvatarFallback
+                className="text-white font-medium text-[9px]"
+                style={{ backgroundColor: getAvatarColor('lorinjameson') }}>
+                LJ
+              </AvatarFallback>
+            </Avatar>
+
+            <Avatar className="size-5">
+              <AvatarFallback
+                className="text-white font-medium text-[9px]"
+                style={{ backgroundColor: getAvatarColor('jamiefolsom') }}>
+                JF
+              </AvatarFallback>
+            </Avatar>
+          </div>
+        )}
+        
         <div>{renderQuote()}</div>
         {props.linked.length > 0 && (
           <div className="space-y-0.5 mt-2">

@@ -99,10 +99,11 @@ export const List = () => {
       </div>
 
       <div>
-        {grouped.map(([root, linked]) => (
+        {grouped.map(([root, linked], index) => (
           <ListCard 
             annotation={root}
-            linked={linked} />
+            linked={linked} 
+            hasPresence={index === 2} />
         ))}
       </div>
     </ScrollArea>
