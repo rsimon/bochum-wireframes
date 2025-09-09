@@ -13,6 +13,10 @@ interface ListCardProps {
 
   hasPresence?: boolean;
 
+  emphasize: boolean;
+
+  deemphasize: boolean;
+
 }
 
 export const ListCard = (props: ListCardProps) => {
@@ -38,7 +42,9 @@ export const ListCard = (props: ListCardProps) => {
   return (
     <Card className={cn(
       'p-1 mt-4 rounded',
-      type === 'metaphor' ? 'border-b-black border-b-2' : 'bg-green-600/15 border-green-600/30 opacity-50'
+      type === 'metaphor' ? 'border-b-black border-b-2' : 'bg-green-600/15 border-green-600/30 opacity-50',
+      props.deemphasize && 'opacity-25',
+      props.emphasize && 'ring-4 ring-offset-0 ring-blue-500/35'
     )}>
       <CardContent className="p-2 leading-relaxed relative">
         {props.hasPresence && (

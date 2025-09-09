@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAnnotations } from '@annotorious/react';
+import { useAnnotations, useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getAnnotationType, sortAnnotationsByCharPosition } from '@/utils';
@@ -11,6 +11,13 @@ import { Button } from '@/components/ui/button';
 export const List = () => {
 
   const annotations = useAnnotations<TEIAnnotation>(250);
+
+  const { selected } = useSelection<TEIAnnotation>();
+
+  const hasSelection = selected.length > 0;
+
+  const isSelected = (annotation: TEIAnnotation) =>
+    selected.some(t => t.annotation.id === annotation.id);
 
   const grouped: [TEIAnnotation, TEIAnnotation[]][] = useMemo(() => {
     const metaphors = annotations.filter(a => getAnnotationType(a) === 'metaphor');
@@ -39,7 +46,7 @@ export const List = () => {
   }, [annotations]);
 
   return (
-    <ScrollArea className="h-full p-3">
+    <ScrollArea className="h-full p-1">
       <div className="flex justify-between items-center text-muted-foreground mb-2">
         <div className="flex items-center">
           <Button
@@ -98,10 +105,12 @@ export const List = () => {
         </div>
       </div>
 
-      <div>
+      <div className="p-2">
         {grouped.map(([root, linked], index) => (
           <ListCard 
             annotation={root}
+            emphasize={hasSelection && isSelected(root)}
+            deemphasize={hasSelection && !isSelected(root)}
             linked={linked} 
             hasPresence={index === 2} />
         ))}
