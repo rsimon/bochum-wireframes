@@ -42,7 +42,7 @@ export const ListCard = (props: ListCardProps) => {
     )}>
       <CardContent className="p-2 leading-relaxed relative">
         {props.hasPresence && (
-          <div className="absolute -top-3.5 left-2 flex -space-x-0.5 *:data-[slot=avatar]:ring *:data-[slot=avatar]:ring-background">
+          <div className="absolute -top-3.5 left-2 drop-shadow-xs drop-shadow-black/50 flex -space-x-0.5 *:data-[slot=avatar]:ring *:data-[slot=avatar]:ring-background">
             <Avatar className="size-5">
               <AvatarFallback
                 className="text-white font-medium text-[9px]"
@@ -60,7 +60,7 @@ export const ListCard = (props: ListCardProps) => {
             </Avatar>
           </div>
         )}
-        
+
         <div>{renderQuote()}</div>
         {props.linked.length > 0 && (
           <div className="space-y-0.5 mt-2">
