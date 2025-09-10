@@ -8,6 +8,8 @@ import { getAvatarColor } from '@/utils';
 import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
 import { Toolbar } from './toolbar';
 
+import '@annotorious/react/annotorious-react.css';
+
 interface AnnotationPaneProps {
 
   iiifUrl: string;
@@ -48,8 +50,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   } as OpenSeadragon.Options), [props.iiifUrl]);
 
   return (
-    <OpenSeadragonAnnotator>
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+    <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <OpenSeadragonAnnotator
+        drawingEnabled={false}>
         <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <Button
             variant="outline"
@@ -63,8 +66,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <Button 
               size="sm"
               variant="secondary"
-              className="h-9"
-              onClick={() => window.location.href = '#'}>
+              className="h-9">
               SFB1475
             </Button>
 
@@ -127,7 +129,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             options={options} 
             className="h-full w-full" />
         </main>
-      </div>
-    </OpenSeadragonAnnotator>
+      </OpenSeadragonAnnotator>
+    </div>
   )
+
 }

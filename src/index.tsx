@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router';
 import { Annotorious } from '@annotorious/react';
-import { TextAnnotation } from './text-annotation';
+import { Start } from './start';
 import { ImageAnnotation } from './image-annotation';
+import { TextAnnotation } from './text-annotation';
 
 import './index.css';
 
@@ -17,15 +18,17 @@ const IIIF_URL = 'https://images.collections.yale.edu/iiif/2/yuag:a90a4736-e288-
 ReactDOM.createRoot(document.getElementById('app')!).render(
   <HashRouter>
     <Routes>
-      <Route path="/" element={
+      <Route path="/" element={<Start /> } />
+
+      <Route path="text" element={
         <Annotorious>
           <TextAnnotation 
             // isRTL
-            url={TEI_URL}
-            />
+            url={TEI_URL} />
         </Annotorious>
       } />
-      <Route path="/image" element={
+
+      <Route path="image" element={
         <Annotorious>
           <ImageAnnotation 
             url={IIIF_URL} />
