@@ -1,6 +1,7 @@
 import { Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { useViewer } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
+import { ToolSelector } from './tool-selector';
 
 export const Toolbar = () => {
 
@@ -12,9 +13,12 @@ export const Toolbar = () => {
   const onRotate = (inc: number) => viewer.viewport.rotateBy(inc);
 
   return viewer ? (
-    <div className="whitespace-nowrap">
+    <div className="flex flex-nowrap items-center">
+      <ToolSelector />
+
       <Button
         variant="ghost"
+        className="ml-1"
         onClick={() => onRotate(-90)}>
         <RotateCcwSquare />
       </Button>

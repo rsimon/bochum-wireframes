@@ -9,6 +9,8 @@ import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react'
 import { Toolbar } from './toolbar';
 
 import '@annotorious/react/annotorious-react.css';
+import { AvatarStack } from './avatar-stack';
+import { Separator } from '@/components/ui/separator';
 
 interface AnnotationPaneProps {
 
@@ -87,32 +89,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             )}
           </div>
 
-          <div className="flex gap-2">
-            <div className="*:data-[slot=avatar]:ring-background flex -space-x-1 *:data-[slot=avatar]:ring-2">
-              <Avatar>
-                <AvatarFallback
-                  className="text-white font-medium text-xs"
-                  style={{ backgroundColor: getAvatarColor('jamiefolsom') }}>
-                  JF
-                </AvatarFallback>
-              </Avatar>
-              <Avatar>
-                <AvatarFallback
-                  className="text-white font-medium text-xs"
-                  style={{ backgroundColor: getAvatarColor('rainersimon') }}>
-                  RS
-                </AvatarFallback>
-              </Avatar>
-              <Avatar>
-                <AvatarFallback
-                  className="text-white font-medium text-xs"
-                  style={{ backgroundColor: getAvatarColor('lorinjameson') }}>
-                  LJ
-                </AvatarFallback>
-              </Avatar>
-            </div>
-
+          <div className="flex gap-1 items-center">
             <Toolbar />
+            <Separator orientation="vertical" className="mr-2" />
+            <AvatarStack />
           </div>
 
           <Button
