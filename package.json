@@ -20,6 +20,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^24.3.1",
+    "@types/openseadragon": "^4.1.0",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^4.7.0",
@@ -52,6 +53,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.542.0",
+    "openseadragon": "^5.0.1",
     "react": "^19.1.1",
     "react-autosuggest": "^10.1.0",
     "react-dom": "^19.1.1",
