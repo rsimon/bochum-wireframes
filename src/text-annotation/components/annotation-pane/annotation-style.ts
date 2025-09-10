@@ -1,4 +1,4 @@
-import { getAnnotationType } from '@/utils';
+import { getAnnotationType } from '@/text-annotation/utils';
 import { Store, useAnnotations, useAnnotationStore, useSelection, type AnnotationState } from '@annotorious/react';
 import type { HighlightStyleExpression, TEIAnnotation } from '@recogito/react-text-annotator';
 import { useMemo } from 'react';

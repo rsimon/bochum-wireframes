@@ -1,18 +1,28 @@
 import ReactDOM from 'react-dom/client';
+import { HashRouter, Routes, Route } from 'react-router';
 import { Annotorious } from '@annotorious/react';
-import { App } from './app';
+import { TextAnnotation } from './text-annotation';
+import { ImageAnnotation } from './image-annotation';
 
-import './styles/index.css';
+import './index.css';
 
-const URL = 'chapter_BCar_incl_sandhi.xml';
-// const URL = '/Rumi_Masnavi_1.xml';
-// const URL = '/True_udu82q.xml';
-// const URL = '/Videvdad.xml';
+const TEI_URL = 'chapter_BCar_incl_sandhi.xml';
+// const TEI_URL = '/Rumi_Masnavi_1.xml';
+// const TEI_URL = '/True_udu82q.xml';
+// const TEI_URL = '/Videvdad.xml';
 
 ReactDOM.createRoot(document.getElementById('app')!).render(
-  <Annotorious>
-    <App 
-      // isRTL 
-      url={URL} />
-  </Annotorious>
+  <HashRouter>
+    <Routes>
+      <Route path="/" element={
+        <Annotorious>
+          <TextAnnotation 
+            // isRTL
+            url={TEI_URL}
+            />
+        </Annotorious>
+      } />
+      <Route path="/image" element={<ImageAnnotation />} />
+    </Routes>
+  </HashRouter>
 );

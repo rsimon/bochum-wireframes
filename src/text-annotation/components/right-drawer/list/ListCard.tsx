@@ -2,7 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { getAnnotationType, getAvatarColor, getQuote, renderMetaphorQuote } from '@/utils';
+import { getAnnotationType, getAvatarColor, getQuote, renderMetaphorQuote } from '@/text-annotation/utils';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 
 interface ListCardProps {

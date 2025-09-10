@@ -5,10 +5,10 @@ import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Ellipsis, GitCompareArrows, Replace, ReplaceAll, Trash2 } from 'lucide-react';
-import { AnnotationType } from '@/types';
-import { getAnnotationType, getQuote, setAnnotationType } from '@/utils';
+import { AnnotationType } from '@/text-annotation/types';
+import { getAnnotationType, getQuote, setAnnotationType } from '@/text-annotation/utils';
 import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
-import { useIntersectingAnnotations } from '@/hooks';
+import { useIntersectingAnnotations } from '@/text-annotation/hooks';
 
 interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 

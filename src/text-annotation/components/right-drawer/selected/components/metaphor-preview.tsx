@@ -1,4 +1,4 @@
-import { getQuote } from '@/utils';
+import { getQuote } from '@/text-annotation/utils';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 
 interface MetaphorPreviewProps {

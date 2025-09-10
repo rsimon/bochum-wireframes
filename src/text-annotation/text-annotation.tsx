@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
-import { LeftDrawer } from '@/components/left-drawer';
-import { RightDrawer, RightDrawerTab } from '@/components/right-drawer';
-import { AnnotationPane, useAnnotationsStyle } from '@/components/annotation-pane';
-import { MockStorage } from './mock-storage';
+import { LeftDrawer } from '@/text-annotation/components/left-drawer';
+import { RightDrawer, RightDrawerTab } from '@/text-annotation/components/right-drawer';
+import { AnnotationPane, useAnnotationsStyle } from '@/text-annotation/components/annotation-pane';
+import { MockStorage } from '../components/mock-storage';
 
-interface AppProps {
+import './text-annotation.css';
+
+interface TextAnnotationProps {
 
   url: string;
 
@@ -14,7 +16,7 @@ interface AppProps {
 
 }
 
-export const App = (props: AppProps) => {
+export const TextAnnotation = (props: TextAnnotationProps) => {
 
   const [tei, setTEI] = useState<Element | undefined>();
 

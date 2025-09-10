@@ -1,4 +1,4 @@
-import { TableOfContentsNode } from '@/types';
+import { TableOfContentsNode } from '@/text-annotation/types';
 
 interface ToCLevelProps {
 

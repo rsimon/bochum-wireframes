@@ -3,7 +3,7 @@ import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lu
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getAvatarColor } from '@/utils';
+import { getAvatarColor } from '@/text-annotation/utils';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';

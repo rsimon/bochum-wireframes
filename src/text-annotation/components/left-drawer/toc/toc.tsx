@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TableOfContents } from '@/types';
+import { TableOfContents } from '@/text-annotation/types';
 import { ToCLevel } from './toc-level';
 import { buildTableOfContents } from './build-toc';
 

@@ -1,4 +1,4 @@
-import { AnnotationType } from '@/types';
+import { AnnotationType } from '@/text-annotation/types';
 import { 
   Select,
   SelectContent,
