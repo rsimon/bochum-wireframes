@@ -2,10 +2,16 @@ import { Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from '
 import { useViewer } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { ToolSelector } from './tool-selector';
+import { useState } from 'react';
+import { Tool } from '@/image-annotation/types';
 
 export const Toolbar = () => {
 
   const viewer = useViewer();
+
+  const [drawingEnabled, setDrawingEnabled] = useState(false);
+
+  const [tool, setTool] = useState<Tool>('rectangle');
 
   const onZoom = (factor: number) => viewer.viewport.zoomBy(factor);
 
@@ -14,7 +20,11 @@ export const Toolbar = () => {
 
   return viewer ? (
     <div className="flex flex-nowrap items-center">
-      <ToolSelector />
+      <ToolSelector 
+        drawingEnabled={drawingEnabled} 
+        tool={tool} 
+        onSetDrawingEnabled={setDrawingEnabled} 
+        onChangeTool={setTool} />
 
       <Button
         variant="ghost"

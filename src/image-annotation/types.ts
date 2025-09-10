@@ -1,0 +1,1 @@
+export type Tool = 'rectangle' | 'polygon' | 'ellipse' | 'path' | 'intelligent-scissors';
