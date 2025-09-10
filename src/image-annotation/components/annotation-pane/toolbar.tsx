@@ -1,24 +1,36 @@
+import { useEffect, useState } from 'react';
 import { Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
-import { useViewer } from '@annotorious/react';
+import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
-import { ToolSelector } from './tool-selector';
-import { useState } from 'react';
 import { Tool } from '@/image-annotation/types';
+import { ToolSelector } from './tool-selector';
 
 export const Toolbar = () => {
 
   const viewer = useViewer();
 
+  const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
+
   const [drawingEnabled, setDrawingEnabled] = useState(false);
 
   const [tool, setTool] = useState<Tool>('rectangle');
+
+  useEffect(() => {
+    if (!anno) return;
+    anno.setDrawingTool(tool);
+  }, [anno, tool]);
+
+  useEffect(() => {
+    if (!anno) return;
+    anno.setDrawingEnabled(drawingEnabled);
+  }, [drawingEnabled]);
 
   const onZoom = (factor: number) => viewer.viewport.zoomBy(factor);
 
   // @ts-ignore
   const onRotate = (inc: number) => viewer.viewport.rotateBy(inc);
 
-  return viewer ? (
+  return (anno && viewer) ? (
     <div className="flex flex-nowrap items-center">
       <ToolSelector 
         drawingEnabled={drawingEnabled} 

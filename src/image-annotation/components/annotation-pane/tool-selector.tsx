@@ -3,6 +3,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Toggle } from '@/components/ui/toggle';
 import { Tool } from '@/image-annotation/types';
 import { cn } from '@/lib/utils';
+import { useEffect } from 'react';
+import { AnnotoriousOpenSeadragonAnnotator, useAnnotator } from '@annotorious/react';
 
 interface ToolSelectorProps {
 
@@ -18,10 +20,25 @@ interface ToolSelectorProps {
 
 export const ToolSelector = (props: ToolSelectorProps) => {
 
+  const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
+
   const onChangeTool = (tool: string) => {
     props.onChangeTool(tool as Tool);
     props.onSetDrawingEnabled(true);
   }
+
+  useEffect(() => {
+    if (!anno) return;
+
+    // Toolbar behavior: auto-reset after createaAnnotation 
+    const onCreateAnnotation = () => props.onSetDrawingEnabled(false);
+
+    anno.on('createAnnotation', onCreateAnnotation);
+
+    return () => {
+      anno.off('createAnnotation', onCreateAnnotation);
+    }
+  }, [anno, props.drawingEnabled]);
 
   return (
     <div className="flex gap-2">
@@ -50,7 +67,7 @@ export const ToolSelector = (props: ToolSelectorProps) => {
               props.drawingEnabled && 'hover:bg-neutral-800'
             )}
             onClick={() => props.onSetDrawingEnabled(true)}>
-            <SelectValue className="pr-0" />
+            <SelectValue className="pr-1" />
           </button>
           
           <SelectTrigger 
@@ -58,7 +75,7 @@ export const ToolSelector = (props: ToolSelectorProps) => {
               `tool-dropdown-trigger rounded-l-none bg-transparent border-t-0 border-r-0 border-b-0 
               border-l-1 border-none h-auto! py-1.5 pl-[3px] pr-1.5 hover:bg-neutral-200 focus:outline-hidden focus:ring-0 
               focus:ring-ring focus-visible:outline-hidden shadow-none cursor-pointer`,
-              props.drawingEnabled && 'hover:bg-neutral-800')} />
+              props.drawingEnabled && `[&_svg:not([class*='text-'])]:text-white hover:bg-neutral-800`)} />
         </div>
 
         <SelectContent
@@ -77,19 +94,25 @@ export const ToolSelector = (props: ToolSelectorProps) => {
             </div>
           </SelectItem>
 
-          <SelectItem value="ellipse" >
+          <SelectItem 
+            value="ellipse" 
+            disabled>
             <div className="flex items-center text-xs gap-1.5">
               <Circle className="size-3.5 shrink-0" /> Ellipse
             </div>
           </SelectItem>
 
-          <SelectItem value="path">
+          <SelectItem 
+            value="path"
+            disabled>
             <div className="flex items-center text-xs gap-1.5">
               <Tangent className="size-3.5 shrink-0" /> Path
             </div>
           </SelectItem>
 
-          <SelectItem value="intelligent-scissors">
+          <SelectItem 
+            value="intelligent-scissors"
+            disabled>
             <div className="flex items-center text-xs gap-1.5">
               <ScissorsLineDashed className="size-3.5 shrink-0" /> Scissors
             </div>

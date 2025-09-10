@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Selected } from './selected';
 import { Settings } from './settings';
-import { List } from './list';
 
 interface RightDrawerProps {
 
@@ -49,7 +48,7 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </TabsContent>
 
           <TabsContent value="list" className="mt-0 grow">
-            <List />
+            
           </TabsContent>
 
           <TabsContent value="settings" className="mt-0 h-full">

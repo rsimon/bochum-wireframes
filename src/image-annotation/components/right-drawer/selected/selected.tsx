@@ -5,12 +5,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import { AnnotationType } from '@/text-annotation/types';
 import { getAnnotationType, setAnnotationType } from '@/text-annotation/utils';
-import { TypeSelector } from './components/type-selector';
-import { SpanTools } from './components/span-tools';
-import { MetaphorLinkedWords } from './components/metaphor-linked-words';
-import { MetaphorAnalysis } from './components/metaphor-analysis';
-import { MetaphorPreview } from './components/metaphor-preview';
-import { MetaphorTags } from './components/metaphor-tags';
 import { useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
 
@@ -41,21 +35,6 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
   return (
     <div className="grow flex flex-col">
       <div className="grow p-3">
-        <div className="flex gap-1.5 justify-between">
-          <div className="grow relative">
-            <TypeSelector 
-              type={type} 
-              onChangeType={onChangeType} />
-          </div>
-
-          <SpanTools />
-        </div>
-
-        <div>
-          <MetaphorPreview 
-            annotation={props.annotation} />
-        </div>
-
         <Accordion 
           type="multiple"
           defaultValue={['metaphor-linked-words']}
@@ -74,7 +53,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
             </AccordionTrigger>
 
             <AccordionContent className="pb-12">
-              <MetaphorLinkedWords annotation={props.annotation} />
+              
             </AccordionContent>
           </AccordionItem>
 
@@ -92,8 +71,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
             </AccordionTrigger>
 
             <AccordionContent className="pb-12">
-              <MetaphorTags 
-                annotation={props.annotation} />
+              
             </AccordionContent>
           </AccordionItem>
           
@@ -106,7 +84,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               </AccordionTrigger>
 
               <AccordionContent className="pb-12">
-                <MetaphorAnalysis />
+                
               </AccordionContent>
             </AccordionItem>
           )}

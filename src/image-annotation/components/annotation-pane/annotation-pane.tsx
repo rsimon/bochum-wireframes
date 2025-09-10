@@ -1,16 +1,14 @@
 import { useMemo, useState } from 'react';
-import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { getAvatarColor } from '@/utils';
 import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Skeleton } from '@/components/ui/skeleton';
+import { AvatarStack } from './avatar-stack';
 import { Toolbar } from './toolbar';
 
 import '@annotorious/react/annotorious-react.css';
-import { AvatarStack } from './avatar-stack';
-import { Separator } from '@/components/ui/separator';
 
 interface AnnotationPaneProps {
 
@@ -54,6 +52,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
       <OpenSeadragonAnnotator
+        drawingMode="drag"
         drawingEnabled={false}>
         <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <Button
@@ -90,9 +89,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           </div>
 
           <div className="flex gap-1 items-center">
-            <Toolbar />
-            <Separator orientation="vertical" className="mr-2" />
             <AvatarStack />
+            <Separator orientation="vertical" className="mx-2" />
+            <Toolbar />
           </div>
 
           <Button
