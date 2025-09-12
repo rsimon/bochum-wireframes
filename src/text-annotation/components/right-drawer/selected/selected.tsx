@@ -1,19 +1,19 @@
+import { useMemo } from 'react';
 import { GitCompareArrows, MessagesSquare, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
 import { useAnnotationStore, useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AnnotationType } from '@/text-annotation/types';
 import { getAnnotationType, setAnnotationType } from '@/text-annotation/utils';
+import { Conversation } from './components/conversation';
 import { TypeSelector } from './components/type-selector';
 import { SpanTools } from './components/span-tools';
 import { MetaphorLinkedWords } from './components/metaphor-linked-words';
 import { MetaphorAnalysis } from './components/metaphor-analysis';
 import { MetaphorPreview } from './components/metaphor-preview';
 import { MetaphorTags } from './components/metaphor-tags';
-import { useMemo } from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Conversation } from './components/conversation';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -116,6 +116,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
             <AccordionTrigger>
               <div className="flex gap-2 items-center">
                 <MessagesSquare className="size-4" /> Conversation
+                <Badge variant="secondary">2</Badge>
               </div>
             </AccordionTrigger>
 

@@ -191,7 +191,7 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
 
             <Badge 
               className="absolute z-10 top-[1px] right-0 text-[9px] font-semibold rounded-full aspect-square p-1 bg-slate-800 pointer-none:">
-              1
+              2
             </Badge>
           </Button>
         </TooltipTrigger>
