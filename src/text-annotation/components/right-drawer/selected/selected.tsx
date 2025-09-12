@@ -1,4 +1,4 @@
-import { GitCompareArrows, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
+import { GitCompareArrows, MessagesSquare, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
 import { useAnnotationStore, useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -13,6 +13,7 @@ import { MetaphorPreview } from './components/metaphor-preview';
 import { MetaphorTags } from './components/metaphor-tags';
 import { useMemo } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { Conversation } from './components/conversation';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -110,6 +111,18 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               </AccordionContent>
             </AccordionItem>
           )}
+
+          <AccordionItem value="conversation">
+            <AccordionTrigger>
+              <div className="flex gap-2 items-center">
+                <MessagesSquare className="size-4" /> Conversation
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent className="pb-12">
+              <Conversation />
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       </div>
 

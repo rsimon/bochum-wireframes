@@ -3,7 +3,7 @@ import { useAnnotations, useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getAnnotationType, sortAnnotationsByCharPosition } from '@/text-annotation/utils';
-import { ListCard } from './ListCard';
+import { ListCard } from './list-card';
 import { ArrowDownWideNarrow, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
