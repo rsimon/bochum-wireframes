@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
+import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
-import { PrivacySelector } from './privacy-selector';
 
 export const Toolbar = () => {
 
@@ -67,6 +68,8 @@ export const Toolbar = () => {
         onClick={() => onZoom(0.5)}>
         <ZoomOut />
       </Button>
+
+      <Separator orientation="vertical" className="mx-1" />
 
       <Button variant="ghost">
         <Undo2 />

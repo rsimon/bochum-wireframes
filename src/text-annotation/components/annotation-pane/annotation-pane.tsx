@@ -7,6 +7,8 @@ import { getAvatarColor } from '@/utils';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
+import { Separator } from '@/components/ui/separator';
+import { PrivacySelector } from '@/components/privacy-selector';
 
 interface AnnotationPaneProps {
 
@@ -85,8 +87,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           )}
         </div>
 
-        <div className="flex gap-2">
-          <div className="*:data-[slot=avatar]:ring-background flex -space-x-1 *:data-[slot=avatar]:ring-2">
+        <div className="flex gap-1.5 items-center">
+          <div className="*:data-[slot=avatar]:ring-background flex -space-x-1 *:data-[slot=avatar]:ring-2 mx-1">
             <Avatar>
               <AvatarFallback
                 className="text-white font-medium text-xs"
@@ -109,6 +111,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
               </AvatarFallback>
             </Avatar>
           </div>
+
+          <Separator orientation="vertical" />
+
+          <PrivacySelector />
 
           <div className="whitespace-nowrap">
             <Button variant="ghost">
