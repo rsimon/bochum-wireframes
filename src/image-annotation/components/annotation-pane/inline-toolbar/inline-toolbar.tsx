@@ -75,7 +75,9 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
             <MessagesSquare className="size-3.5" />
 
             <Badge 
-              className="absolute z-10 top-0 -right-[1px] text-[10px] font-semibold rounded-full aspect-square p-1 bg-neutral-900 pointer-none:">3</Badge>
+              className="absolute z-10 top-0 -right-[1px] text-[9px] font-semibold rounded-full aspect-square p-1 bg-sky-800 pointer-none:">
+              3
+            </Badge>
           </Button>
         </TooltipTrigger>
 

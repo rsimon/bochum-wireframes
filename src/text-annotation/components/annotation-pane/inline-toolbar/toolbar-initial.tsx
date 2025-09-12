@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Ellipsis, GitCompareArrows, Replace, ReplaceAll, Trash2 } from 'lucide-react';
+import { Ellipsis, GitCompareArrows, MessagesSquare, Replace, ReplaceAll, Trash2 } from 'lucide-react';
 import { AnnotationType } from '@/text-annotation/types';
 import { getAnnotationType, getQuote, setAnnotationType } from '@/text-annotation/utils';
 import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
 import { useIntersectingAnnotations } from '@/text-annotation/hooks';
+import { Badge } from '@/components/ui/badge';
 
 interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 
@@ -132,9 +133,7 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
         </TooltipContent>
       </Tooltip>
 
-      <Separator 
-        orientation="vertical" 
-        className="min-h-4" />
+      <Separator orientation="vertical" />
 
       <Tooltip>
         <TooltipTrigger asChild>
@@ -177,6 +176,28 @@ export const ToolbarInitial = (props: ToolbarInitialProps) => {
 
         <TooltipContent>
           <p>Link all words to this metaphor</p>
+        </TooltipContent>
+      </Tooltip>
+
+      <Separator orientation="vertical" />
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative">
+            <MessagesSquare className="size-3.5" />
+
+            <Badge 
+              className="absolute z-10 top-[1px] right-0 text-[9px] font-semibold rounded-full aspect-square p-1 bg-sky-800 pointer-none:">
+              1
+            </Badge>
+          </Button>
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <p>Comment</p>
         </TooltipContent>
       </Tooltip>
 
