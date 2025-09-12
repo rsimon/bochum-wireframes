@@ -1,8 +1,8 @@
+import { Ellipsis, MessagesSquare, Spline, Tag, Trash2 } from 'lucide-react';
+import { ImageAnnotation, PopupProps, Store, useAnnotationStore } from '@annotorious/react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { ImageAnnotation, PopupProps, Store, useAnnotationStore } from '@annotorious/react';
-import { Ellipsis, MessagesSquare, Spline, Trash2 } from 'lucide-react';
 
 interface InlineToolbarProps extends PopupProps {
 
@@ -20,6 +20,21 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
   return (
     <div className="bg-white p-1.5 rounded-md 
       shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
+      
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative">
+            <Tag className="size-3.5" />
+          </Button>
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <p>Add tag</p>
+        </TooltipContent>
+      </Tooltip>
 
       <Tooltip>
         <TooltipTrigger asChild>

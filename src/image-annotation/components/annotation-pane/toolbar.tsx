@@ -4,6 +4,7 @@ import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@ann
 import { Button } from '@/components/ui/button';
 import { Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
+import { PrivacySelector } from './privacy-selector';
 
 export const Toolbar = () => {
 
@@ -32,11 +33,15 @@ export const Toolbar = () => {
 
   return (anno && viewer) ? (
     <div className="flex flex-nowrap items-center">
-      <ToolSelector 
-        drawingEnabled={drawingEnabled} 
-        tool={tool} 
-        onSetDrawingEnabled={setDrawingEnabled} 
-        onChangeTool={setTool} />
+      <div className="flex gap-1.5">
+        <PrivacySelector />
+
+        <ToolSelector 
+          drawingEnabled={drawingEnabled} 
+          tool={tool} 
+          onSetDrawingEnabled={setDrawingEnabled} 
+          onChangeTool={setTool} />
+      </div>
 
       <Button
         variant="ghost"

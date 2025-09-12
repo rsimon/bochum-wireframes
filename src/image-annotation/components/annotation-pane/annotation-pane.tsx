@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
@@ -50,6 +50,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     visibilityRatio: 0.2
   } as OpenSeadragon.Options), [props.iiifUrl]);
 
+  useEffect(() => {
+    window.setTimeout(() => setTitle('Example Image'), 500);
+  }, []);
+
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
       <OpenSeadragonAnnotator
@@ -73,7 +77,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
               SFB1475
             </Button>
 
-            <h1 className="text-lg font-semibold">
+            <h1 className="text-lg font-semibold whitespace-nowrap">
               {title ? title : (
                 <Skeleton className="h-6 w-52" />
               )}
