@@ -1,10 +1,21 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { PopupProps } from '@annotorious/react';
+import { ImageAnnotation, PopupProps, Store, useAnnotationStore } from '@annotorious/react';
 import { Ellipsis, MessagesSquare, Spline, Trash2 } from 'lucide-react';
 
-export const InlineToolbar = (props: PopupProps) => {
+interface InlineToolbarProps extends PopupProps {
+
+  onClickAdvanced(): void;
+
+}
+
+export const InlineToolbar = (props: InlineToolbarProps) => {
+
+  const store = useAnnotationStore<Store<ImageAnnotation>>();
+
+  const onDelete = () =>
+    store.deleteAnnotation(props.annotation.id);
 
   return (
     <div className="bg-white p-1.5 rounded-md 
@@ -24,7 +35,7 @@ export const InlineToolbar = (props: PopupProps) => {
           <p>Create link</p>
         </TooltipContent>
       </Tooltip>
-      
+
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
@@ -47,7 +58,8 @@ export const InlineToolbar = (props: PopupProps) => {
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
-            size="icon">
+            size="icon"
+            onClick={onDelete}>
             <Trash2 className="size-3.5 text-destructive" />
           </Button>
         </TooltipTrigger>
@@ -61,7 +73,8 @@ export const InlineToolbar = (props: PopupProps) => {
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
-            size="icon">
+            size="icon"
+            onClick={props.onClickAdvanced}>
             <Ellipsis className="size-3.5" />
           </Button>
         </TooltipTrigger>

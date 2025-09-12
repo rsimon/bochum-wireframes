@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { RightDrawer, RightDrawerTab } from './components/right-drawer';
 import { LeftDrawer } from './components/left-drawer';
 import { AnnotationPane } from './components/annotation-pane';
+import { MockStorage } from '@/components/mock-storage';
 
 interface ImageAnnotationProps {
 
@@ -39,6 +40,9 @@ export const ImageAnnotation = (props: ImageAnnotationProps) => {
       <RightDrawer 
         tab={rightDrawer}
         onStateChange={setRightDrawer} />
+
+      <MockStorage
+        onChangeSaveStatus={setSaving} />
     </div>
   )
 

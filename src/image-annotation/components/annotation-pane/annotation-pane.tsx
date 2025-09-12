@@ -53,6 +53,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
       <OpenSeadragonAnnotator
+        autoSave
         drawingMode="drag"
         drawingEnabled={false}>
         <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -114,8 +115,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             arrowProps={{
               fill: '#fff'
             }}
-            popup={props => (
-              <InlineToolbar {...props} />
+            popup={popupProps => (
+              <InlineToolbar 
+                {...popupProps} 
+                onClickAdvanced={props.onFocusRightDrawer} />
             )} />
         </main>
       </OpenSeadragonAnnotator>
