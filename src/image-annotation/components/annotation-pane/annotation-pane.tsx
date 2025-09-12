@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
-import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
+import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,6 +9,7 @@ import { AvatarStack } from './avatar-stack';
 import { Toolbar } from './toolbar';
 
 import '@annotorious/react/annotorious-react.css';
+import { InlineToolbar } from './inline-toolbar';
 
 interface AnnotationPaneProps {
 
@@ -107,6 +108,15 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <OpenSeadragonViewer
             options={options} 
             className="h-full w-full" />
+
+          <OpenSeadragonAnnotationPopup
+            arrow
+            arrowProps={{
+              fill: '#fff'
+            }}
+            popup={props => (
+              <InlineToolbar {...props} />
+            )} />
         </main>
       </OpenSeadragonAnnotator>
     </div>
