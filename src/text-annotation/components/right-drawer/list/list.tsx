@@ -108,6 +108,7 @@ export const List = () => {
       <div className="p-2">
         {grouped.map(([root, linked], index) => (
           <ListCard 
+            key={root.id}
             annotation={root}
             emphasize={hasSelection && isSelected(root)}
             deemphasize={hasSelection && !isSelected(root)}

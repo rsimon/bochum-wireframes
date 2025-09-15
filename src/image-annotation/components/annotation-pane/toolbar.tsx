@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ClipboardCopy, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Spline, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { ClipboardCopy, GitCompareArrows, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
@@ -113,7 +113,7 @@ export const Toolbar = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant="ghost">
-            <Spline />
+            <GitCompareArrows />
           </Button>
         </TooltipTrigger>
         

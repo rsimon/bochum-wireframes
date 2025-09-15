@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { getAnnotationType, getQuote, renderMetaphorQuote } from '@/text-annotation/utils';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { getAvatarColor } from '@/utils';
+import { MessagesSquare } from 'lucide-react';
 
 interface ListCardProps {
 
@@ -78,16 +79,23 @@ export const ListCard = (props: ListCardProps) => {
             ))}
           </div>
         )}
-        <div className="mt-3 flex gap-1.5 text-xs items-center">
-          <Avatar className="size-5">
-            <AvatarFallback
-              className="text-white font-medium text-[9px]"
-              style={{ backgroundColor: getAvatarColor('rainersimon') }}>
-              RS
-            </AvatarFallback>
-          </Avatar>
 
-          <span className="font-medium">Rainer</span><span className="text-muted-foreground"> · {timestamp}</span>
+        <div className="relative">
+          <div className="mt-3 flex gap-1.5 text-xs items-center">
+            <Avatar className="size-5">
+              <AvatarFallback
+                className="text-white font-medium text-[9px]"
+                style={{ backgroundColor: getAvatarColor('rainersimon') }}>
+                RS
+              </AvatarFallback>
+            </Avatar>
+
+            <span className="font-medium">Rainer</span><span className="text-muted-foreground"> · {timestamp}</span>
+          </div>
+
+          <div className="absolute -bottom-1.5 right-0.5 text-muted-foreground cursor-pointer hover:text-primary flex gap-1 text-xs items-center font-medium mb-2">
+            <MessagesSquare className="size-3.5" /> 2
+          </div>
         </div>
       </CardContent>
     </Card>

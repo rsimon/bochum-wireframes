@@ -149,7 +149,8 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
             <div className="flex justify-end p-2">
               <ToggleGroup 
                 type="single"
-                className="gap-1">
+                className="gap-1"
+                defaultValue="iiif">
                 <ToggleGroupItem 
                   value="iiif"
                   className="tracking-wide h-7 rounded-sm! text-xs cursor-pointer px-2 flex-none">

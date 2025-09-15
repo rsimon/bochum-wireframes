@@ -52,7 +52,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   } as OpenSeadragon.Options) : undefined, [props.canvas]);
 
   useEffect(() => {
-    window.setTimeout(() => setTitle('Example Image'), 500);
+    window.setTimeout(() => setTitle('Example'), 500);
   }, []);
 
   return (

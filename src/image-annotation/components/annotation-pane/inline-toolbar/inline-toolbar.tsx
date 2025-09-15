@@ -1,4 +1,4 @@
-import { Ellipsis, MessagesSquare, Plus, Spline, Trash2, X } from 'lucide-react';
+import { Ellipsis, GitCompareArrows, MessagesSquare, Plus, Trash2, X } from 'lucide-react';
 import { ImageAnnotation, PopupProps, Store, useAnnotationStore } from '@annotorious/react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -57,7 +57,7 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
             variant="ghost"
             size="icon"
             className="relative">
-            <Spline className="size-3.5" />
+            <GitCompareArrows className="size-3.5" />
           </Button>
         </TooltipTrigger>
 
