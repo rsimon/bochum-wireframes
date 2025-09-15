@@ -9,6 +9,7 @@ import { InlineToolbar } from './inline-toolbar';
 import '@recogito/react-text-annotator/react-text-annotator.css';
 import { Separator } from '@/components/ui/separator';
 import { PrivacySelector } from '@/components/privacy-selector';
+import { AvatarStack } from '@/components/avatar-stack';
 
 interface AnnotationPaneProps {
 
@@ -88,29 +89,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         </div>
 
         <div className="flex gap-1.5 items-center">
-          <div className="*:data-[slot=avatar]:ring-background flex -space-x-1 *:data-[slot=avatar]:ring-2 mx-1">
-            <Avatar>
-              <AvatarFallback
-                className="text-white font-medium text-xs"
-                style={{ backgroundColor: getAvatarColor('jamiefolsom') }}>
-                JF
-              </AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarFallback
-                className="text-white font-medium text-xs"
-                style={{ backgroundColor: getAvatarColor('rainersimon') }}>
-                RS
-              </AvatarFallback>
-            </Avatar>
-            <Avatar>
-              <AvatarFallback
-                className="text-white font-medium text-xs"
-                style={{ backgroundColor: getAvatarColor('lorinjameson') }}>
-                LJ
-              </AvatarFallback>
-            </Avatar>
-          </div>
+          <AvatarStack />
 
           <Separator orientation="vertical" />
 

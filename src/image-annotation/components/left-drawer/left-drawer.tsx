@@ -2,7 +2,6 @@ import { CodeXml, LayoutGrid, ListTree, MessagesSquare, Square, X } from 'lucide
 import { CozyCanvas, CozyManifest } from 'cozy-iiif';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { Label } from '@radix-ui/react-label';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -30,7 +29,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
     <div
       className={`bg-card border-r transition-all duration-300 ${props.open ? 'w-68' : 'w-0'} flex flex-col overflow-hidden`}>
       <div className="w-68 min-h-full overflow-y-auto">
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-2.5 border-b">
           <h3 className="font-semibold">Document</h3>
           <Button variant="ghost" size="icon" onClick={() => props.onOpenChange(false)}>
             <X className="h-4 w-4" />

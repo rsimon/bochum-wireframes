@@ -6,11 +6,12 @@ import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonView
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { AvatarStack } from './avatar-stack';
+import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@annotorious/react/annotorious-react.css';
+import { MyAccount } from '@/components/my-account';
 
 interface AnnotationPaneProps {
 
@@ -49,7 +50,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     showRotationControl: true,
     tileSources: (props.canvas.images[0] as DynamicImageServiceResource).serviceUrl,
     visibilityRatio: 0.2
-  } as OpenSeadragon.Options) : undefined, [props.canvas]);
+  } as OpenSeadragon.Options) : { showNavigationControl: false }, [props.canvas]);
 
   useEffect(() => {
     window.setTimeout(() => setTitle('Example'), 500);
@@ -61,7 +62,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         autoSave
         drawingMode="drag"
         drawingEnabled={false}>
-        <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="flex gap-4 items-center justify-between p-2.5 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <Button
             variant="outline"
             size="icon"
@@ -99,8 +100,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <AvatarStack />
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
-              collapsed={props.rightDrawerOpen} />
+              collapsed={props.rightDrawerOpen || props.leftDrawerOpen} />
           </div>
+
+          <MyAccount />
 
           <Button
             variant="outline"
