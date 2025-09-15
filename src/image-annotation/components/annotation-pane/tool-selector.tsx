@@ -9,6 +9,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 interface ToolSelectorProps {
 
+  collapsed?: boolean;
+
   drawingEnabled?: boolean;
 
   tool: Tool;
@@ -56,10 +58,13 @@ export const ToolSelector = (props: ToolSelectorProps) => {
         <TooltipTrigger asChild>
           <div>
             <Toggle 
-              className="text-xs h-9 pr-3 gap-1.5 cursor-pointer"
+              className={cn(
+                'text-xs h-9 gap-1.5 cursor-pointer',
+                props.collapsed ? undefined : 'pr-3'
+              )}
               pressed={!props.drawingEnabled}
               onPressedChange={pressed => props.onSetDrawingEnabled(!pressed)}>
-              <MousePointer2 className="size-4" /> Move
+              <MousePointer2 className="size-4" />{!props.collapsed && 'Move'}
             </Toggle>
           </div>
         </TooltipTrigger>

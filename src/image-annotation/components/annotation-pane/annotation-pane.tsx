@@ -98,7 +98,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <div className="flex gap-1 items-center">
             <AvatarStack />
             <Separator orientation="vertical" className="mx-2" />
-            <Toolbar />
+            <Toolbar 
+              collapsed={props.rightDrawerOpen} />
           </div>
 
           <Button
