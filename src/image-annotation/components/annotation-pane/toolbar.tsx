@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { ClipboardCopy, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Spline, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
@@ -103,6 +103,48 @@ export const Toolbar = () => {
             Zoom out
             <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
               <Minus className="size-3" />
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
+
+      <Separator orientation="vertical" className="mx-1" />
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost">
+            <Spline />
+          </Button>
+        </TooltipTrigger>
+        
+        <TooltipContent>
+          <span className="flex gap-1 flex-nowrap">
+            <span className="mr-1">Create relation</span>
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
+              R
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
+
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button 
+            variant="ghost"
+            disabled>
+            <ClipboardCopy />
+          </Button>
+        </TooltipTrigger>
+        
+        <TooltipContent>
+          <span className="flex gap-1 flex-nowrap">
+            <span className="mr-1">Copy annotation to clipboard</span>
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
+              ⌘
+            </span>
+            +
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+              C
             </span>
           </span>
         </TooltipContent>
