@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RightDrawer, RightDrawerTab } from './components/right-drawer';
 import { LeftDrawer } from './components/left-drawer';
 import { AnnotationPane } from './components/annotation-pane';
 import { MockStorage } from '@/components/mock-storage';
+import { useIIIF } from './hooks/use-iiif';
+import { CozyCanvas } from 'cozy-iiif';
 
 interface ImageAnnotationProps {
 
@@ -18,6 +20,15 @@ export const ImageAnnotation = (props: ImageAnnotationProps) => {
 
   const [saving, setSaving] = useState(false);
 
+  const manifest = useIIIF(props.url);
+
+  const [currentCanvas, setCurrentCanvas] = useState<CozyCanvas | undefined>();
+
+  useEffect(() => {
+    if (!manifest) return;
+    setCurrentCanvas(manifest.canvases[0]);
+  }, [manifest]);
+
   const onFocusRightDrawer = () => {
     setRightDrawer('selected');
   }
@@ -25,11 +36,14 @@ export const ImageAnnotation = (props: ImageAnnotationProps) => {
   return (
     <div className="flex h-screen bg-background">
       <LeftDrawer
+        manifest={manifest}
+        currentCanvas={currentCanvas}
         open={leftDrawerOpen} 
-        onOpenChange={setLeftDrawerOpen} />
+        onOpenChange={setLeftDrawerOpen} 
+        onSelectCanvas={setCurrentCanvas} />
 
       <AnnotationPane
-        iiifUrl={props.url}
+        canvas={currentCanvas}
         saving={saving}
         leftDrawerOpen={leftDrawerOpen}
         setLeftDrawerOpen={setLeftDrawerOpen}

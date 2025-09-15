@@ -1,19 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
+import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarStack } from './avatar-stack';
 import { Toolbar } from './toolbar';
+import { InlineToolbar } from './inline-toolbar';
 
 import '@annotorious/react/annotorious-react.css';
-import { InlineToolbar } from './inline-toolbar';
 
 interface AnnotationPaneProps {
 
-  iiifUrl: string;
+  canvas?: CozyCanvas;
 
   saving: boolean;
 
@@ -33,7 +34,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const [title, setTitle] = useState<string | undefined>();
 
-  const options = useMemo(() => ({
+  const options = useMemo(() => props.canvas ? ({
     gestureSettingsMouse: {
       clickToZoom: false,
       dblClickToZoom: false
@@ -46,9 +47,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     preserveImageSizeOnResize: true,
     showNavigationControl: false,
     showRotationControl: true,
-    tileSources: props.iiifUrl,
+    tileSources: (props.canvas.images[0] as DynamicImageServiceResource).serviceUrl,
     visibilityRatio: 0.2
-  } as OpenSeadragon.Options), [props.iiifUrl]);
+  } as OpenSeadragon.Options) : undefined, [props.canvas]);
 
   useEffect(() => {
     window.setTimeout(() => setTitle('Example Image'), 500);
