@@ -3,7 +3,9 @@ import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
+import { OSDConnectionPopup, OSDConnectorPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
+import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarStack } from '@/components/avatar-stack';
@@ -11,7 +13,7 @@ import { Toolbar } from './toolbar';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@annotorious/react/annotorious-react.css';
-import { MyAccount } from '@/components/my-account';
+import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
 
 interface AnnotationPaneProps {
 
@@ -34,6 +36,8 @@ interface AnnotationPaneProps {
 export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const [title, setTitle] = useState<string | undefined>();
+
+  const [wiresEnabled, setWiresEnabled] = useState(false);
 
   const options = useMemo(() => props.canvas ? ({
     gestureSettingsMouse: {
@@ -127,8 +131,15 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             popup={popupProps => (
               <InlineToolbar 
                 {...popupProps} 
-                onClickAdvanced={props.onFocusRightDrawer} />
+                onClickAdvanced={props.onFocusRightDrawer} 
+                onEnableWires={() => setWiresEnabled(true)} />
             )} />
+
+          <OSDConnectorPlugin 
+            enabled={wiresEnabled}>
+            <OSDConnectionPopup
+              popup={props => (<div>Hello World</div>)} />
+          </OSDConnectorPlugin>
         </main>
       </OpenSeadragonAnnotator>
     </div>

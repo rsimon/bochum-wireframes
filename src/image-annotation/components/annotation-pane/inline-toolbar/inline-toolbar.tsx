@@ -9,6 +9,8 @@ interface InlineToolbarProps extends PopupProps {
 
   onClickAdvanced(): void;
 
+  onEnableWires(): void;
+
 }
 
 export const InlineToolbar = (props: InlineToolbarProps) => {
@@ -56,7 +58,8 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
           <Button
             variant="ghost"
             size="icon"
-            className="relative">
+            className="relative"
+            onClick={props.onEnableWires}>
             <GitCompareArrows className="size-3.5" />
           </Button>
         </TooltipTrigger>
