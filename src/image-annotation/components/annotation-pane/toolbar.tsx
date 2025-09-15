@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const Toolbar = () => {
 
@@ -44,40 +45,116 @@ export const Toolbar = () => {
           onChangeTool={setTool} />
       </div>
 
-      <Button
-        variant="ghost"
-        className="ml-1"
-        onClick={() => onRotate(-90)}>
-        <RotateCcwSquare />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            className="ml-1"
+            onClick={() => onRotate(-90)}>
+            <RotateCcwSquare />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          Rotate image counterclockwise
+        </TooltipContent>
+      </Tooltip>
 
-      <Button
-        variant="ghost"
-        onClick={() => onRotate(90)}>
-        <RotateCwSquare />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            onClick={() => onRotate(90)}>
+            <RotateCwSquare />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          Rotate image clockwise
+        </TooltipContent>
+      </Tooltip>
       
-      <Button 
-        variant="ghost"
-        onClick={() => onZoom(2)}>
-        <ZoomIn />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button 
+            variant="ghost"
+            onClick={() => onZoom(2)}>
+            <ZoomIn />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <span className="flex gap-2 flex-nowrap">
+            Zoom in
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+              <Plus className="size-3" />
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
 
-      <Button 
-        variant="ghost"
-        onClick={() => onZoom(0.5)}>
-        <ZoomOut />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button 
+            variant="ghost"
+            onClick={() => onZoom(0.5)}>
+            <ZoomOut />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <span className="flex gap-2 flex-nowrap">
+            Zoom out
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+              <Minus className="size-3" />
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
 
       <Separator orientation="vertical" className="mx-1" />
 
-      <Button variant="ghost">
-        <Undo2 />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost">
+            <Undo2 />
+          </Button>
+        </TooltipTrigger>
+        
+        <TooltipContent>
+          <span className="flex gap-1 flex-nowrap">
+            <span className="mr-1">Undo</span>
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
+              ⌘
+            </span>
+            +
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+              Z
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
 
-      <Button variant="ghost">
-        <Redo2 />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="ghost">
+            <Redo2 />
+          </Button>
+        </TooltipTrigger>
+
+        <TooltipContent>
+          <span className="flex gap-1 flex-nowrap">
+            <span className="mr-1">Undo</span>
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
+              ⌘
+            </span>
+            +
+            <span className="bg-muted/80 text-black h-4 px-1 rounded flex items-center justify-center">
+              Shift
+            </span>
+            +
+            <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+              Z
+            </span>
+          </span>
+        </TooltipContent>
+      </Tooltip>
     </div>
   ) : null;
 

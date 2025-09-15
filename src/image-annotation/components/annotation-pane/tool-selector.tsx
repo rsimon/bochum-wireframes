@@ -1,10 +1,11 @@
-import { Circle, MousePointer2, ScissorsLineDashed, Square, Tangent, TriangleRight } from 'lucide-react';
+import { Circle, MousePointer2, ScissorsLineDashed, Square, Tangent, TriangleRight, WandSparkles } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Toggle } from '@/components/ui/toggle';
 import { Tool } from '@/image-annotation/types';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator } from '@annotorious/react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface ToolSelectorProps {
 
@@ -17,6 +18,15 @@ interface ToolSelectorProps {
   onSetDrawingEnabled(enabled: boolean): void;
 
 }
+
+const TooltipLabel = (text: string, shortcut: number) => (
+  <span className="flex gap-2 flex-nowrap">
+    {text} 
+    <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center">
+      {shortcut}
+    </span>
+  </span>
+)
 
 export const ToolSelector = (props: ToolSelectorProps) => {
 
@@ -42,12 +52,21 @@ export const ToolSelector = (props: ToolSelectorProps) => {
 
   return (
     <div className="flex gap-2">
-      <Toggle 
-        className="text-xs h-9 pr-3 gap-1.5 cursor-pointer"
-        pressed={!props.drawingEnabled}
-        onPressedChange={pressed => props.onSetDrawingEnabled(!pressed)}>
-        <MousePointer2 className="size-4" /> Move
-      </Toggle>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div>
+            <Toggle 
+              className="text-xs h-9 pr-3 gap-1.5 cursor-pointer"
+              pressed={!props.drawingEnabled}
+              onPressedChange={pressed => props.onSetDrawingEnabled(!pressed)}>
+              <MousePointer2 className="size-4" /> Move
+            </Toggle>
+          </div>
+        </TooltipTrigger>
+        <TooltipContent className="flex items-center gap-2">
+          {TooltipLabel('Move image and select annotations', 1)}
+        </TooltipContent>
+      </Tooltip>
 
       <Select
         value={props.tool}
@@ -61,14 +80,34 @@ export const ToolSelector = (props: ToolSelectorProps) => {
             props.drawingEnabled && 'bg-black text-white border-black'
           )}>
           
-          <button 
-            className={cn(
-              'pl-2.5 w-20 font-medium hover:bg-muted pr-[5px] rounded-l-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer',
-              props.drawingEnabled && 'hover:bg-neutral-800'
-            )}
-            onClick={() => props.onSetDrawingEnabled(true)}>
-            <SelectValue className="pr-1" />
-          </button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex">
+                <button 
+                  className={cn(
+                    'pl-2.5 w-20 font-medium hover:bg-muted pr-[5px] rounded-l-md focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer',
+                    props.drawingEnabled && 'hover:bg-neutral-800'
+                  )}
+                  onClick={() => props.onSetDrawingEnabled(true)}>
+                  <SelectValue className="pr-1" />
+                </button>
+              </div>
+            </TooltipTrigger>
+
+            <TooltipContent>
+              {props.tool === 'rectangle' ? (
+                TooltipLabel('Rectangle annotations', 2)
+              ) : props.tool === 'polygon' ? (
+                TooltipLabel('Polygon annotations', 3)
+              ) : props.tool === 'ellipse' ? (
+                TooltipLabel('Circle and ellipse annotations', 4)
+              ) : props.tool === 'path' ? (
+                TooltipLabel('Open or closed paths', 5)
+              ) : props.tool === 'intelligent-scissors' ? (
+                TooltipLabel('Automatically trace edges', 6)
+              ) : null}
+            </TooltipContent>
+          </Tooltip>
           
           <SelectTrigger 
             className={cn(
@@ -115,6 +154,14 @@ export const ToolSelector = (props: ToolSelectorProps) => {
             disabled>
             <div className="flex items-center text-xs gap-1.5">
               <ScissorsLineDashed className="size-3.5 shrink-0" /> Scissors
+            </div>
+          </SelectItem>
+
+          <SelectItem 
+            value="intelligent-scissors"
+            disabled>
+            <div className="flex items-center text-xs gap-1.5">
+              <WandSparkles className="size-3.5 shrink-0" /> AI Select
             </div>
           </SelectItem>
         </SelectContent>
