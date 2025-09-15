@@ -10,6 +10,7 @@ import '@recogito/react-text-annotator/react-text-annotator.css';
 import { Separator } from '@/components/ui/separator';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { AvatarStack } from '@/components/avatar-stack';
+import { MyAccount } from '@/components/my-account';
 
 interface AnnotationPaneProps {
 
@@ -105,6 +106,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             </Button>
           </div>
         </div>
+
+        <MyAccount />
 
         <Button
           variant="outline"
