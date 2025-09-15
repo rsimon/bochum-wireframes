@@ -49,7 +49,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
           </TabsList>
 
           <TabsContent value="toc" className="relative mt-0 grow">
-            <ScrollArea className="h-full p-3">
+            <div className="h-full p-3">
               <div className="flex justify-end mb-5">
                 <ToggleGroup 
                   type="single"
@@ -142,22 +142,41 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
                   ))}
                 </div>
               </div>
-            </ScrollArea>
+            </div>
           </TabsContent>
 
           <TabsContent value="metadata">
-            {props.manifest ? (
-              <div className="space-y-4 p-4 text-sm leading-relaxed">
-                {props.manifest.getMetadata().map(entry => (
-                  <div>
-                    <Label className="font-semibold">{entry.label}</Label>
-                    <p className="pl-1">{entry.value}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div />
-            )}
+            <div className="flex justify-end p-2">
+              <ToggleGroup 
+                type="single"
+                className="gap-1">
+                <ToggleGroupItem 
+                  value="iiif"
+                  className="tracking-wide h-7 rounded-sm! text-xs cursor-pointer px-2 flex-none">
+                  IIIF
+                </ToggleGroupItem>
+
+                <ToggleGroupItem 
+                  value="custom"
+                  className="h-7 rounded-sm! text-xs cursor-pointer flex-none">
+                  Custom Metadata
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </div>
+            <div>
+              {props.manifest ? (
+                <div className="space-y-4 p-4 text-sm leading-relaxed">
+                  {props.manifest.getMetadata().map(entry => (
+                    <div>
+                      <Label className="font-semibold">{entry.label}</Label>
+                      <p className="pl-1">{entry.value}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
+            </div>
           </TabsContent>
         </Tabs>
       </div>
