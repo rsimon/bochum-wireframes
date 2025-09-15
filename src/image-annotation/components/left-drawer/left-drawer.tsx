@@ -1,10 +1,14 @@
-import { CodeXml, ListTree, Scroll, X } from 'lucide-react';
+import { CodeXml, LayoutGrid, ListTree, MessagesSquare, Square, X } from 'lucide-react';
 import { CozyCanvas, CozyManifest } from 'cozy-iiif';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { Label } from '@radix-ui/react-label';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { getAvatarColor } from '@/utils';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface LeftDrawerProps {
 
@@ -45,24 +49,96 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
           </TabsList>
 
           <TabsContent value="toc" className="relative mt-0 grow">
-            <ScrollArea className="h-full p-4">
+            <ScrollArea className="h-full p-3">
+              <div className="flex justify-end mb-5">
+                <ToggleGroup 
+                  type="single"
+                  defaultValue="thumbnails"
+                  className="gap-0.5">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <ToggleGroupItem
+                          value="toc" 
+                          className="aspect-square h-7 p-0 rounded-sm! cursor-pointer">
+                          <ListTree className="size-3" />
+                        </ToggleGroupItem>
+                      </div>
+                    </TooltipTrigger>
+
+                    <TooltipContent>
+                      Table of contents
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <ToggleGroupItem 
+                          value="thumbnails" 
+                          className="aspect-square h-7 rounded-sm! cursor-pointer">
+                          <Square  className="size-3" />
+                        </ToggleGroupItem>
+                      </div>
+                    </TooltipTrigger>
+
+                    <TooltipContent>
+                      Large thumbnails
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <ToggleGroupItem 
+                          value="grid" 
+                          className="aspect-square h-7 rounded-sm! cursor-pointer">
+                          <LayoutGrid className="size-3" />
+                        </ToggleGroupItem>
+                      </div>
+                    </TooltipTrigger>
+
+                    <TooltipContent>
+                      Small thumbnails
+                    </TooltipContent>
+                  </Tooltip>
+                </ToggleGroup>
+              </div>
               <div className="flex mx-auto justify-center">
                 <div className="space-y-8 p-4">
-                  {(props.manifest?.canvases || []).map(canvas => (
-                    <button 
-                      className="flex flex-col gap-3 items-center cursor-pointer"
-                      onClick={() => props.onSelectCanvas(canvas)}>
-                      <img
-                        className={cn(
-                          'aspect-square object-cover size-36 shadow-md border rounded-md',
-                          canvas === props.currentCanvas ? 'ring-4 ring-offset-4 ring-muted-foreground' : undefined
-                        )}
-                        src={canvas.getThumbnailURL(400)} />
+                  {(props.manifest?.canvases || []).map((canvas, index) => (
+                    <div 
+                      key={canvas.id}
+                      className="flex flex-col gap-3 items-center relative">
+                      <button 
+                        className="cursor-pointer relative"
+                        onClick={() => props.onSelectCanvas(canvas)}>
+                        <img
+                          className={cn(
+                            'aspect-square object-cover size-36 shadow-md border rounded-md',
+                            canvas === props.currentCanvas ? 'ring-4 ring-offset-4 ring-muted-foreground' : undefined
+                          )}
+                          src={canvas.getThumbnailURL(400)} />
 
+                        <div className="absolute right-3 bottom-1 flex items-center gap-1 text-sm text-white text-shadow-2xs whitespace-nowrap">
+                          <MessagesSquare className="size-4" /> 2
+                        </div>
+                      </button>
+                      
                       <p className="leading-relaxed text-sm">
                         {canvas.getLabel()}
                       </p>
-                    </button>
+
+                      {index === 1 && (
+                        <Avatar className="size-6 absolute left-5 top-1 drop-shadow-sm">
+                          <AvatarFallback
+                            className="text-white font-medium text-[9px] border-2 border-white"
+                            style={{ backgroundColor: getAvatarColor('rainersimon') }}>
+                            RS
+                          </AvatarFallback>
+                        </Avatar>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
