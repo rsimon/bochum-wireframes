@@ -5,7 +5,13 @@ import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { ClipboardCopy, EllipsisVertical, GitCompareArrows, Minus, Plus, RotateCcwSquare, RotateCwSquare, ZoomIn, ZoomOut } from "lucide-react"
 
-export const MoreTools = () => {
+interface MoreToolsProps {
+
+  onEnableWires(): void;
+
+}
+
+export const MoreTools = (props: MoreToolsProps) => {
 
   return (
     <Popover>
@@ -82,7 +88,9 @@ export const MoreTools = () => {
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost">
+            <Button 
+              variant="ghost"
+              onClick={props.onEnableWires}>
               <GitCompareArrows />
             </Button>
           </TooltipTrigger>

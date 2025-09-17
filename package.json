@@ -30,7 +30,7 @@
     "vite": "^6.3.6"
   },
   "dependencies": {
-    "@annotorious/plugin-wires-react": "^0.7.0",
+    "@annotorious/plugin-wires-react": "^0.7.1",
     "@annotorious/react": "^3.7.6",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-avatar": "^1.1.10",

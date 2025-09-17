@@ -13,6 +13,8 @@ interface ToolbarProps {
 
   collapsed?: boolean;
 
+  onEnableWires(): void;
+
 }
 
 export const Toolbar = (props: ToolbarProps) => {
@@ -124,7 +126,9 @@ export const Toolbar = (props: ToolbarProps) => {
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost">
+              <Button 
+                variant="ghost"
+                onClick={props.onEnableWires}>
                 <GitCompareArrows />
               </Button>
             </TooltipTrigger>
@@ -213,7 +217,8 @@ export const Toolbar = (props: ToolbarProps) => {
       </Tooltip>
 
       {props.collapsed && (
-        <MoreTools />
+        <MoreTools 
+          onEnableWires={props.onEnableWires} />
       )}
     </div>
   ) : null;

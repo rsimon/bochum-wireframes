@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
-import { OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
+import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
+import { OpenSeadragonAnnotationPopup, OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
@@ -104,7 +104,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <AvatarStack />
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
-              collapsed={props.rightDrawerOpen || props.leftDrawerOpen} />
+              collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
+              onEnableWires={() => setWiresEnabled(true)} />
           </div>
 
           <MyAccount />
