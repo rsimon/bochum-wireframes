@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
-import { OpenSeadragonAnnotationPopup, OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
+import { AnnotoriousOpenSeadragonAnnotator, OpenSeadragonAnnotator, OpenSeadragonViewer, useAnnotator } from '@annotorious/react';
+import { OpenSeadragonAnnotationPopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
@@ -34,10 +34,23 @@ interface AnnotationPaneProps {
 }
 
 export const AnnotationPane = (props: AnnotationPaneProps) => {
+  
+  const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
 
   const [title, setTitle] = useState<string | undefined>();
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
+
+  useEffect(() => {
+    if (!anno) return;
+
+    const onCreateAnnotation = () => setWiresEnabled(false);
+    anno.on('createAnnotation', onCreateAnnotation);
+
+    return () => {
+      anno.off('createAnnotation', onCreateAnnotation);
+    }
+  }, [anno]);
 
   const options = useMemo(() => props.canvas ? ({
     gestureSettingsMouse: {
@@ -137,10 +150,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             )} />
 
           <OSDWiresPlugin 
-            enabled={wiresEnabled}>
-            <OSDWirePopup
-              popup={props => (<div>Hello World</div>)} />
-          </OSDWiresPlugin>
+            enabled={wiresEnabled} />
         </main>
       </OpenSeadragonAnnotator>
     </div>
