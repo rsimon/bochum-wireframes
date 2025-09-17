@@ -3,7 +3,7 @@ import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { OpenSeadragonAnnotationPopup, OpenSeadragonAnnotator, OpenSeadragonViewer } from '@annotorious/react';
-import { OSDConnectionPopup, OSDConnectorPlugin } from '@annotorious/plugin-wires-react';
+import { OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
@@ -135,11 +135,11 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 onEnableWires={() => setWiresEnabled(true)} />
             )} />
 
-          <OSDConnectorPlugin 
+          <OSDWiresPlugin 
             enabled={wiresEnabled}>
-            <OSDConnectionPopup
+            <OSDWirePopup
               popup={props => (<div>Hello World</div>)} />
-          </OSDConnectorPlugin>
+          </OSDWiresPlugin>
         </main>
       </OpenSeadragonAnnotator>
     </div>
