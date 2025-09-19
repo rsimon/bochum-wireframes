@@ -11,7 +11,7 @@ import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/r
 import { useIntersectingAnnotations } from '@/text-annotation/hooks';
 import { Badge } from '@/components/ui/badge';
 
-interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
+interface InlineToolbarContentProps extends TextAnnotationPopupContentProps {
 
   onClickAdvanced(): void;
 
@@ -21,7 +21,7 @@ interface ToolbarInitialProps extends TextAnnotationPopupContentProps {
 const getSuggestedType = (annotation: TEIAnnotation): AnnotationType =>
   getQuote(annotation).includes(' ') ? 'metaphor' : 'mrw';
 
-export const ToolbarInitial = (props: ToolbarInitialProps) => {
+export const InlineToolbarContent = (props: InlineToolbarContentProps) => {
 
   const store = useAnnotationStore();
 
