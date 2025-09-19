@@ -16,7 +16,6 @@ import { ShapeToolbar } from './shape-toolbar';
 import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
 
-
 interface AnnotationPaneProps {
 
   canvas?: CozyCanvas;
@@ -154,6 +153,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <OSDWiresPlugin 
             enabled={wiresEnabled}>
             <OSDWirePopup
+              arrow
               popup={popupProps => (
                 <LinkToolbar {...popupProps} />
               )} />
