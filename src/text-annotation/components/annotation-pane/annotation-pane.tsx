@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { getAvatarColor } from '@/utils';
-import { InlineToolbar } from './inline-toolbar';
-
-import '@recogito/react-text-annotator/react-text-annotator.css';
 import { Separator } from '@/components/ui/separator';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { AvatarStack } from '@/components/avatar-stack';
 import { MyAccount } from '@/components/my-account';
+import { InlineToolbar } from './inline-toolbar';
+
+import '@recogito/react-text-annotator/react-text-annotator.css';
 
 interface AnnotationPaneProps {
 

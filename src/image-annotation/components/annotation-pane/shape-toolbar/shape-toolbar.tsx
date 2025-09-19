@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Separator } from '@/components/ui/separator';
 
-interface InlineToolbarProps extends PopupProps {
+interface ShapeToolbarProps extends PopupProps {
 
   onClickAdvanced(): void;
 
@@ -13,7 +13,7 @@ interface InlineToolbarProps extends PopupProps {
 
 }
 
-export const InlineToolbar = (props: InlineToolbarProps) => {
+export const ShapeToolbar = (props: ShapeToolbarProps) => {
 
   const store = useAnnotationStore<Store<ImageAnnotation>>();
 

@@ -3,17 +3,19 @@ import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { AnnotoriousOpenSeadragonAnnotator, OpenSeadragonAnnotator, OpenSeadragonViewer, useAnnotator } from '@annotorious/react';
-import { OpenSeadragonAnnotationPopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
+import { OpenSeadragonAnnotationPopup, OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
-import { InlineToolbar } from './inline-toolbar';
+import { LinkToolbar } from './link-toolbar';
+import { ShapeToolbar } from './shape-toolbar';
 
 import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
+
 
 interface AnnotationPaneProps {
 
@@ -143,14 +145,19 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
               fill: '#fff'
             }}
             popup={popupProps => (
-              <InlineToolbar 
+              <ShapeToolbar 
                 {...popupProps} 
                 onClickAdvanced={props.onFocusRightDrawer} 
                 onEnableWires={() => setWiresEnabled(true)} />
             )} />
 
           <OSDWiresPlugin 
-            enabled={wiresEnabled} />
+            enabled={wiresEnabled}>
+            <OSDWirePopup
+              popup={popupProps => (
+                <LinkToolbar {...popupProps} />
+              )} />
+          </OSDWiresPlugin>
         </main>
       </OpenSeadragonAnnotator>
     </div>
