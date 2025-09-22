@@ -138,34 +138,6 @@ export const InlineToolbarContent = (props: InlineToolbarContentProps) => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="ghost"
-            size="icon">
-            <Replace className="size-3.5" />
-          </Button>
-        </TooltipTrigger>
-
-        <TooltipContent>
-          <p>Re-select & replace span</p>
-        </TooltipContent>
-      </Tooltip>
-
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon">
-            <ReplaceAll className="size-3.5" />
-          </Button>
-        </TooltipTrigger>
-
-        <TooltipContent>
-          <p>Add span</p>
-        </TooltipContent>
-      </Tooltip>
-
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
             disabled={!canLinkAll}
             variant="ghost"
             size="icon"
@@ -178,8 +150,6 @@ export const InlineToolbarContent = (props: InlineToolbarContentProps) => {
           <p>Link all words to this metaphor</p>
         </TooltipContent>
       </Tooltip>
-
-      <Separator orientation="vertical" />
 
       <Tooltip>
         <TooltipTrigger asChild>
