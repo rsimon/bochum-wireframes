@@ -1,4 +1,4 @@
-import { createBody, TEIAnnotation } from '@recogito/react-text-annotator';
+import { createBody, TEIAnnotation, TEIRangeSelector } from '@recogito/react-text-annotator';
 import { AnnotationType } from './types';
 
 export const getAnnotationType = (annotation: TEIAnnotation): AnnotationType => 
@@ -38,61 +38,67 @@ export const sortAnnotationsByCharPosition = (annotations: TEIAnnotation[]) =>
     return startA - startB;
   });
 
-export const renderMetaphorQuote = (metaphor: TEIAnnotation, linked: TEIAnnotation[]) => {
-  const linkedSelectors = linked.flatMap(a => a.target.selector);
+export const interleaveLinkedAnnotations = (metaphor: TEIAnnotation, words: TEIAnnotation[]) => {
+  const metaphorSelectors = metaphor.target.selector;
 
-  // Interleave every selector separately
-  const allSegments = metaphor.target.selector.flatMap(selector => {
-    console.log('selector', selector);
+  const wordSelectors = words.reduce<TEIRangeSelector[]>((all, word) => 
+      [...all, ...word.target.selector], []);
 
-    const linkedInThisSelector = 
-      linkedSelectors
-        .sort((a, b) => a.start - b.start)
-        .filter(s => s.end > selector.start && s.start < selector.end);
+  const getIntersecting = (start: number, end: number) =>
+    wordSelectors.filter(s => s.end > start && s.start < end);
 
-    console.log(linkedInThisSelector);
+  // Shorthand: deflate XML indentation
+  const d = (str: string) => str.replace(/\s+/g, ' ')
 
-    // Split selector
-    if (linkedInThisSelector.length === 0) 
-      return [[selector.quote, 'metaphor'] as [string, string]];
+  const tokens: { value: string, type: 'metaphor' | 'word' }[] = [];
 
-    const segments: [string, string][] = [];
-    let currentPos = selector.start;
+  for (const metaphor of metaphorSelectors) {
+    const intersectingWords = getIntersecting(metaphor.start, metaphor.end);
 
-    for (const linkedSelector of linkedInThisSelector) {
-      const overlapStart = Math.max(currentPos, linkedSelector.start);
-      const overlapEnd = Math.min(selector.end, linkedSelector.end);
+    if (intersectingWords.length === 0) {
+      // Nothing to interleave
+      tokens.push({ value: d(metaphor.quote), type: 'metaphor' })
+    } else {
+      // Warning: the `quote` property is a normalized version of the
+      // text, with XML indentation removed, whereas the start and 
+      // end values point into the un-normalized original markup!
+      const metaphorQuote = metaphor.range.toString();
 
-      // Add metaphor segment before the overlap (if any)
-      if (currentPos < overlapStart) {
-        const metaphorQuote = selector.quote.slice(
-          currentPos - selector.start, 
-          overlapStart - selector.start
-        );
-        console.log('adding metaphor span', metaphorQuote);
-        segments.push([metaphorQuote, 'metaphor']);
+      // Head (metaphor) token, if any
+      const headLength = intersectingWords[0].start - metaphor.start;
+      if (headLength > 0) {
+        // Starts with a metaphor token
+        const head = d(metaphorQuote.substring(0, headLength));
+        if (head.length > 0) // Don't add if just whitespace
+          tokens.push({ value: head, type: 'metaphor' });
       }
 
-      // Add the overlapping segment as 'word'
-      if (overlapStart < overlapEnd) {
-        const wordQuote = selector.quote.slice(
-          overlapStart - selector.start,
-          overlapEnd - selector.start
-        );
-        console.log('adding word span', overlapStart, overlapEnd, wordQuote);
-        segments.push([wordQuote, 'mrw']);
-        currentPos = overlapEnd;
+      // Loop through intersecting words
+      intersectingWords.forEach((word, idx) => {
+        tokens.push({ value: word.quote, type: 'word' });
+        
+        if (idx + 1 < intersectingWords.length) {
+          // If there's another word, compute interim metaphor token
+          const interimStart = word.end;
+          const interimEnd = intersectingWords[idx + 1].start;
+
+          if (interimEnd > interimStart) {
+            const interim = d(metaphorQuote.substring(interimStart, interimEnd));
+            if (interim.length > 0) // Don't add if just whitespace
+              tokens.push({ value: interim, type: 'metaphor' });
+          }
+        }
+      });
+
+      // Append tail, if any
+      const tailLength = metaphor.end - intersectingWords[intersectingWords.length - 1].end;
+      if (tailLength > 0) {
+        const tail = d(metaphorQuote.substring(metaphorQuote.length - tailLength));
+        if (tail.length > 0)
+          tokens.push({ value: tail, type: 'metaphor' });
       }
     }
+  }
 
-    // Add remaining metaphor segment after all overlaps
-    if (currentPos < selector.end) {
-      const remainingText = selector.quote.slice(currentPos - selector.start);
-      segments.push([remainingText, 'metaphor']);
-    }
-
-    return segments;
-  });
-
-  return allSegments;
+  return tokens;
 }

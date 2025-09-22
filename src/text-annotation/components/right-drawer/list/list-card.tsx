@@ -2,7 +2,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { getAnnotationType, getQuote, renderMetaphorQuote } from '@/text-annotation/utils';
+import { getAnnotationType, getQuote, interleaveLinkedAnnotations } from '@/text-annotation/utils';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { getAvatarColor } from '@/utils';
 import { MessagesSquare } from 'lucide-react';
@@ -26,13 +26,13 @@ export const ListCard = (props: ListCardProps) => {
   const type = getAnnotationType(props.annotation);
 
   const renderQuote = () => {
-    const segments = renderMetaphorQuote(props.annotation, props.linked);
+    const segments = interleaveLinkedAnnotations(props.annotation, props.linked);
     return (
       <div>
-        {segments.map(([quote, type]) => (
+        {segments.map(({ value, type }) => (
           <span className={
-            type === 'mrw' ? 'bg-green-600/50' : ''
-          }>{quote}</span>
+            type === 'word' ? 'bg-green-600/50' : ''
+          }>{value}</span>
         ))}
       </div>
     )
@@ -73,7 +73,9 @@ export const ListCard = (props: ListCardProps) => {
         {props.linked.length > 0 && (
           <div className="space-y-0.5 mt-2">
             {props.linked.map(a => (
-              <div className="flex gap-2 items-center font-serif italic text-muted-foreground">
+              <div 
+                key={a.id}
+                className="flex gap-2 items-center font-serif italic text-muted-foreground">
                 <div className="size-4 bg-green-600/25 rounded" /> {getQuote(a)}
               </div>
             ))}

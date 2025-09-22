@@ -15,18 +15,23 @@ export const MockStorage = (props: MockStorageProps) => {
 
   useEffect(() => {
     if (r) {
-      const onAction = (annotation: TextAnnotation) => {
+      const onAction = () => {
         // It's a mock after all...   
         props.onChangeSaveStatus(true);
         setTimeout(() => props.onChangeSaveStatus(false), 500);
       }
 
-      r.on('createAnnotation', onAction);
+      const onCreate = (a: TextAnnotation) => {
+        onAction();
+        console.log('created', a.target.selector);
+      }
+
+      r.on('createAnnotation', onCreate);
       r.on('updateAnnotation', onAction);
       r.on('deleteAnnotation', onAction);
 
       return () => {
-        r.off('createAnnotation', onAction);
+        r.off('createAnnotation', onCreate);
         r.off('updateAnnotation', onAction);
         r.off('deleteAnnotation', onAction);
       }
