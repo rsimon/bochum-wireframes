@@ -62,7 +62,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <PanelLeft className="h-4 w-4" />
         </Button>
 
-        <div className="flex gap-2 items-center grow">
+        <div className="flex gap-1.5 items-center grow">
           <Button 
             size="sm"
             variant="secondary"
@@ -70,7 +70,18 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             SFB1475
           </Button>
 
-          <h1 className="text-lg font-semibold">
+          <span className="text-muted-foreground">/</span>
+
+          <Button 
+            size="sm"
+            variant="ghost"
+            className="h-9 -mx-0.5 px-1.5">
+            Assignment A
+          </Button>
+
+          <span className="text-muted-foreground">/</span>
+
+          <h1 className="text-lg font-semibold ml-1">
             {title ? title : (
               <Skeleton className="h-6 w-52" />
             )}
