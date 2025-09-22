@@ -26,10 +26,10 @@ export const ListCard = (props: ListCardProps) => {
   const type = getAnnotationType(props.annotation);
 
   const renderQuote = () => {
-    const segments = interleaveLinkedAnnotations(props.annotation, props.linked);
+    const tokens = interleaveLinkedAnnotations(props.annotation, props.linked);
     return (
       <div>
-        {segments.map(({ value, type }) => (
+        {tokens.map(({ value, type }) => (
           <span className={
             type === 'word' ? 'bg-green-600/50' : ''
           }>{value}</span>
@@ -70,17 +70,6 @@ export const ListCard = (props: ListCardProps) => {
         )}
 
         <div className="font-serif italic">{renderQuote()}</div>
-        {props.linked.length > 0 && (
-          <div className="space-y-0.5 mt-2">
-            {props.linked.map(a => (
-              <div 
-                key={a.id}
-                className="flex gap-2 items-center font-serif italic text-muted-foreground">
-                <div className="size-4 bg-green-600/25 rounded" /> {getQuote(a)}
-              </div>
-            ))}
-          </div>
-        )}
 
         <div className="relative">
           <div className="mt-3 flex gap-1.5 text-xs items-center">

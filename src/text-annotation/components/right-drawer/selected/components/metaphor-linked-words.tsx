@@ -11,6 +11,8 @@ interface MetaphorLinkedWordsProps {
 
   annotation: TEIAnnotation;
 
+  linked: string[];
+
 }
 
 export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
@@ -20,10 +22,6 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
   const { getIntersecting } = useIntersectingAnnotations();
 
   const intersecting = useMemo(() => getIntersecting(props.annotation), [props.annotation]);
-
-  const linked = useMemo(() => 
-    props.annotation.bodies.filter(b => b.purpose === 'linking' && b.value).map(b => b.value)
-  , [props.annotation])
 
   const setLinked = (ids: string[]) => {
     if (!store) return;
@@ -40,13 +38,13 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
   }
 
   const onCheckedChange = (annotationId: string, checked: CheckedState) => {
-    const filtered = linked.filter(id => id !== annotationId);
+    const filtered = props.linked.filter(id => id !== annotationId);
     const next = checked ? [...filtered, annotationId] : filtered;
     setLinked(next);
   }
 
   const onToggleAll = () => {
-    if (linked.length === intersecting.length)
+    if (props.linked.length === intersecting.length)
       setLinked([])
     else 
       setLinked(intersecting.map(a => a.id));
@@ -61,7 +59,7 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
       <div 
         className="flex items-center gap-3 font-light border-b pb-2">
         <Checkbox 
-          checked={linked.length === 0 ? false : linked.length === intersecting.length ? true : 'indeterminate'}
+          checked={props.linked.length === 0 ? false : props.linked.length === intersecting.length ? true : 'indeterminate'}
           onCheckedChange={onToggleAll}
           id="all" />
         <Label htmlFor="all">All</Label>
@@ -72,7 +70,7 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
           key={annotation.id}
           className="flex items-center gap-3 font-serif italic overflow-hidden">
           <Checkbox 
-            checked={linked.includes(annotation.id)}
+            checked={props.linked.includes(annotation.id)}
             onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
             id={annotation.id} />
 
