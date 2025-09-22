@@ -63,25 +63,27 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           type="multiple"
           defaultValue={['metaphor-linked-words']}
           className="p-1">
-          <AccordionItem value="metaphor-linked-words">
-            <AccordionTrigger>
-              <div className="flex gap-2 items-center">
-                <GitCompareArrows className="size-4" /> 
-                Linked Words
-                {linked.length > 0 && (
-                  <Badge variant="secondary">
-                    {linked.length}
-                  </Badge>
-                )}
-              </div>
-            </AccordionTrigger>
+          {type === 'metaphor' && (
+            <AccordionItem value="metaphor-linked-words">
+              <AccordionTrigger>
+                <div className="flex gap-2 items-center">
+                  <GitCompareArrows className="size-4" /> 
+                  Linked Words
+                  {linked.length > 0 && (
+                    <Badge variant="secondary">
+                      {linked.length}
+                    </Badge>
+                  )}
+                </div>
+              </AccordionTrigger>
 
-            <AccordionContent className="pb-12">
-              <MetaphorLinkedWords 
-                annotation={props.annotation} 
-                linked={linked} />
-            </AccordionContent>
-          </AccordionItem>
+              <AccordionContent className="pb-12">
+                <MetaphorLinkedWords 
+                  annotation={props.annotation} 
+                  linked={linked} />
+              </AccordionContent>
+            </AccordionItem>
+          )}
 
           <AccordionItem value="metaphor-tags">
             <AccordionTrigger>
