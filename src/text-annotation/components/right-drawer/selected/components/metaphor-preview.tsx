@@ -20,7 +20,7 @@ export const MetaphorPreview = (props: MetaphorPreviewProps) => {
 
     // Shortcut
     if (props.linked.length === 0) {
-      return [{ value: getQuote(props.annotation), type: 'metaphor' }];
+      return [{ value: getQuote(props.annotation).replace(/\s+/g, ' '), type: 'metaphor' }];
     } else {
       const linkedAnnotations = props.linked.map(id => store.getAnnotation(id));
       return interleaveLinkedAnnotations(props.annotation, linkedAnnotations);
@@ -28,7 +28,7 @@ export const MetaphorPreview = (props: MetaphorPreviewProps) => {
   }, [store, props.annotation, props.linked]);
 
   return tokens && (
-    <div className="font-serif bg-sky-50 text-sky-800 border-sky-700/50 border-l-2 rounded-xs mt-8 mb-4 italic py-4 px-6 min-h-20 leading-relaxed whitespace-pre-wrap">
+    <div className="font-serif bg-sky-50 text-sky-800 border-sky-700/50 border-l-2 rounded-xs mt-8 mb-4 italic py-4 px-6 min-h-20 leading-relaxed">
       {tokens.map(({ value, type }, index) => (
         <span 
           key={`${value}:${index}`}

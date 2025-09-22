@@ -45,7 +45,9 @@ export const interleaveLinkedAnnotations = (metaphor: TEIAnnotation, words: TEIA
       [...all, ...word.target.selector], []);
 
   const getIntersecting = (start: number, end: number) =>
-    wordSelectors.filter(s => s.end > start && s.start < end);
+    wordSelectors
+      .filter(s => s.end > start && s.start < end)
+      .sort((a, b) => a.start - b.start);
 
   // Shorthand: deflate XML indentation
   const d = (str: string) => str.replace(/\s+/g, ' ')
@@ -75,12 +77,12 @@ export const interleaveLinkedAnnotations = (metaphor: TEIAnnotation, words: TEIA
 
       // Loop through intersecting words
       intersectingWords.forEach((word, idx) => {
-        tokens.push({ value: word.quote, type: 'word' });
+        tokens.push({ value: d(word.quote), type: 'word' });
         
         if (idx + 1 < intersectingWords.length) {
           // If there's another word, compute interim metaphor token
-          const interimStart = word.end;
-          const interimEnd = intersectingWords[idx + 1].start;
+          const interimStart = word.end - metaphor.start;
+          const interimEnd = intersectingWords[idx + 1].start - metaphor.start;
 
           if (interimEnd > interimStart) {
             const interim = d(metaphorQuote.substring(interimStart, interimEnd));
@@ -94,7 +96,7 @@ export const interleaveLinkedAnnotations = (metaphor: TEIAnnotation, words: TEIA
       const tailLength = metaphor.end - intersectingWords[intersectingWords.length - 1].end;
       if (tailLength > 0) {
         const tail = d(metaphorQuote.substring(metaphorQuote.length - tailLength));
-        if (tail.length > 0)
+        if (tail.trim().length > 0)
           tokens.push({ value: tail, type: 'metaphor' });
       }
     }
