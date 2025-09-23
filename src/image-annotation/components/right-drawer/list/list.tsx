@@ -4,10 +4,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ImageAnnotation, useAnnotations, useSelection } from '@annotorious/react';
 import { ArrowDownWideNarrow, Search } from 'lucide-react';
 import { ListCard } from './list-card';
+import { useMemo } from 'react';
 
 export const List = () => {
 
-  const annotations = useAnnotations<ImageAnnotation>(250);
+  const unfiltered = useAnnotations<ImageAnnotation>(250);
+
+  const annotations = useMemo(() =>
+    unfiltered.filter(a => !('motivation' in a) || a.motivation !== 'linking')
+  , [unfiltered]);
 
   const { selected } = useSelection<ImageAnnotation>();
   
