@@ -29,12 +29,12 @@ export const AnnotationSnippet = (props: AnnotationSnippetProps) => {
     };
   }, [annotation]);
 
-  const url = image.getRegionURL(bounds, { maxSize: 400, minSize: 200 });
+  const url = image.getRegionURL(bounds, { minSize: 400 });
 
   return (
     <img 
       src={url} 
-      className="size-10 rounded-md object-cover" />
+      className="size-10 rounded-sm object-cover border border-input shadow-xs" />
   )
 
 }

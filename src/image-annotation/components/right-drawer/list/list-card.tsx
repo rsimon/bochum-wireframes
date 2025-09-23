@@ -83,7 +83,7 @@ export const ListCard = (props: ListCardProps) => {
         </div>
 
         {(props.canvas && links.length > 0) && (
-          <div className="mt-3">
+          <div className="mt-3 space-y-2">
             {links.map(l => (
               <div 
                 key={`${l.target.selector.from}:${l.target.selector.to}`}
