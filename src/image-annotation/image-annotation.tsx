@@ -52,6 +52,7 @@ export const ImageAnnotation = (props: ImageAnnotationProps) => {
         onFocusRightDrawer={onFocusRightDrawer} />
 
       <RightDrawer 
+        canvas={currentCanvas}
         tab={rightDrawer}
         onStateChange={setRightDrawer} />
 

@@ -1,3 +1,4 @@
+import { CozyCanvas } from 'cozy-iiif';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -6,7 +7,13 @@ import { ArrowDownWideNarrow, Search } from 'lucide-react';
 import { ListCard } from './list-card';
 import { useMemo } from 'react';
 
-export const List = () => {
+interface ListProps {
+
+  canvas?: CozyCanvas;
+
+}
+
+export const List = (props: ListProps) => {
 
   const unfiltered = useAnnotations<ImageAnnotation>(250);
 
@@ -81,6 +88,7 @@ export const List = () => {
           <ListCard 
             key={annotation.id}
             annotation={annotation} 
+            canvas={props.canvas}
             emphasize={hasSelection && isSelected(annotation)}
             deemphasize={hasSelection && !isSelected(annotation)} />
         ))}

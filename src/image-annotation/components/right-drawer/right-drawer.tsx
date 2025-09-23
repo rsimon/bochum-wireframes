@@ -1,4 +1,5 @@
 import { MessagesSquare, SlidersHorizontal, SquareMousePointer, X } from 'lucide-react';
+import { CozyCanvas } from 'cozy-iiif';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Selected } from './selected';
@@ -8,6 +9,8 @@ import { List } from './list';
 interface RightDrawerProps {
 
   tab?: RightDrawerTab;
+
+  canvas?: CozyCanvas;
 
   onStateChange(tab?: RightDrawerTab): void;
 
@@ -49,7 +52,8 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </TabsContent>
 
           <TabsContent value="list" className="mt-0 grow">
-            <List />
+            <List 
+              canvas={props.canvas} />
           </TabsContent>
 
           <TabsContent value="settings" className="mt-0 h-full">

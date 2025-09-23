@@ -1,11 +1,14 @@
 import { formatDistanceToNow } from 'date-fns';
-import { ImageAnnotation } from '@annotorious/react';
+import { ImageAnnotation, Store, useAnnotationStore } from '@annotorious/react';
+import { CozyCanvas } from 'cozy-iiif';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getAvatarColor } from '@/utils';
 import { MessagesSquare, Shapes } from 'lucide-react';
 import { useMemo } from 'react';
+import { useConnections } from '@annotorious/plugin-wires-react';
+import { AnnotationSnippet } from '../../shared/annotation-snippet';
 
 const CLASSES = [
   undefined,
@@ -25,6 +28,8 @@ interface ListCardProps {
 
   annotation: ImageAnnotation;
 
+  canvas?: CozyCanvas;
+
   emphasize: boolean;
 
   deemphasize: boolean;
@@ -33,12 +38,27 @@ interface ListCardProps {
 
 export const ListCard = (props: ListCardProps) => {
 
+  const store = useAnnotationStore<Store<ImageAnnotation>>();
+
   const clazz = useMemo(() => CLASSES[Math.floor(Math.random() * 4)], []);
 
   const timestamp =
     formatDistanceToNow(props.annotation.target.created, { addSuffix: true });
 
   const messages = useMemo(() => Math.floor(Math.random() * 4), []);
+
+  const connections = useConnections();
+
+  const links = useMemo(() => {
+    if (!store) return [];
+
+    const { id } = props.annotation;
+
+    return connections.filter(c => {
+      const { from, to } = c.target.selector;
+      return from === id || to === id;
+    });
+  }, [store, props.annotation, connections])
 
   return (
     <Card className={cn(
@@ -61,6 +81,26 @@ export const ListCard = (props: ListCardProps) => {
             </div>
           )}
         </div>
+
+        {(props.canvas && links.length > 0) && (
+          <div className="mt-3">
+            {links.map(l => (
+              <div 
+                key={`${l.target.selector.from}:${l.target.selector.to}`}
+                className="flex justify-between items-center gap-2">
+                <AnnotationSnippet 
+                  annotation={l.target.selector.from} 
+                  canvas={props.canvas} />
+
+                <span className="grow border-t border-slate-400 border-dashed h-[1px]" />
+
+                <AnnotationSnippet 
+                  annotation={l.target.selector.to} 
+                  canvas={props.canvas} />
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="relative">
           <div className="mt-3 flex gap-1.5 text-xs items-center">
