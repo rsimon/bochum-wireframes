@@ -15,9 +15,11 @@ export default defineConfig({
     }
   },
   build: {
+    chunkSizeWarningLimit: 1024,
     rollupOptions: {
       output: {
         manualChunks: {
+          'dep-annotorious': ['@annotorious/react'],
           'dep-recogito': ['@recogito/react-text-annotator']
         }
       }
