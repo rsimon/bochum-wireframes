@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { useIntersectingAnnotations } from '@/text-annotation/hooks';
 import { getQuote } from '@/text-annotation/utils';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { createBody, useAnnotationStore, useAnnotator } from '@annotorious/react';
+import { createBody, useAnnotator } from '@annotorious/react';
 import { Button } from '@/components/ui/button';
 
 interface MetaphorLinkedWordsProps {
