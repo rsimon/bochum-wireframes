@@ -62,7 +62,7 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
       No intersecting annotations
     </div>
   ) : (
-    <div className="space-y-2.5 py-2 px-0.5">
+    <div className="space-y-3 py-2 px-0.5">
       <div 
         className="flex items-center gap-3 font-light border-b pb-2">
         <Checkbox 
@@ -72,32 +72,34 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
         <Label htmlFor="all">All</Label>
       </div>
 
-      {intersecting.map(annotation => (
-        <div 
-          key={annotation.id}
-          className="flex items-center gap-3 font-serif italic overflow-hidden">
-          <Checkbox 
-            checked={props.linked.includes(annotation.id)}
-            onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
-            id={annotation.id} />
+      <div className="space-y-0.5">
+        {intersecting.map(annotation => (
+          <div 
+            key={annotation.id}
+            className="flex items-center gap-3 font-serif italic overflow-hidden">
+            <Checkbox 
+              checked={props.linked.includes(annotation.id)}
+              onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
+              id={annotation.id} />
 
-          <div className="flex items-center gap-1">
-            <Label 
-              htmlFor={annotation.id}
-              className="whitespace-nowrap overflow-hidden">
-              <span className="truncate">{getQuote(annotation)}</span>
-            </Label>
+            <div className="flex items-center gap-1">
+              <Label 
+                htmlFor={annotation.id}
+                className="whitespace-nowrap overflow-hidden">
+                <span className="truncate">{getQuote(annotation)}</span>
+              </Label>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-8"
-              onClick={() => onSelectWord(annotation)}>
-              <Pencil className="size-3.5" />
-            </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-7"
+                onClick={() => onSelectWord(annotation)}>
+                <Pencil className="size-3" />
+              </Button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 
