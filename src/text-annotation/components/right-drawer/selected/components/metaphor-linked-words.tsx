@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
+import { Pencil } from 'lucide-react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useIntersectingAnnotations } from '@/text-annotation/hooks';
 import { getQuote } from '@/text-annotation/utils';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { createBody, useAnnotationStore } from '@annotorious/react';
+import { createBody, useAnnotationStore, useAnnotator } from '@annotorious/react';
+import { Button } from '@/components/ui/button';
 
 interface MetaphorLinkedWordsProps {
 
@@ -17,14 +19,14 @@ interface MetaphorLinkedWordsProps {
 
 export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
 
-  const store = useAnnotationStore();
+  const anno = useAnnotator();
 
   const { getIntersecting } = useIntersectingAnnotations();
 
   const intersecting = useMemo(() => getIntersecting(props.annotation), [props.annotation]);
 
   const setLinked = (ids: string[]) => {
-    if (!store) return;
+    if (!anno) return;
 
     const updated = {
       ...props.annotation,
@@ -34,7 +36,7 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
       ]
     } as TEIAnnotation;
 
-    store.updateAnnotation(updated);
+    anno.state.store.updateAnnotation(updated);
   }
 
   const onCheckedChange = (annotationId: string, checked: CheckedState) => {
@@ -48,6 +50,11 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
       setLinked([])
     else 
       setLinked(intersecting.map(a => a.id));
+  }
+
+  const onSelectWord = (annotation: TEIAnnotation) => {
+    if (!anno) return; // Should never happen
+    anno.setSelected(annotation.id);
   }
 
   return intersecting.length === 0 ? (
@@ -74,11 +81,21 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
             onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
             id={annotation.id} />
 
-          <Label 
-            htmlFor={annotation.id}
-            className="whitespace-nowrap overflow-hidden">
-            <span className="truncate">{getQuote(annotation)}</span>
-          </Label>
+          <div className="flex items-center gap-1">
+            <Label 
+              htmlFor={annotation.id}
+              className="whitespace-nowrap overflow-hidden">
+              <span className="truncate">{getQuote(annotation)}</span>
+            </Label>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="size-8"
+              onClick={() => onSelectWord(annotation)}>
+              <Pencil className="size-3.5" />
+            </Button>
+          </div>
         </div>
       ))}
     </div>
