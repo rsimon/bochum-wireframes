@@ -1,13 +1,11 @@
 import { useMemo } from 'react';
-import { Pencil } from 'lucide-react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useIntersectingAnnotations } from '@/text-annotation/hooks';
-import { getQuote } from '@/text-annotation/utils';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { createBody, useAnnotator } from '@annotorious/react';
-import { Button } from '@/components/ui/button';
+import { LinkedWordItem } from './linked-word';
 
 interface MetaphorLinkedWordsProps {
 
@@ -74,30 +72,12 @@ export const MetaphorLinkedWords = (props: MetaphorLinkedWordsProps) => {
 
       <div className="space-y-0.5">
         {intersecting.map(annotation => (
-          <div 
+          <LinkedWordItem 
             key={annotation.id}
-            className="flex items-center gap-3 font-serif italic overflow-hidden">
-            <Checkbox 
-              checked={props.linked.includes(annotation.id)}
-              onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
-              id={annotation.id} />
-
-            <div className="flex items-center gap-1">
-              <Label 
-                htmlFor={annotation.id}
-                className="whitespace-nowrap overflow-hidden">
-                <span className="truncate">{getQuote(annotation)}</span>
-              </Label>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                className="size-7"
-                onClick={() => onSelectWord(annotation)}>
-                <Pencil className="size-3" />
-              </Button>
-            </div>
-          </div>
+            annotation={annotation}
+            checked={props.linked.includes(annotation.id)}
+            onCheckedChange={checked => onCheckedChange(annotation.id, checked)}
+            onSelectWord={() => onSelectWord(annotation)} />
         ))}
       </div>
     </div>

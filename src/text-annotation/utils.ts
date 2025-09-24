@@ -1,4 +1,4 @@
-import { createBody, TEIAnnotation, TEIRangeSelector } from '@recogito/react-text-annotator';
+import { AnnotationBody, createBody, TEIAnnotation, TEIRangeSelector } from '@recogito/react-text-annotator';
 import { AnnotationType } from './types';
 
 export const getAnnotationType = (annotation: TEIAnnotation): AnnotationType => 
@@ -104,3 +104,10 @@ export const interleaveLinkedAnnotations = (metaphor: TEIAnnotation, words: TEIA
 
   return tokens;
 }
+
+export const isMRWTypeBody = (b: AnnotationBody) =>
+  b.purpose === 'classifying' && 'conformsTo' in b && b.conformsTo === 'mrw_type' && b.value;
+
+export const getMRWType = (a: TEIAnnotation) =>
+  a.bodies.find(isMRWTypeBody)?.value;
+

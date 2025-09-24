@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { AnnotationBody, createBody, useAnnotationStore } from '@annotorious/react';
+import { createBody, useAnnotationStore } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
 import { Label } from '@/components/ui/label';
+import { isMRWTypeBody } from '@/text-annotation/utils';
 import { 
   Select, 
   SelectContent, 
@@ -10,14 +11,12 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 
+
 interface WordTagsProps {
 
   annotation: TEIAnnotation;
 
 }
-
-const isMRWTypeBody = (b: AnnotationBody) =>
-  b.purpose === 'classifying' && 'conformsTo' in b && b.conformsTo === 'mrw_type' && b.value;
 
 export const WordTags = (props: WordTagsProps) => {
 
