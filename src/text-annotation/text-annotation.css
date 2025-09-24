@@ -1,5 +1,6 @@
-tei-text {
+tei-div * {
   font-family: 'Source Serif 4';
+  line-height: normal;
 }
 
 tei-div {
