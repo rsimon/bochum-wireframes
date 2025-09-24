@@ -15,6 +15,7 @@ import { MetaphorAnalysis } from './components/metaphor-analysis';
 import { MetaphorPreview } from './components/metaphor-preview';
 import { MetaphorTags } from './components/metaphor-tags';
 import { WordTags } from './components/word-tags';
+import { WordUplink } from './components/word-uplink';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -44,6 +45,10 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
   return (
     <div className="grow flex flex-col">
       <div className="grow p-3">
+        {type === 'mrw' && (
+          <WordUplink annotation={props.annotation} />
+        )}
+
         <div className="flex gap-1.5 justify-between">
           <div className="grow relative">
             <TypeSelector 
