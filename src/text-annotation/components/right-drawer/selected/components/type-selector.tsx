@@ -19,7 +19,7 @@ export const TypeSelector = (props: TypeSelectorProps) => {
 
   return (
     <Select 
-      value={props.type}
+      value={props.type || ''}
       onValueChange={props.onChangeType}>
       <SelectTrigger className="w-full">
         <SelectValue />

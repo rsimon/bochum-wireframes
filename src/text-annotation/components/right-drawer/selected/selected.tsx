@@ -14,6 +14,7 @@ import { MetaphorLinkedWords } from './components/metaphor-linked-words';
 import { MetaphorAnalysis } from './components/metaphor-analysis';
 import { MetaphorPreview } from './components/metaphor-preview';
 import { MetaphorTags } from './components/metaphor-tags';
+import { WordTags } from './components/word-tags';
 
 interface SelectedAnnotationDetailsProps {
 
@@ -59,6 +60,10 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
             linked={linked} />
         </div>
 
+        {type === 'mrw' && (
+          <WordTags annotation={props.annotation} />
+        )}
+
         <Accordion 
           type="multiple"
           defaultValue={['metaphor-linked-words']}
@@ -85,24 +90,26 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
             </AccordionItem>
           )}
 
-          <AccordionItem value="metaphor-tags">
-            <AccordionTrigger>
-              <div className="flex gap-2 items-center">
-                <Tags className="size-4" /> 
-                Tags
-                {tagCount > 0 && (
-                  <Badge variant="secondary">
-                    {tagCount}
-                  </Badge>
-                )}
-              </div>
-            </AccordionTrigger>
+          {type === 'metaphor' && (
+            <AccordionItem value="metaphor-tags">
+              <AccordionTrigger>
+                <div className="flex gap-2 items-center">
+                  <Tags className="size-4" /> 
+                  Tags
+                  {tagCount > 0 && (
+                    <Badge variant="secondary">
+                      {tagCount}
+                    </Badge>
+                  )}
+                </div>
+              </AccordionTrigger>
 
-            <AccordionContent className="pb-12">
-              <MetaphorTags 
-                annotation={props.annotation} />
-            </AccordionContent>
-          </AccordionItem>
+              <AccordionContent className="pb-12">
+                <MetaphorTags 
+                  annotation={props.annotation} />
+              </AccordionContent>
+            </AccordionItem>
+          )}
           
           {type === 'metaphor' && (
             <AccordionItem value="metaphor-analysis">
