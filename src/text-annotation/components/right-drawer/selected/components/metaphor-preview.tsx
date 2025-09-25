@@ -28,12 +28,12 @@ export const MetaphorPreview = (props: MetaphorPreviewProps) => {
   }, [store, props.annotation, props.linked]);
 
   return tokens && (
-    <div className="font-serif bg-sky-50 text-sky-800 border-sky-700/50 border-l-2 rounded-xs mt-8 mb-4 italic py-4 px-6 min-h-20 leading-relaxed">
+    <div className="font-serif text-sm bg-muted rounded mt-8 mb-4 italic p-4 leading-relaxed">
       {tokens.map(({ value, type }, index) => (
         <span 
           key={`${value}:${index}`}
           className={
-            type === 'word' ? 'bg-green-600/50' : ''
+            type === 'word' ? 'bg-pink-200 py-0.5 px-1 rounded-xs' : ''
           }>{value}</span>
       ))}
     </div>

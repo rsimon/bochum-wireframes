@@ -28,11 +28,11 @@ export const ListCard = (props: ListCardProps) => {
   const renderQuote = () => {
     const tokens = interleaveLinkedAnnotations(props.annotation, props.linked);
     return (
-      <div>
+      <div className="text-sm">
         {tokens.map(({ value, type }) => (
-          <span className={
-            type === 'word' ? 'bg-green-600/50' : ''
-          }>{value}</span>
+          <span className={cn(
+            type === 'word' ? 'bg-pink-200 py-0.5 px-1 rounded-xs' : ''
+          )}>{value}</span>
         ))}
       </div>
     )
@@ -43,8 +43,8 @@ export const ListCard = (props: ListCardProps) => {
 
   return (
     <Card className={cn(
-      'p-1 mt-4 rounded',
-      type === 'metaphor' ? 'border-b-black border-b-2' : 'bg-green-600/15 border-green-600/30 opacity-50',
+      'p-0.5 mt-4 rounded',
+      type === 'metaphor' ? undefined : 'bg-green-600/15 border-green-600/30 opacity-50',
       props.deemphasize && 'opacity-25',
       props.emphasize && 'ring-4 ring-offset-0 ring-blue-500/35'
     )}>
@@ -69,9 +69,23 @@ export const ListCard = (props: ListCardProps) => {
           </div>
         )}
 
-        <div className="font-serif italic">{renderQuote()}</div>
+        {props.linked.length > 0 && (
+          <div className="text-xs p-0.5 flex gap-2 items-center text-muted-foreground font-light mb-2">
+            <div className="flex gap-1 items-center">
+              <div className="size-2 bg-purple-500 rounded-full" /> God
+            </div>
 
-        <div className="relative">
+            <div className="flex gap-1 items-center">
+              <div className="size-2 bg-emerald-500 rounded-full" /> Husbandry
+            </div>
+          </div>
+        )}
+
+        <div className="font-serif font-light italic p-2.5 bg-muted rounded">
+          {renderQuote()}
+          </div>
+
+        <div className="relative p-0.5">
           <div className="mt-3 flex gap-1.5 text-xs items-center">
             <Avatar className="size-5">
               <AvatarFallback
