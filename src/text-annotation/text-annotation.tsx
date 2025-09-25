@@ -56,7 +56,7 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
 
       <TEIAnnotator 
         style={style}
-        mergeHighlights={{ horizontalTolerance: 10 }}>
+        mergeHighlights={{ horizontalTolerance: 24 }}>
         <AnnotationPane
           tei={tei}
           saving={saving}
