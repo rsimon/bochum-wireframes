@@ -48,7 +48,8 @@ export const RightDrawer = (props: RightDrawerProps) => {
           </TabsList>
 
           <TabsContent value="selected" className="flex flex-col mt-0 grow">
-            <Selected />
+            <Selected 
+              canvas={props.canvas}/>
           </TabsContent>
 
           <TabsContent value="list" className="mt-0 grow">
