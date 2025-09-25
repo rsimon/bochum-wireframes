@@ -71,18 +71,6 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               
             </AccordionContent>
           </AccordionItem>
-          
-          <AccordionItem value="metaphor-analysis">
-            <AccordionTrigger>
-              <div className="flex gap-2 items-center">
-                <Microscope className="size-4" /> Analysis
-              </div>
-            </AccordionTrigger>
-
-            <AccordionContent className="pb-12">
-              
-            </AccordionContent>
-          </AccordionItem>
         </Accordion>
       </div>
 
