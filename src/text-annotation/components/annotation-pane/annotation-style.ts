@@ -15,9 +15,9 @@ const WHEN_NO_SELECTION: HighlightStyleExpression = (
       fillOpacity: 0,
       underlineColor: '#1a1a1a',
       underlineThickness: 1.5,
-      underlineOffset: 3 * (2 * z || 1)
+      underlineOffset: 5 * z
     }
-  } else if (type === 'mrw') {
+  } else {
     return {
       fill: '#00ff00',
       fillOpacity: 0.5
@@ -39,9 +39,9 @@ const WHEN_SELECTION = (emphasized: string[]): HighlightStyleExpression => (
       fillOpacity: state.selected ? 0.1 : 0,
       underlineColor: '#1a1a1a',
       underlineThickness: 1.5,
-      underlineOffset: 3 * (2 * z || 1)
+      underlineOffset: 5 * z
     }
-  } else if (type === 'mrw') {
+  } else {
     return {
       fill: '#00ff00',
       fillOpacity: 0.5,

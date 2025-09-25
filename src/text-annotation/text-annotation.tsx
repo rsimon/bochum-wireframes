@@ -54,7 +54,9 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
         open={leftDrawerOpen} 
         onOpenChange={setLeftDrawerOpen} />
 
-      <TEIAnnotator style={style}>
+      <TEIAnnotator 
+        style={style}
+        mergeHighlights={{ horizontalTolerance: 10 }}>
         <AnnotationPane
           tei={tei}
           saving={saving}
