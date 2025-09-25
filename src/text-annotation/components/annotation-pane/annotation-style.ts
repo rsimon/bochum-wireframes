@@ -1,5 +1,5 @@
 import { getAnnotationType } from '@/text-annotation/utils';
-import { Store, useAnnotations, useAnnotationStore, useSelection, type AnnotationState } from '@annotorious/react';
+import { Store, useAnnotationStore, useSelection, type AnnotationState } from '@annotorious/react';
 import type { HighlightStyleExpression, TEIAnnotation } from '@recogito/react-text-annotator';
 import { useMemo } from 'react';
 
@@ -12,15 +12,16 @@ const WHEN_NO_SELECTION: HighlightStyleExpression = (
 
   if (type === 'metaphor') {
     return {
-      fillOpacity: 0,
+      fill: '#1a1a1a',
+      fillOpacity: 0.07,
       underlineColor: '#1a1a1a',
-      underlineThickness: 1.5,
-      underlineOffset: 1 + 4 * z
+      underlineThickness: 1,
+      underlineOffset: 4 * z
     }
   } else {
     return {
-      fill: '#00ff00',
-      fillOpacity: 0.5
+      fill: '#e60076', 
+      fillOpacity: 0.35
     }
   }
 }
@@ -31,22 +32,20 @@ const WHEN_SELECTION = (emphasized: string[]): HighlightStyleExpression => (
   z: number
 ) => {
   const type = getAnnotationType(annotation);
-  const isEmphasized = emphasized.includes(annotation.id);
+  const isEmphasized = emphasized.includes(annotation.id) || state.selected;
 
   if (type === 'metaphor') {
     return {
       fill: '#1a1a1a',
-      fillOpacity: state.selected ? 0.1 : 0,
-      underlineColor: '#1a1a1a',
-      underlineThickness: 1.5,
-      underlineOffset: 1 + 4 * z
+      fillOpacity: isEmphasized ? 0.07 : 0.03,
+      underlineColor: isEmphasized ? '#1a1a1a' : '#e2e2e2',
+      underlineThickness: 1,
+      underlineOffset: 4 * z
     }
   } else {
     return {
-      fill: '#00ff00',
-      fillOpacity: 0.5,
-      underlineThickness: isEmphasized ? 1.5 : undefined,
-      underlineColor: isEmphasized ? '#ff3300' : undefined
+      fill: isEmphasized ? '#e60076' : '#1a1a1a', 
+      fillOpacity: isEmphasized ? 0.35 : 0.07 
     }
   }
 }
