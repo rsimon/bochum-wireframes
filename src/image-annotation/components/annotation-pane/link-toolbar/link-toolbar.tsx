@@ -4,6 +4,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { WirePopupProps } from '@annotorious/plugin-wires-react';
 import { useAnnotationStore } from '@annotorious/react';
 import { Separator } from '@/components/ui/separator';
+import { VocabularySearch } from '@/components/vocabulary-search';
 
 export const LinkToolbar = (props: WirePopupProps) => {
 
@@ -19,14 +20,16 @@ export const LinkToolbar = (props: WirePopupProps) => {
       shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
 
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative">
-            <Tag className="size-3.5" />
-          </Button>
-        </TooltipTrigger>
+        <VocabularySearch>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative">
+              <Tag className="size-3.5" />
+            </Button>
+          </TooltipTrigger>
+        </VocabularySearch>
 
         <TooltipContent>
           <p>Add relationship tag</p>
