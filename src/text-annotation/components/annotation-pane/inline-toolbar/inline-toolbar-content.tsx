@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Ellipsis, GitCompareArrows, MessagesSquare, Replace, ReplaceAll, Trash2 } from 'lucide-react';
+import { Ellipsis, GitCompareArrows, MessagesSquare, Trash2 } from 'lucide-react';
 import { AnnotationType } from '@/text-annotation/types';
 import { getAnnotationType, getQuote, setAnnotationType } from '@/text-annotation/utils';
 import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
@@ -72,7 +72,13 @@ export const InlineToolbarContent = (props: InlineToolbarContentProps) => {
     if (type === 'mrw') return false;
 
     const intersecting = getIntersecting(props.annotation as TEIAnnotation);
-    return intersecting.length > 0;
+
+    const linked = new Set(props.annotation.bodies
+      .filter(b => b.purpose === 'linking' && b.value)
+      .map(b => b.value));
+
+    const linkable = intersecting.filter(a => !linked.has(a.id));
+    return linkable.length > 0;
   }, [getIntersecting, props.annotation])
 
   const onLinkAll = () => {
@@ -147,7 +153,7 @@ export const InlineToolbarContent = (props: InlineToolbarContentProps) => {
         </TooltipTrigger>
 
         <TooltipContent>
-          <p>Link all words to this metaphor</p>
+          <p>Link all intersecting words to this metaphor</p>
         </TooltipContent>
       </Tooltip>
 
