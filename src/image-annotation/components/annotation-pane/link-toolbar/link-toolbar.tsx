@@ -2,17 +2,42 @@ import { Tag, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { WirePopupProps } from '@annotorious/plugin-wires-react';
-import { useAnnotationStore } from '@annotorious/react';
+import { createBody, useAnnotator } from '@annotorious/react';
 import { Separator } from '@/components/ui/separator';
 import { VocabularySearch } from '@/components/vocabulary-search';
+import { VocabularyTerm } from '@/components/vocabulary-search/dummy-vocabulary';
 
 export const LinkToolbar = (props: WirePopupProps) => {
 
-  const store = useAnnotationStore();
+  const anno = useAnnotator();
+
+  const onAddTag = (term: VocabularyTerm) => {
+    if (!anno) return;
+
+    const currentTags = props.annotation.bodies.filter(b => b.purpose === 'tagging');
+
+    // Don't add twice
+    if (currentTags.some(b => b.value === term.id)) return;
+
+    const nextTags = [...currentTags, createBody(props.annotation, { purpose: 'tagging', value: term.id })];
+
+    const updated = {
+      ...props.annotation,
+      bodies: [
+        ...props.annotation.bodies.filter(b => b.purpose !== 'tagging'),
+        ...nextTags
+      ]
+    };
+    
+    anno.state.store.updateAnnotation(updated);
+
+    console.log('clearing selection');
+    anno.state.selection.clear();
+  }
 
   const onDelete = () => {
-    if (!store) return;
-    store.deleteAnnotation(props.annotation.id);
+    if (!anno) return;
+    anno.state.store.deleteAnnotation(props.annotation.id);
   }
 
   return (
@@ -20,7 +45,8 @@ export const LinkToolbar = (props: WirePopupProps) => {
       shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
 
       <Tooltip>
-        <VocabularySearch>
+        <VocabularySearch
+          onSelect={onAddTag}>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"

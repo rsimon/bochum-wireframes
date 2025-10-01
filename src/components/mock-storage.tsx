@@ -21,17 +21,12 @@ export const MockStorage = (props: MockStorageProps) => {
         setTimeout(() => props.onChangeSaveStatus(false), 500);
       }
 
-      const onCreate = (a: TextAnnotation) => {
-        onAction();
-        console.log('created', a.target.selector);
-      }
-
-      r.on('createAnnotation', onCreate);
+      r.on('createAnnotation', onAction);
       r.on('updateAnnotation', onAction);
       r.on('deleteAnnotation', onAction);
 
       return () => {
-        r.off('createAnnotation', onCreate);
+        r.off('createAnnotation', onAction);
         r.off('updateAnnotation', onAction);
         r.off('deleteAnnotation', onAction);
       }
