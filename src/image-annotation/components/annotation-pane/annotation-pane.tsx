@@ -21,6 +21,7 @@ import {
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
   OpenSeadragonAnnotator, 
+  OpenSeadragonHoverTooltip, 
   OpenSeadragonViewer, 
   useAnnotator 
 } from '@annotorious/react';
@@ -168,6 +169,13 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <AnnotoriousPlugin
             plugin={MagneticOutlinePlugin} />
+
+          <OpenSeadragonHoverTooltip 
+            tooltip={() => (
+              <div className="text-xs bg-white/15 backdrop-blur-xs p-2 rounded">
+                MyConcept
+              </div>
+            )}/>
 
           <OpenSeadragonAnnotationPopup
             arrow
