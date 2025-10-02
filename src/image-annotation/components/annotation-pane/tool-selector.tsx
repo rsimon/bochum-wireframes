@@ -161,7 +161,7 @@ export const ToolSelector = (props: ToolSelectorProps) => {
           </SelectItem>
 
           <SelectItem 
-            value="intelligent-scissors"
+            value="ai-select"
             disabled>
             <div className="flex items-center text-xs gap-1.5">
               <WandSparkles className="size-3.5 shrink-0" /> AI Select
