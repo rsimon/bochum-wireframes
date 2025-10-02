@@ -12,6 +12,7 @@ import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
 import { LinkToolbar } from './link-toolbar';
 import { ShapeToolbar } from './shape-toolbar';
+import { WiresVisibility } from '@annotorious/plugin-wires';
 import { 
   OpenSeadragonAnnotationPopup, 
   OSDWirePopup, 
@@ -56,6 +57,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const [title, setTitle] = useState<string | undefined>();
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
+
+  const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS')
 
   useEffect(() => {
     if (!anno) return;
@@ -145,6 +148,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
               collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
+              wiresVisibility={wiresVisibility}
+              onSetWiresVisibility={setWiresVisibility}
               onEnableWires={() => setWiresEnabled(true)} />
           </div>
 
@@ -167,9 +172,6 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <AnnotoriousPlugin
             plugin={ToolsPlugin} />
 
-          <AnnotoriousPlugin
-            plugin={MagneticOutlinePlugin} />
-
           <OpenSeadragonHoverTooltip 
             tooltip={() => (
               <div className="text-xs bg-white/15 backdrop-blur-xs p-2 rounded">
@@ -190,7 +192,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             )} />
 
           <OSDWiresPlugin 
-            enabled={wiresEnabled}>
+            enabled={wiresEnabled}
+            visibility={wiresVisibility}>
             <OSDWirePopup
               arrow
               popup={popupProps => (

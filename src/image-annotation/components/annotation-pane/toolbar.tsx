@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { ClipboardCopy, GitCompareArrows, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { ClipboardCopy, GitCompareArrows, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
+import type { WiresVisibility } from '@annotorious/plugin-wires';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -8,12 +9,17 @@ import { Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MoreTools } from './more-tools';
+import { Toggle } from '@/components/ui/toggle';
 
 interface ToolbarProps {
 
   collapsed?: boolean;
 
+  wiresVisibility: WiresVisibility;
+
   onEnableWires(): void;
+
+  onSetWiresVisibility(visibility: WiresVisibility): void;
 
 }
 
@@ -145,6 +151,24 @@ export const Toolbar = (props: ToolbarProps) => {
 
           <Tooltip>
             <TooltipTrigger asChild>
+              <div>
+                <Toggle
+                  pressed={props.wiresVisibility !== 'ALWAYS'}
+                  onPressedChange={p => props.onSetWiresVisibility(p ? 'HOVER_OR_SELECT' : 'ALWAYS')}>
+                  <RouteOff />
+                </Toggle>
+              </div>
+            </TooltipTrigger>
+            
+            <TooltipContent>
+              <span className="flex gap-1 flex-nowrap">
+                Hide relations
+              </span>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
               <Button 
                 variant="ghost"
                 disabled>
@@ -218,7 +242,9 @@ export const Toolbar = (props: ToolbarProps) => {
 
       {props.collapsed && (
         <MoreTools 
-          onEnableWires={props.onEnableWires} />
+          wiresVisibility={props.wiresVisibility}
+          onEnableWires={props.onEnableWires} 
+          onSetWiresVisibility={props.onSetWiresVisibility} />
       )}
     </div>
   ) : null;
