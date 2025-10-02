@@ -12,8 +12,8 @@ const TEI_URL = 'chapter_BCar_incl_sandhi.xml';
 // const TEI_URL = '/True_udu82q.xml';
 // const TEI_URL = '/Videvdad.xml';
 
-const IIIF_URL = 'https://manifests.collections.yale.edu/yuag/obj/9874';
-// const IIIF_URL = 'https://images.collections.yale.edu/iiif/2/yuag:a90a4736-e288-4ee2-a95d-5cd398e758fa/info.json';
+// const IIIF_URL = 'https://manifests.collections.yale.edu/yuag/obj/9874';
+const IIIF_URL = 'https://heidicon.ub.uni-heidelberg.de/manifest/iiif/1719570/manifest.json';
 
 ReactDOM.createRoot(document.getElementById('app')!).render(
   <HashRouter>

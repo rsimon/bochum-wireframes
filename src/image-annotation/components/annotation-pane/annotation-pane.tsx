@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { AnnotoriousOpenSeadragonAnnotator, OpenSeadragonAnnotator, OpenSeadragonViewer, useAnnotator } from '@annotorious/react';
+import { AnnotoriousOpenSeadragonAnnotator, AnnotoriousPlugin, OpenSeadragonAnnotator, OpenSeadragonViewer, useAnnotator } from '@annotorious/react';
+import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { OpenSeadragonAnnotationPopup, OSDWirePopup, OSDWiresPlugin } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
@@ -14,6 +15,7 @@ import { LinkToolbar } from './link-toolbar';
 import { ShapeToolbar } from './shape-toolbar';
 
 import '@annotorious/react/annotorious-react.css';
+import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
 
 interface AnnotationPaneProps {
@@ -148,6 +150,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <OpenSeadragonViewer
             options={options} 
             className="h-full w-full" />
+
+          <AnnotoriousPlugin
+            plugin={ToolsPlugin} />
 
           <OpenSeadragonAnnotationPopup
             arrow

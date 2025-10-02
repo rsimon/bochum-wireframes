@@ -139,16 +139,14 @@ export const ToolSelector = (props: ToolSelectorProps) => {
           </SelectItem>
 
           <SelectItem 
-            value="ellipse" 
-            disabled>
+            value="ellipse">
             <div className="flex items-center text-xs gap-1.5">
               <Circle className="size-3.5 shrink-0" /> Ellipse
             </div>
           </SelectItem>
 
           <SelectItem 
-            value="path"
-            disabled>
+            value="path">
             <div className="flex items-center text-xs gap-1.5">
               <Tangent className="size-3.5 shrink-0" /> Path
             </div>
