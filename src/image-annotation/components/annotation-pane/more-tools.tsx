@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator"
 import { Toggle } from "@/components/ui/toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { ClipboardCopy, EllipsisVertical, GitCompareArrows, Minus, Plus, RotateCcwSquare, RotateCwSquare, RouteOff, ZoomIn, ZoomOut } from "lucide-react"
-import type { WiresVisibility } from '@annotorious/plugin-wires';
+import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 
 interface MoreToolsProps {
 

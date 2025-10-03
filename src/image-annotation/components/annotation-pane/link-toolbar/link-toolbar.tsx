@@ -28,10 +28,8 @@ export const LinkToolbar = (props: WirePopupProps) => {
         ...nextTags
       ]
     };
-    
-    anno.state.store.updateAnnotation(updated);
 
-    console.log('clearing selection');
+    anno.state.store.updateAnnotation(updated);
     anno.state.selection.clear();
   }
 

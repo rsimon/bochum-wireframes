@@ -3,7 +3,7 @@ import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
-import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
+import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
@@ -12,7 +12,7 @@ import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
 import { LinkToolbar } from './link-toolbar';
 import { ShapeToolbar } from './shape-toolbar';
-import { WiresVisibility } from '@annotorious/plugin-wires';
+import { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { 
   OpenSeadragonAnnotationPopup, 
   OSDWirePopup, 
@@ -31,6 +31,7 @@ import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
+import { LinkLabel } from './link-label';
 
 interface AnnotationPaneProps {
 
@@ -193,7 +194,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}
-            visibility={wiresVisibility}>
+            showWires={wiresVisibility}
+            label={LinkLabel}>
             <OSDWirePopup
               arrow
               popup={popupProps => (

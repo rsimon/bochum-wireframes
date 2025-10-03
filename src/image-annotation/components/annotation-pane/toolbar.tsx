@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ClipboardCopy, GitCompareArrows, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
-import type { WiresVisibility } from '@annotorious/plugin-wires';
+import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
