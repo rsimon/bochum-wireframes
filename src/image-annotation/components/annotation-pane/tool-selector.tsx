@@ -153,8 +153,7 @@ export const ToolSelector = (props: ToolSelectorProps) => {
           </SelectItem>
 
           <SelectItem 
-            value="intelligent-scissors"
-            disabled>
+            value="intelligent-scissors">
             <div className="flex items-center text-xs gap-1.5">
               <ScissorsLineDashed className="size-3.5 shrink-0" /> Scissors
             </div>

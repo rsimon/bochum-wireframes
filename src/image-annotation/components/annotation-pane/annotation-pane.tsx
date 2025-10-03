@@ -13,6 +13,8 @@ import { Toolbar } from './toolbar';
 import { LinkToolbar } from './link-toolbar';
 import { ShapeToolbar } from './shape-toolbar';
 import { WiresVisibility } from '@annotorious/plugin-wires-react';
+import { LinkLabel } from './link-label';
+import { useInfoJson } from './use-info-json';
 import { 
   OpenSeadragonAnnotationPopup, 
   OSDWirePopup, 
@@ -31,7 +33,6 @@ import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
-import { LinkLabel } from './link-label';
 
 interface AnnotationPaneProps {
 
@@ -59,7 +60,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
 
-  const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS')
+  const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS');
+
+  // Patches broken HeidICON info.json (points to HTTTP images)
+  const tileSources = useInfoJson((props.canvas?.images[0] as DynamicImageServiceResource)?.serviceUrl);
 
   useEffect(() => {
     if (!anno) return;
@@ -72,7 +76,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     }
   }, [anno]);
 
-  const options = useMemo(() => props.canvas ? ({
+  const options = useMemo(() => tileSources ? ({
+    crossOriginPolicy: 'Anonymous',
     gestureSettingsMouse: {
       clickToZoom: false,
       dblClickToZoom: false
@@ -85,9 +90,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     preserveImageSizeOnResize: true,
     showNavigationControl: false,
     showRotationControl: true,
-    tileSources: (props.canvas.images[0] as DynamicImageServiceResource).serviceUrl,
+    tileSources: [tileSources],
     visibilityRatio: 0.2
-  } as OpenSeadragon.Options) : { showNavigationControl: false }, [props.canvas]);
+  } as OpenSeadragon.Options) : { showNavigationControl: false }, [tileSources]);
 
   useEffect(() => {
     window.setTimeout(() => setTitle('Example'), 500);
@@ -172,6 +177,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <AnnotoriousPlugin
             plugin={ToolsPlugin} />
+
+          <AnnotoriousPlugin
+            plugin={MagneticOutlinePlugin} />
 
           <OpenSeadragonHoverTooltip 
             tooltip={() => (
