@@ -12,6 +12,8 @@ interface TextAnnotationProps {
 
   url: string;
 
+  theme?: 'ORANGE' | 'CYAN';
+
   isRTL?: boolean;
 
 }
@@ -26,7 +28,7 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
 
   const [saving, setSaving] = useState(false);
 
-  const style = useAnnotationsStyle();
+  const style = useAnnotationsStyle(props.theme);
 
   useEffect(() => {
     const CETEIcean = new CETEI({ ignoreFragmentId: true });

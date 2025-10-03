@@ -11,9 +11,17 @@ export const Start = () => {
       <ul className="mt-4 space-y-1">
         <li>
           <Link 
-            to="text"
+            to="text-1"
             className="hover:underline text-sky-700">
-            Text annotation interface
+            Text annotation interface (Buddhacarita)
+          </Link>
+        </li>
+
+        <li>
+          <Link 
+            to="text-2"
+            className="hover:underline text-sky-700">
+            Text annotation interface (Sample Reddit Thread)
           </Link>
         </li>
 

@@ -1,6 +1,5 @@
 tei-div * {
-  font-family: 'Source Serif 4';
-  line-height: normal;
+  /* line-height: normal; */
 }
 
 tei-div {
@@ -17,11 +16,6 @@ tei-div[type="chapter"]::before {
 
 tei-div[type="chapter"] + tei-div[type="chapter"]::before {
   padding-top: 2rem;
-}
-
-tei-div[type="replies"] {
-  padding-top: 1rem;
-  padding-left: 1rem;
 }
 
 :is(tei-div[type="thread"], tei-post) + :is(tei-div[type="thread"], tei-post) {
@@ -76,15 +70,12 @@ tei-choice {
 }
 
 tei-orig {
-  color: #cc5454;
+  color: #836a45;
   user-select: none;
+  font-weight: 300;
 }
 
 
 tei-l tei-orig tei-w {
   font-style: normal;
-}
-
-tei-l tei-w {
-  font-style: italic;
 }

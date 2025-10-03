@@ -3,7 +3,23 @@ import { Store, useAnnotationStore, useSelection, type AnnotationState } from '@
 import type { HighlightStyleExpression, TEIAnnotation } from '@recogito/react-text-annotator';
 import { useMemo } from 'react';
 
-const WHEN_NO_SELECTION: HighlightStyleExpression = (
+const THEMES = {
+  ORANGE: {
+    FILL_COLOR_OPAQUE: 'oklch(0.78 0.19 57.08 / 0.75)',
+    FILL_COLOR_SEMITRANSPARENT: 'oklch(0.8 0.18 59.17 / 0.14)',
+    UNDERLINE_COLOR_OPAQUE: 'oklch(0.78 0.19 57.08 / 0.87)'
+  },
+  CYAN: {
+    FILL_COLOR_OPAQUE: 'oklch(0.72 0.18 237.15 / 0.5)',
+    FILL_COLOR_SEMITRANSPARENT: 'oklch(0.72 0.19 232.06 / 0.08)',
+    UNDERLINE_COLOR_OPAQUE: 'oklch(0.72 0.19 232.06)',
+  }
+}
+
+const THEME = THEMES.ORANGE;
+
+// @ts-ignore
+const WHEN_NO_SELECTION = (theme: typeof THEMES[keyof THEMES]): HighlightStyleExpression => (
   annotation: TEIAnnotation, 
   _state: AnnotationState, 
   z: number
@@ -12,21 +28,20 @@ const WHEN_NO_SELECTION: HighlightStyleExpression = (
 
   if (type === 'metaphor') {
     return {
-      fill: '#1a1a1a',
-      fillOpacity: 0.07,
-      underlineColor: '#1a1a1a',
-      underlineThickness: 1,
+      fill: theme.FILL_COLOR_SEMITRANSPARENT,
+      underlineColor: theme.UNDERLINE_COLOR_OPAQUE,
+      underlineThickness: 2,
       underlineOffset: 4 * z
     }
   } else {
     return {
-      fill: '#e60076', 
-      fillOpacity: 0.35
+      fill: theme.FILL_COLOR_OPAQUE
     }
   }
 }
 
-const WHEN_SELECTION = (emphasized: string[]): HighlightStyleExpression => (
+// @ts-ignore
+const WHEN_SELECTION = (theme: typeof THEMES[keyof THEMES], emphasized: string[]): HighlightStyleExpression => (
   annotation: TEIAnnotation, 
   state: AnnotationState, 
   z: number
@@ -37,20 +52,20 @@ const WHEN_SELECTION = (emphasized: string[]): HighlightStyleExpression => (
   if (type === 'metaphor') {
     return {
       fill: '#1a1a1a',
-      fillOpacity: isEmphasized ? 0.07 : 0.03,
-      underlineColor: isEmphasized ? '#1a1a1a' : '#e2e2e2',
-      underlineThickness: 1,
+      fillOpacity: isEmphasized ? 0 : 0.03,
+      underlineColor: isEmphasized ? theme.UNDERLINE_COLOR_OPAQUE : '#e2e2ff',
+      underlineThickness: 2,
       underlineOffset: 4 * z
     }
   } else {
     return {
-      fill: isEmphasized ? '#e60076' : '#1a1a1a', 
-      fillOpacity: isEmphasized ? 0.35 : 0.07 
+      fill: isEmphasized ? theme.FILL_COLOR_OPAQUE : '#1a1a1a', 
+      fillOpacity: isEmphasized ? undefined : 0.12 
     }
   }
 }
 
-export const useAnnotationsStyle = () => {
+export const useAnnotationsStyle = (theme = 'ORANGE') => {
 
   const selection = useSelection<TEIAnnotation>();
 
@@ -79,6 +94,6 @@ export const useAnnotationsStyle = () => {
     return emphasized.map(a => a.id);
   }, [selection.selected, store]);
 
-  return hasSelection ? WHEN_SELECTION(emphasized) : WHEN_NO_SELECTION;
+  return hasSelection ? WHEN_SELECTION(THEMES[theme], emphasized) : WHEN_NO_SELECTION(THEMES[theme]);
 
 }
