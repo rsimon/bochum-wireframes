@@ -10,7 +10,7 @@ import './index.css';
 const TEI_URL_1 = 'chapter_BCar_incl_sandhi.xml';
 // const TEI_URL = '/Rumi_Masnavi_1.xml';
 // const TEI_URL_2 = '/True_udu82q.xml';
-const TEI_URL_2 = '/example-document-en.xml';
+const TEI_URL_2 = 'example-document-en.xml';
 // const TEI_URL = '/Videvdad.xml';
 
 // const IIIF_URL = 'https://manifests.collections.yale.edu/yuag/obj/9874';
