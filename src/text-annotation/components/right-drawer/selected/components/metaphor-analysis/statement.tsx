@@ -53,11 +53,11 @@ export const Statement = (props: StatementProps) => {
                     className="text-sm flex gap-2 items-center">
                     <div className={cn('size-2 rounded-full', COLORS[idx % COLORS.length])}/> 
                     
-                    <div className="flex gap-1.5 items-center hover:underline cursor-pointer">
-                      {link.prefLabel}  
+                    <div className="flex gap-1.5 items-center cursor-pointer">
+                      <span className="hover:underline">{link.prefLabel}</span>
                       <div className="flex items-baseline gap-0.5 text-muted-foreground text-xs">
                         <CornerRightUp className="size-3 translate-y-[1px]" /> 
-                        <span>{link.parentPrefLabel}</span>
+                        <span className="hover:underline">{link.parentPrefLabel}</span>
                       </div>
                     </div>
                   </div>
@@ -96,11 +96,11 @@ export const Statement = (props: StatementProps) => {
                     className="text-sm flex gap-2 items-center">
                     <div className={cn('size-2 rounded-full', COLORS[(idx + props.sourceLinks.length) % COLORS.length])}/> 
                     
-                    <div className="flex gap-1.5 items-center hover:underline cursor-pointer">
-                      {link.prefLabel}  
+                    <div className="flex gap-1.5 items-center cursor-pointer">
+                      <span className="hover:underline">{link.prefLabel}</span>
                       <div className="flex items-baseline gap-0.5 text-muted-foreground text-xs">
                         <CornerRightUp className="size-3 translate-y-[1px]" /> 
-                        <span>{link.parentPrefLabel}</span>
+                        <span className="hover:underline">{link.parentPrefLabel}</span>
                       </div>
                     </div>
                   </div>
