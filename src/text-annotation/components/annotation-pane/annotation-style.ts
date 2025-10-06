@@ -16,8 +16,6 @@ const THEMES = {
   }
 }
 
-const THEME = THEMES.ORANGE;
-
 // @ts-ignore
 const WHEN_NO_SELECTION = (theme: typeof THEMES[keyof THEMES]): HighlightStyleExpression => (
   annotation: TEIAnnotation, 
@@ -28,7 +26,7 @@ const WHEN_NO_SELECTION = (theme: typeof THEMES[keyof THEMES]): HighlightStyleEx
 
   if (type === 'metaphor') {
     return {
-      fill: theme.FILL_COLOR_SEMITRANSPARENT,
+      fillOpacity: 0,
       underlineColor: theme.UNDERLINE_COLOR_OPAQUE,
       underlineThickness: 2,
       underlineOffset: 4 * z
@@ -51,8 +49,8 @@ const WHEN_SELECTION = (theme: typeof THEMES[keyof THEMES], emphasized: string[]
 
   if (type === 'metaphor') {
     return {
-      fill: '#1a1a1a',
-      fillOpacity: isEmphasized ? 0 : 0.03,
+      fill: isEmphasized ? theme.FILL_COLOR_SEMITRANSPARENT : undefined,
+      fillOpacity: isEmphasized ? undefined : 0,
       underlineColor: isEmphasized ? theme.UNDERLINE_COLOR_OPAQUE : '#e2e2ff',
       underlineThickness: 2,
       underlineOffset: 4 * z
