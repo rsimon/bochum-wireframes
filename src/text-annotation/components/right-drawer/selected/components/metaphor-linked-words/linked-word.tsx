@@ -25,7 +25,7 @@ export const LinkedWordItem = (props: LinkedWordItemProps) => {
 
   return (
     <div 
-      className="flex items-center gap-3 font-serif italic overflow-hidden">
+      className="flex items-center gap-3 font-serif italic">
       <Checkbox 
         checked={props.checked}
         onCheckedChange={props.onCheckedChange}
@@ -34,8 +34,8 @@ export const LinkedWordItem = (props: LinkedWordItemProps) => {
       <div className="flex items-center gap-1">
         <Label 
           htmlFor={props.annotation.id}
-          className="whitespace-nowrap overflow-hidden">
-          <span className="truncate">{getQuote(props.annotation)}</span>
+          className="whitespace-nowrap overflow-visible">
+          <span>{getQuote(props.annotation)}</span>
         </Label>
 
         {mrwType && (
