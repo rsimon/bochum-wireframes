@@ -32,8 +32,8 @@ export const Statement = (props: StatementProps) => {
     <Card className="bg-white shadow-xs rounded-full py-2 px-2.5">
       <CardContent className="p-0 flex gap-3 justify-between items-center">
         <div className="flex gap-1.5 items-center">
-          {props.source}
-          {props.sourceLinks.length > 0 && (
+          {props.target}
+          {props.target.length > 0 && (
             <HoverCard openDelay={100}>
               <HoverCardTrigger>
                 <Badge 
@@ -47,7 +47,7 @@ export const Statement = (props: StatementProps) => {
                 side="top" 
                 sideOffset={6}
                 className="py-2 px-3 space-y-1 w-auto min-w-20">
-                {props.sourceLinks.map((link, idx) => ( 
+                {props.targetLinks.map((link, idx) => ( 
                   <div 
                     key={link.prefLabel}
                     className="text-sm flex gap-2 items-center">
@@ -67,25 +67,25 @@ export const Statement = (props: StatementProps) => {
           )}
         </div>
 
-        {/*
         <div className="grow relative self-stretch mb-0.5">
           <div className="absolute w-full left-0 top-1/2 h-[1px] border-dashed border-t border-gray-400" />
           <div className="absolute -right-1 flex items-center h-full">
             <div className="border-t-4 translate-y-[0.5px] border-t-transparent border-b-4 border-b-transparent border-l-8 border-l-gray-400" />
           </div>
         </div>
-        */}
 
+        {/*
         <div className="grow relative self-stretch mb-0.5">
           <div className="absolute w-full left-0 top-1/2 h-[1px] border-dashed border-t border-gray-400" />
           <div className="absolute -left-1 flex items-center h-full">
             <div className="border-t-4 translate-y-[0.5px] border-t-transparent border-b-4 border-b-transparent border-r-8 border-r-gray-400" />
           </div>
         </div>
+        */}
 
         <div className="flex gap-1.5 items-center">
-          {props.target}
-          {props.targetLinks.length > 0 ? (
+          {props.source}
+          {props.sourceLinks.length > 0 ? (
             <HoverCard openDelay={100}>
               <HoverCardTrigger>
                 <Badge 
@@ -99,7 +99,7 @@ export const Statement = (props: StatementProps) => {
                 side="top" 
                 sideOffset={10}
                 className="py-2 px-3 space-y-1 w-auto min-w-20">
-                {props.targetLinks.map((link, idx) => (
+                {props.sourceLinks.map((link, idx) => (
                   <div 
                     key={link.prefLabel}
                     className="text-sm flex gap-2 items-center">
