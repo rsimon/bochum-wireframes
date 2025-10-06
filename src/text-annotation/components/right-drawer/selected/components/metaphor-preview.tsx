@@ -22,7 +22,7 @@ export const MetaphorPreview = (props: MetaphorPreviewProps) => {
     if (props.linked.length === 0) {
       return [{ value: getQuote(props.annotation).replace(/\s+/g, ' '), type: 'metaphor' }];
     } else {
-      const linkedAnnotations = props.linked.map(id => store.getAnnotation(id));
+      const linkedAnnotations = props.linked.map(id => store.getAnnotation(id)).filter(Boolean);
       return interleaveLinkedAnnotations(props.annotation, linkedAnnotations);
     }
   }, [store, props.annotation, props.linked]);
