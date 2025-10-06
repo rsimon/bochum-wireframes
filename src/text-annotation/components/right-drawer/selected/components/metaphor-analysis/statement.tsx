@@ -67,21 +67,21 @@ export const Statement = (props: StatementProps) => {
           )}
         </div>
 
+        {/*
         <div className="grow relative self-stretch mb-0.5">
           <div className="absolute w-full left-0 top-1/2 h-[1px] border-dashed border-t border-gray-400" />
           <div className="absolute -right-1 flex items-center h-full">
             <div className="border-t-4 translate-y-[0.5px] border-t-transparent border-b-4 border-b-transparent border-l-8 border-l-gray-400" />
           </div>
         </div>
+        */}
 
-        {/*
         <div className="grow relative self-stretch mb-0.5">
           <div className="absolute w-full left-0 top-1/2 h-[1px] border-dashed border-t border-gray-400" />
           <div className="absolute -left-1 flex items-center h-full">
             <div className="border-t-4 translate-y-[0.5px] border-t-transparent border-b-4 border-b-transparent border-r-8 border-r-gray-400" />
           </div>
         </div>
-        */}
 
         <div className="flex gap-1.5 items-center">
           {props.source}
