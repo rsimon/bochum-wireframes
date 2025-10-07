@@ -1,17 +1,30 @@
-import { PrivacySelector } from "@/components/privacy-selector"
-import { Button } from "@/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
-import { Toggle } from "@/components/ui/toggle"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { ClipboardCopy, EllipsisVertical, GitCompareArrows, Minus, Plus, RotateCcwSquare, RotateCwSquare, RouteOff, ZoomIn, ZoomOut } from "lucide-react"
 import type { WiresVisibility } from '@annotorious/plugin-wires-react';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { PrivacySelector } from '@/components/privacy-selector';
+import { Separator } from '@/components/ui/separator';
+import { Toggle } from '@/components/ui/toggle';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ArrowsTool } from './arrows-tool';
+import { 
+  ClipboardCopy, 
+  EllipsisVertical, 
+  Minus, 
+  Plus, 
+  RotateCcwSquare, 
+  RotateCwSquare, 
+  RouteOff, 
+  ZoomIn, 
+  ZoomOut 
+} from 'lucide-react';
 
 interface MoreToolsProps {
 
-  wiresVisibility: WiresVisibility;
+  arrowsEnabled: boolean;
 
-  onEnableWires(): void;
+  onSetArrowsEnabled(enabled: boolean): void;
+
+  wiresVisibility: WiresVisibility;
 
   onSetWiresVisibility(visibility: WiresVisibility): void;
 
@@ -92,24 +105,9 @@ export const MoreTools = (props: MoreToolsProps) => {
 
         <Separator orientation="vertical" className="mx-1" />
 
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button 
-              variant="ghost"
-              onClick={props.onEnableWires}>
-              <GitCompareArrows />
-            </Button>
-          </TooltipTrigger>
-          
-          <TooltipContent>
-            <span className="flex gap-1 flex-nowrap">
-              <span className="mr-1">Create relation</span>
-              <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
-                R
-              </span>
-            </span>
-          </TooltipContent>
-        </Tooltip>
+        <ArrowsTool 
+          enabled={props.arrowsEnabled} 
+          onSetEnabled={props.onSetArrowsEnabled} />
 
         <Tooltip>
           <TooltipTrigger asChild>

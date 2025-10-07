@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ClipboardCopy, GitCompareArrows, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
+import { ClipboardCopy, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { PrivacySelector } from '@/components/privacy-selector';
@@ -10,6 +10,7 @@ import { ToolSelector } from './tool-selector';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MoreTools } from './more-tools';
 import { Toggle } from '@/components/ui/toggle';
+import { ArrowsTool } from './arrows-tool';
 
 interface ToolbarProps {
 
@@ -17,9 +18,11 @@ interface ToolbarProps {
 
   wiresVisibility: WiresVisibility;
 
-  onEnableWires(): void;
-
   onSetWiresVisibility(visibility: WiresVisibility): void;
+
+  arrowsEnabled: boolean;
+
+  onSetArrowsEnabled(enabled: boolean): void;
 
 }
 
@@ -130,24 +133,9 @@ export const Toolbar = (props: ToolbarProps) => {
 
           <Separator orientation="vertical" className="mx-1" />
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button 
-                variant="ghost"
-                onClick={props.onEnableWires}>
-                <GitCompareArrows />
-              </Button>
-            </TooltipTrigger>
-            
-            <TooltipContent>
-              <span className="flex gap-1 flex-nowrap">
-                <span className="mr-1">Create relation</span>
-                <span className="bg-muted/80 text-black size-4 rounded flex items-center justify-center relative z-50">
-                  R
-                </span>
-              </span>
-            </TooltipContent>
-          </Tooltip>
+          <ArrowsTool 
+            enabled={props.arrowsEnabled}
+            onSetEnabled={props.onSetArrowsEnabled} />
 
           <Tooltip>
             <TooltipTrigger asChild>
@@ -242,8 +230,9 @@ export const Toolbar = (props: ToolbarProps) => {
 
       {props.collapsed && (
         <MoreTools 
+          arrowsEnabled={props.arrowsEnabled}
+          onSetArrowsEnabled={props.onSetArrowsEnabled}
           wiresVisibility={props.wiresVisibility}
-          onEnableWires={props.onEnableWires} 
           onSetWiresVisibility={props.onSetWiresVisibility} />
       )}
     </div>

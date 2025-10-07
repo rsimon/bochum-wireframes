@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
+import { OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,7 @@ import {
 } from '@annotorious/react';
 
 import '@annotorious/react/annotorious-react.css';
+import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
@@ -57,6 +59,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
 
   const [title, setTitle] = useState<string | undefined>();
+
+  const [arrowsEnabled, setArrowsEnabled] = useState(false);
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
 
@@ -154,9 +158,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
               collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
+              arrowsEnabled={arrowsEnabled}
+              onSetArrowsEnabled={setArrowsEnabled}
               wiresVisibility={wiresVisibility}
-              onSetWiresVisibility={setWiresVisibility}
-              onEnableWires={() => setWiresEnabled(true)} />
+              onSetWiresVisibility={setWiresVisibility} />
           </div>
 
           <MyAccount />
@@ -199,6 +204,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 onClickAdvanced={props.onFocusRightDrawer} 
                 onEnableWires={() => setWiresEnabled(true)} />
             )} />
+
+          <OSDArrowsPlugin 
+            enabled={arrowsEnabled} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}
