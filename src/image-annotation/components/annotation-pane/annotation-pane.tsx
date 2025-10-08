@@ -205,8 +205,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 onEnableWires={() => setWiresEnabled(true)} />
             )} />
 
-          <OSDArrowsPlugin 
-            enabled={arrowsEnabled} />
+          {/* <OSDArrowsPlugin 
+            enabled={arrowsEnabled} /> */}
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}

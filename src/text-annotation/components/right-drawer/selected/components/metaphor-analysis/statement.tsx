@@ -33,7 +33,7 @@ export const Statement = (props: StatementProps) => {
       <CardContent className="p-0 flex gap-3 justify-between items-center">
         <div className="flex gap-1.5 items-center">
           {props.target}
-          {props.target.length > 0 && (
+          {props.targetLinks.length > 0 && (
             <HoverCard openDelay={100}>
               <HoverCardTrigger>
                 <Badge 
