@@ -54,6 +54,23 @@ interface AnnotationPaneProps {
 
 }
 
+const OSD_BASE_OPTIONS = {
+  crossOriginPolicy: 'Anonymous',
+  gestureSettingsMouse: {
+    clickToZoom: false,
+    dblClickToZoom: false
+  },
+  gestureSettingsTouch: {
+    pinchRotate: true
+  },
+  maxZoomLevel: 100,
+  minZoomLevel: 0.1,
+  preserveImageSizeOnResize: true,
+  showNavigationControl: false,
+  showRotationControl: true,
+  visibilityRatio: 0.2
+} as OpenSeadragon.Options;
+
 export const AnnotationPane = (props: AnnotationPaneProps) => {
   
   const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
@@ -81,22 +98,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   }, [anno]);
 
   const options = useMemo(() => tileSources ? ({
-    crossOriginPolicy: 'Anonymous',
-    gestureSettingsMouse: {
-      clickToZoom: false,
-      dblClickToZoom: false
-    },
-    gestureSettingsTouch: {
-      pinchRotate: true
-    },
-    maxZoomLevel: 100,
-    minZoomLevel: 0.1,
-    preserveImageSizeOnResize: true,
-    showNavigationControl: false,
-    showRotationControl: true,
-    tileSources: [tileSources],
-    visibilityRatio: 0.2
-  } as OpenSeadragon.Options) : { showNavigationControl: false }, [tileSources]);
+    ...OSD_BASE_OPTIONS,
+    tileSources: [tileSources]
+  } as OpenSeadragon.Options) : OSD_BASE_OPTIONS, [tileSources]);
 
   useEffect(() => {
     window.setTimeout(() => setTitle('Example'), 500);
@@ -205,8 +209,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 onEnableWires={() => setWiresEnabled(true)} />
             )} />
 
-          {/* <OSDArrowsPlugin 
-            enabled={arrowsEnabled} /> */}
+          <OSDArrowsPlugin 
+            enabled={arrowsEnabled} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}
