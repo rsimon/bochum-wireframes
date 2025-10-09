@@ -5,7 +5,7 @@ import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Tool } from '@/image-annotation/types';
+import { ArrowsPluginMode, Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MoreTools } from './more-tools';
@@ -14,15 +14,19 @@ import { ArrowsTool } from './arrows-tool';
 
 interface ToolbarProps {
 
+  arrowsEnabled: boolean;
+  
+  arrowsMode: ArrowsPluginMode;
+
   collapsed?: boolean;
 
   wiresVisibility: WiresVisibility;
 
-  onSetWiresVisibility(visibility: WiresVisibility): void;
-
-  arrowsEnabled: boolean;
-
   onSetArrowsEnabled(enabled: boolean): void;
+
+  onSetArrowsMode(mode: ArrowsPluginMode): void;
+
+  onSetWiresVisibility(visibility: WiresVisibility): void;
 
 }
 
@@ -135,7 +139,9 @@ export const Toolbar = (props: ToolbarProps) => {
 
           <ArrowsTool 
             enabled={props.arrowsEnabled}
-            onSetEnabled={props.onSetArrowsEnabled} />
+            mode={props.arrowsMode}
+            onSetEnabled={props.onSetArrowsEnabled} 
+            onSetMode={props.onSetArrowsMode} />
 
           <Tooltip>
             <TooltipTrigger asChild>
@@ -231,7 +237,9 @@ export const Toolbar = (props: ToolbarProps) => {
       {props.collapsed && (
         <MoreTools 
           arrowsEnabled={props.arrowsEnabled}
+          arrowsMode={props.arrowsMode}
           onSetArrowsEnabled={props.onSetArrowsEnabled}
+          onSetArrowsMode={props.onSetArrowsMode}
           wiresVisibility={props.wiresVisibility}
           onSetWiresVisibility={props.onSetWiresVisibility} />
       )}

@@ -1,24 +1,32 @@
 import { GitCompareArrows } from 'lucide-react';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ArrowsPluginMode } from '@/image-annotation/types';
 
 interface ArrowsToolProps {
 
   enabled: boolean;
 
+  mode: ArrowsPluginMode;
+
   onSetEnabled(enabled: boolean): void;
+
+  onSetMode(mode: 'select' | 'draw'): void;
 
 }
 
 export const ArrowsTool = (props: ArrowsToolProps) => {
+
+  const onToggle = (enabled: boolean) =>
+    props.onSetMode(enabled ? 'draw' : 'select');
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <div>
           <Toggle 
-            pressed={props.enabled}
-            onPressedChange={props.onSetEnabled}>
+            pressed={props.mode === 'draw'}
+            onPressedChange={onToggle}>
             <GitCompareArrows />
           </Toggle>
         </div>

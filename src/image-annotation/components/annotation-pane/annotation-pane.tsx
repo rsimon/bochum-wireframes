@@ -35,6 +35,7 @@ import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
+import { ArrowsPluginMode } from '@/image-annotation/types';
 
 interface AnnotationPaneProps {
 
@@ -78,6 +79,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const [title, setTitle] = useState<string | undefined>();
 
   const [arrowsEnabled, setArrowsEnabled] = useState(false);
+
+  const [arrowsMode, setArrowsMode] = useState<ArrowsPluginMode>('select');
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
 
@@ -161,9 +164,11 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <AvatarStack />
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
-              collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
               arrowsEnabled={arrowsEnabled}
+              arrowsMode={arrowsMode}
+              collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
               onSetArrowsEnabled={setArrowsEnabled}
+              onSetArrowsMode={setArrowsMode}
               wiresVisibility={wiresVisibility}
               onSetWiresVisibility={setWiresVisibility} />
           </div>
@@ -210,7 +215,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             )} />
 
           <OSDArrowsPlugin 
-            enabled={arrowsEnabled} />
+            enabled={true} 
+            mode={arrowsMode} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}

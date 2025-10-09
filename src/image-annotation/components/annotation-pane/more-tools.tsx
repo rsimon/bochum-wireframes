@@ -5,6 +5,7 @@ import { PrivacySelector } from '@/components/privacy-selector';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ArrowsPluginMode } from '@/image-annotation/types';
 import { ArrowsTool } from './arrows-tool';
 import { 
   ClipboardCopy, 
@@ -22,7 +23,11 @@ interface MoreToolsProps {
 
   arrowsEnabled: boolean;
 
+  arrowsMode: ArrowsPluginMode,
+
   onSetArrowsEnabled(enabled: boolean): void;
+
+  onSetArrowsMode(mode: ArrowsPluginMode): void;
 
   wiresVisibility: WiresVisibility;
 
@@ -107,7 +112,9 @@ export const MoreTools = (props: MoreToolsProps) => {
 
         <ArrowsTool 
           enabled={props.arrowsEnabled} 
-          onSetEnabled={props.onSetArrowsEnabled} />
+          mode={props.arrowsMode}
+          onSetEnabled={props.onSetArrowsEnabled} 
+          onSetMode={props.onSetArrowsMode} />
 
         <Tooltip>
           <TooltipTrigger asChild>
