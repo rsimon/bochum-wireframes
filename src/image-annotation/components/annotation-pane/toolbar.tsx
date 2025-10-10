@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ClipboardCopy, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
+import { ArrowsPluginMode } from '@annotorious/plugin-arrows-react';
 import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { ArrowsPluginMode, Tool } from '@/image-annotation/types';
+import { Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MoreTools } from './more-tools';
@@ -50,10 +51,20 @@ export const Toolbar = (props: ToolbarProps) => {
     anno.setDrawingEnabled(drawingEnabled);
   }, [drawingEnabled]);
 
+  useEffect(() => {
+    if (props.arrowsMode === 'draw')
+      setDrawingEnabled(false);
+  }, [props.arrowsMode]);
+
   const onZoom = (factor: number) => viewer.viewport.zoomBy(factor);
 
   // @ts-ignore
   const onRotate = (inc: number) => viewer.viewport.rotateBy(inc);
+
+  const onSetDrawingEnabled = (enabled: boolean) => {
+    props.onSetArrowsMode('select');
+    setDrawingEnabled(enabled);
+  }
 
   return (anno && viewer) ? (
     <div className="flex flex-nowrap items-center">
@@ -63,12 +74,21 @@ export const Toolbar = (props: ToolbarProps) => {
         )}
 
         <ToolSelector 
+          arrowsMode={props.arrowsMode}
           collapsed={props.collapsed}
           drawingEnabled={drawingEnabled} 
           tool={tool} 
-          onSetDrawingEnabled={setDrawingEnabled} 
+          onSetDrawingEnabled={onSetDrawingEnabled} 
           onChangeTool={setTool} />
+
+        <ArrowsTool 
+          enabled={props.arrowsEnabled}
+          mode={props.arrowsMode}
+          onSetEnabled={props.onSetArrowsEnabled} 
+          onSetMode={props.onSetArrowsMode} />
       </div>
+
+      <Separator orientation="vertical" className="mx-1" />
 
       {!props.collapsed && (
         <>
@@ -136,12 +156,6 @@ export const Toolbar = (props: ToolbarProps) => {
           </Tooltip>
 
           <Separator orientation="vertical" className="mx-1" />
-
-          <ArrowsTool 
-            enabled={props.arrowsEnabled}
-            mode={props.arrowsMode}
-            onSetEnabled={props.onSetArrowsEnabled} 
-            onSetMode={props.onSetArrowsMode} />
 
           <Tooltip>
             <TooltipTrigger asChild>
@@ -235,11 +249,7 @@ export const Toolbar = (props: ToolbarProps) => {
       </Tooltip>
 
       {props.collapsed && (
-        <MoreTools 
-          arrowsEnabled={props.arrowsEnabled}
-          arrowsMode={props.arrowsMode}
-          onSetArrowsEnabled={props.onSetArrowsEnabled}
-          onSetArrowsMode={props.onSetArrowsMode}
+        <MoreTools
           wiresVisibility={props.wiresVisibility}
           onSetWiresVisibility={props.onSetWiresVisibility} />
       )}

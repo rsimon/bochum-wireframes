@@ -6,8 +6,11 @@ import { cn } from '@/lib/utils';
 import { useEffect } from 'react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator } from '@annotorious/react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ArrowsPluginMode } from '@annotorious/plugin-arrows-react';
 
 interface ToolSelectorProps {
+
+  arrowsMode: ArrowsPluginMode;
 
   collapsed?: boolean;
 
@@ -62,7 +65,7 @@ export const ToolSelector = (props: ToolSelectorProps) => {
                 'text-xs h-9 gap-1.5 cursor-pointer',
                 props.collapsed ? undefined : 'pr-3'
               )}
-              pressed={!props.drawingEnabled}
+              pressed={!props.drawingEnabled && !(props.arrowsMode === 'draw')}
               onPressedChange={pressed => props.onSetDrawingEnabled(!pressed)}>
               <MousePointer2 className="size-4" />{!props.collapsed && 'Move'}
             </Toggle>

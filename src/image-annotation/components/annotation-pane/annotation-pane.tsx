@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
+import { ArrowsPluginMode, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { Button } from '@/components/ui/button';
@@ -35,7 +35,6 @@ import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
-import { ArrowsPluginMode } from '@/image-annotation/types';
 
 interface AnnotationPaneProps {
 
@@ -108,6 +107,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   useEffect(() => {
     window.setTimeout(() => setTitle('Example'), 500);
   }, []);
+
+  const onArrowCreated = () => setArrowsMode('select');
 
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
@@ -216,7 +217,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <OSDArrowsPlugin 
             enabled={true} 
-            mode={arrowsMode} />
+            mode={arrowsMode} 
+            onCreate={onArrowCreated} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}

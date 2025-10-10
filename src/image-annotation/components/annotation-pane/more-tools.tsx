@@ -5,8 +5,6 @@ import { PrivacySelector } from '@/components/privacy-selector';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { ArrowsPluginMode } from '@/image-annotation/types';
-import { ArrowsTool } from './arrows-tool';
 import { 
   ClipboardCopy, 
   EllipsisVertical, 
@@ -20,14 +18,6 @@ import {
 } from 'lucide-react';
 
 interface MoreToolsProps {
-
-  arrowsEnabled: boolean;
-
-  arrowsMode: ArrowsPluginMode,
-
-  onSetArrowsEnabled(enabled: boolean): void;
-
-  onSetArrowsMode(mode: ArrowsPluginMode): void;
 
   wiresVisibility: WiresVisibility;
 
@@ -109,12 +99,6 @@ export const MoreTools = (props: MoreToolsProps) => {
         </Tooltip>
 
         <Separator orientation="vertical" className="mx-1" />
-
-        <ArrowsTool 
-          enabled={props.arrowsEnabled} 
-          mode={props.arrowsMode}
-          onSetEnabled={props.onSetArrowsEnabled} 
-          onSetMode={props.onSetArrowsMode} />
 
         <Tooltip>
           <TooltipTrigger asChild>
