@@ -89,6 +89,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const tileSources = useInfoJson((props.canvas?.images[0] as DynamicImageServiceResource)?.serviceUrl);
 
   useEffect(() => {
+    console.log('anno hook', anno);
+    
     if (!anno) return;
 
     const onCreateAnnotation = () => setWiresEnabled(false);
@@ -108,7 +110,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
     window.setTimeout(() => setTitle('Example'), 500);
   }, []);
 
-  const onArrowCreated = () => setArrowsMode('select');
+  const onArrowCreated = () => setArrowsMode('select')
+  
+  const onArrowSelected = () => anno?.cancelSelected();
 
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
@@ -218,7 +222,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           <OSDArrowsPlugin 
             enabled={true} 
             mode={arrowsMode} 
-            onCreate={onArrowCreated} />
+            onCreate={onArrowCreated} 
+            onSelect={onArrowSelected} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}
