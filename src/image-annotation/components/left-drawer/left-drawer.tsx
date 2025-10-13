@@ -119,7 +119,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
                           )}
                           src={canvas.getThumbnailURL(400)} />
 
-                        <div className="absolute right-3 bottom-1 flex items-center gap-1 text-sm text-white text-shadow-2xs whitespace-nowrap">
+                        <div className="absolute right-3 bottom-2 flex items-center gap-1 text-sm text-white text-shadow-2xs whitespace-nowrap">
                           <MessagesSquare className="size-4" /> 2
                         </div>
                       </button>
@@ -129,7 +129,7 @@ export const LeftDrawer = (props: LeftDrawerProps) => {
                       </p>
 
                       {index === 1 && (
-                        <Avatar className="size-6 absolute left-5 top-1 drop-shadow-sm">
+                        <Avatar className="size-6 absolute left-2 top-2 drop-shadow-sm">
                           <AvatarFallback
                             className="text-white font-medium text-[9px] border-2 border-white"
                             style={{ backgroundColor: getAvatarColor('rainersimon') }}>
