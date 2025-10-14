@@ -5,6 +5,7 @@ import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
 import { ArrowsPluginMode, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
+import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 import { Button } from '@/components/ui/button';
 import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
@@ -35,7 +36,6 @@ import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
-import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 
 interface AnnotationPaneProps {
 

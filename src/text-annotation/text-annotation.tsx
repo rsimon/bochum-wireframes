@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
+import { MockStorage } from '@/components/mock-storage';
 import { LeftDrawer } from '@/text-annotation/components/left-drawer';
 import { RightDrawer, RightDrawerTab } from '@/text-annotation/components/right-drawer';
 import { AnnotationPane, useAnnotationsStyle } from '@/text-annotation/components/annotation-pane';
-import { MockStorage } from '../components/mock-storage';
 
 import './text-annotation.css';
 
