@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import CETEI from 'CETEIcean';
 import { TEIAnnotator } from '@recogito/react-text-annotator';
+import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 import { MockStorage } from '@/components/mock-storage';
 import { LeftDrawer } from '@/text-annotation/components/left-drawer';
 import { RightDrawer, RightDrawerTab } from '@/text-annotation/components/right-drawer';
@@ -70,6 +71,8 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
 
         <MockStorage 
           onChangeSaveStatus={setSaving} />
+
+        <BroadcastChannelSync />
       </TEIAnnotator>
 
       <RightDrawer 
