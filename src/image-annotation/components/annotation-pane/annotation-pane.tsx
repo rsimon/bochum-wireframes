@@ -17,13 +17,13 @@ import { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { LinkLabel } from './link-label';
 import { useInfoJson } from './use-info-json';
 import { 
-  OpenSeadragonAnnotationPopup, 
   OSDWirePopup, 
   OSDWiresPlugin 
 } from '@annotorious/plugin-wires-react';
 import { 
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
+  OpenSeadragonAnnotationPopup,
   OpenSeadragonAnnotator, 
   OpenSeadragonHoverTooltip, 
   OpenSeadragonViewer, 
@@ -35,6 +35,7 @@ import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
 import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
+import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 
 interface AnnotationPaneProps {
 
@@ -88,9 +89,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   // Patches broken HeidICON info.json (points to HTTTP images)
   const tileSources = useInfoJson((props.canvas?.images[0] as DynamicImageServiceResource)?.serviceUrl);
 
-  useEffect(() => {
-    console.log('anno hook', anno);
-    
+  useEffect(() => {    
     if (!anno) return;
 
     const onCreateAnnotation = () => setWiresEnabled(false);
@@ -109,10 +108,6 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   useEffect(() => {
     window.setTimeout(() => setTitle('Example'), 500);
   }, []);
-
-  const onArrowCreated = () => setArrowsMode('select')
-  
-  const onArrowSelected = () => anno?.cancelSelected();
 
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
@@ -221,9 +216,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <OSDArrowsPlugin 
             enabled={true} 
-            mode={arrowsMode} 
-            onCreate={onArrowCreated} 
-            onSelect={onArrowSelected} />
+            mode={arrowsMode} />
 
           <OSDWiresPlugin 
             enabled={wiresEnabled}
@@ -235,6 +228,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 <LinkToolbar {...popupProps} />
               )} />
           </OSDWiresPlugin>
+
+          <BroadcastChannelSync />
         </main>
       </OpenSeadragonAnnotator>
     </div>
