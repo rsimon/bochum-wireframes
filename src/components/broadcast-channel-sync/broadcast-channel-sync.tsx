@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
-import { createStoreSynchronizer } from '@annotorious/plugin-broadcast-channel-sync';
 import { useAnnotationStore } from '@annotorious/react';
+import { createStoreSynchronizer } from '@annotorious/plugin-broadcast-channel-sync';
 
-export const BroadcastChannelSync = () => {
+interface BroadcastChannelSyncProps {
+
+  channelName: string;
+
+}
+
+export const BroadcastChannelSync = (props: BroadcastChannelSyncProps) => {
 
   const store = useAnnotationStore();
 
   useEffect(() => {
     if (!store) return;
 
-    const sync = createStoreSynchronizer(store);
+    const sync = createStoreSynchronizer(store, { channelName: props.channelName });
     sync.connect();
     
     return () => {

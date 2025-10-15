@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
+import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
@@ -136,6 +137,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         <InlineToolbar 
           onClickAdvanced={props.onFocusRightDrawer} />
       </main>
+
+      {title && (
+        <BroadcastChannelSync channelName={title} />
+      )}
     </div>
   )
 }

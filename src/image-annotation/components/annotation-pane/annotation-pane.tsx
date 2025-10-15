@@ -228,8 +228,10 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
                 <LinkToolbar {...popupProps} />
               )} />
           </OSDWiresPlugin>
-
-          <BroadcastChannelSync />
+          
+          {title && (
+            <BroadcastChannelSync channelName={title} />
+          )}
         </main>
       </OpenSeadragonAnnotator>
     </div>

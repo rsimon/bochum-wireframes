@@ -24,16 +24,16 @@ const WHEN_NO_SELECTION = (theme: typeof THEMES[keyof THEMES]): HighlightStyleEx
 ) => {
   const type = getAnnotationType(annotation);
 
-  if (type === 'metaphor') {
+  if (type === 'mrw') {
+    return {
+      fill: theme.FILL_COLOR_OPAQUE
+    } 
+  } else {
     return {
       fillOpacity: 0,
       underlineColor: theme.UNDERLINE_COLOR_OPAQUE,
       underlineThickness: 2,
       underlineOffset: 4 * z
-    }
-  } else {
-    return {
-      fill: theme.FILL_COLOR_OPAQUE
     }
   }
 }
@@ -47,18 +47,18 @@ const WHEN_SELECTION = (theme: typeof THEMES[keyof THEMES], emphasized: string[]
   const type = getAnnotationType(annotation);
   const isEmphasized = emphasized.includes(annotation.id) || state.selected;
 
-  if (type === 'metaphor') {
+  if (type === 'mrw') {
+    return {
+      fill: isEmphasized ? theme.FILL_COLOR_OPAQUE : '#1a1a1a', 
+      fillOpacity: isEmphasized ? undefined : 0.12 
+    }
+  } else {
     return {
       fill: isEmphasized ? theme.FILL_COLOR_SEMITRANSPARENT : undefined,
       fillOpacity: isEmphasized ? undefined : 0,
       underlineColor: isEmphasized ? theme.UNDERLINE_COLOR_OPAQUE : '#e2e2ff',
       underlineThickness: 2,
       underlineOffset: 4 * z
-    }
-  } else {
-    return {
-      fill: isEmphasized ? theme.FILL_COLOR_OPAQUE : '#1a1a1a', 
-      fillOpacity: isEmphasized ? undefined : 0.12 
     }
   }
 }
