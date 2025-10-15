@@ -12,15 +12,8 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
-import { LinkToolbar } from './link-toolbar';
 import { ShapeToolbar } from './shape-toolbar';
-import { WiresVisibility } from '@annotorious/plugin-wires-react';
-import { LinkLabel } from './link-label';
 import { useInfoJson } from './use-info-json';
-import { 
-  OSDWirePopup, 
-  OSDWiresPlugin 
-} from '@annotorious/plugin-wires-react';
 import { 
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
@@ -35,7 +28,6 @@ import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
-import '@annotorious/plugin-wires-react/annotorious-wires-react.css';
 
 interface AnnotationPaneProps {
 
@@ -84,7 +76,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const [wiresEnabled, setWiresEnabled] = useState(false);
 
-  const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS');
+  // const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS');
 
   // Patches broken HeidICON info.json (points to HTTTP images)
   const tileSources = useInfoJson((props.canvas?.images[0] as DynamicImageServiceResource)?.serviceUrl);
@@ -169,8 +161,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
               collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
               onSetArrowsEnabled={setArrowsEnabled}
               onSetArrowsMode={setArrowsMode}
-              wiresVisibility={wiresVisibility}
-              onSetWiresVisibility={setWiresVisibility} />
+              wiresVisibility={true}
+              onSetWiresVisibility={() => {}} />
           </div>
 
           <MyAccount />
@@ -210,24 +202,12 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             popup={popupProps => (
               <ShapeToolbar 
                 {...popupProps} 
-                onClickAdvanced={props.onFocusRightDrawer} 
-                onEnableWires={() => setWiresEnabled(true)} />
+                onClickAdvanced={props.onFocusRightDrawer} />
             )} />
 
           <OSDArrowsPlugin 
             enabled={true} 
             mode={arrowsMode} />
-
-          <OSDWiresPlugin 
-            enabled={wiresEnabled}
-            showWires={wiresVisibility}
-            label={LinkLabel}>
-            <OSDWirePopup
-              arrow
-              popup={popupProps => (
-                <LinkToolbar {...popupProps} />
-              )} />
-          </OSDWiresPlugin>
           
           {title && (
             <BroadcastChannelSync channelName={title} />

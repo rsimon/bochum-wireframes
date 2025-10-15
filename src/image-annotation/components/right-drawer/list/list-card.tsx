@@ -7,7 +7,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getAvatarColor } from '@/utils';
 import { MessagesSquare, Shapes } from 'lucide-react';
 import { useMemo } from 'react';
-import { useConnections } from '@annotorious/plugin-wires-react';
 import { AnnotationSnippet } from '../../shared/annotation-snippet';
 
 const CLASSES = [
@@ -47,18 +46,18 @@ export const ListCard = (props: ListCardProps) => {
 
   const messages = useMemo(() => Math.floor(Math.random() * 4), []);
 
-  const connections = useConnections();
+  // const connections = useConnections();
 
   const links = useMemo(() => {
     if (!store) return [];
 
     const { id } = props.annotation;
 
-    return connections.filter(c => {
+    return []; /*connections.filter(c => {
       const { from, to } = c.target.selector;
       return from === id || to === id;
-    });
-  }, [store, props.annotation, connections])
+    });*/
+  }, [store, props.annotation]) //, connections])
 
   return (
     <Card className={cn(

@@ -1,16 +1,16 @@
 import { Tag, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { WirePopupProps } from '@annotorious/plugin-wires-react';
 import { createBody, useAnnotator } from '@annotorious/react';
 import { Separator } from '@/components/ui/separator';
 import { VocabularySearch } from '@/components/vocabulary-search';
 import { VocabularyTerm } from '@/components/vocabulary-search/dummy-vocabulary';
 
-export const LinkToolbar = (props: WirePopupProps) => {
+export const LinkToolbar = () => {
 
   const anno = useAnnotator();
 
+  /*
   const onAddTag = (term: VocabularyTerm) => {
     if (!anno) return;
 
@@ -37,7 +37,9 @@ export const LinkToolbar = (props: WirePopupProps) => {
     if (!anno) return;
     anno.state.store.deleteAnnotation(props.annotation.id);
   }
+  */
 
+  /*
   return (
     <div className="bg-white p-1 rounded-lg flex gap-1 items-center
       shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
@@ -78,5 +80,8 @@ export const LinkToolbar = (props: WirePopupProps) => {
       </Tooltip>
     </div>
   )
+  */
+ 
+  return null;
 
 }

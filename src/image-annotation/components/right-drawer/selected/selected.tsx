@@ -3,7 +3,6 @@ import { GitCompareArrows, Shapes, Tags, TextCursorInput, Trash2 } from 'lucide-
 import { CozyCanvas } from 'cozy-iiif';
 import { useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
-import { useConnections } from '@annotorious/plugin-wires-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -19,12 +18,13 @@ interface SelectedAnnotationDetailsProps {
 
 const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
-  const connections = useConnections();
+  // const connections = useConnections();
 
   const connectedWires = useMemo(() => {
-    const { id } = props.annotation
-    return connections.filter(({ target: { selector } }) => selector.from === id || selector.to === id)
-  }, [connections, props.annotation]);
+    // const { id } = props.annotation
+    // return connections.filter(({ target: { selector } }) => selector.from === id || selector.to === id)
+    return [];
+  }, [/*connections */, props.annotation]);
 
   const tagCount = useMemo(() => 
     props.annotation.bodies.filter(b => b.purpose === 'tagging').length, [props.annotation]);

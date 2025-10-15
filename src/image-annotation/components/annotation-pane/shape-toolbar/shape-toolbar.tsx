@@ -9,8 +9,6 @@ interface ShapeToolbarProps extends PopupProps {
 
   onClickAdvanced(): void;
 
-  onEnableWires(): void;
-
 }
 
 export const ShapeToolbar = (props: ShapeToolbarProps) => {
@@ -52,22 +50,6 @@ export const ShapeToolbar = (props: ShapeToolbarProps) => {
       <div className="flex items-center mx-0.5"> 
         <Separator orientation="vertical" />
       </div>
-
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="relative"
-            onClick={props.onEnableWires}>
-            <GitCompareArrows className="size-3.5" />
-          </Button>
-        </TooltipTrigger>
-
-        <TooltipContent>
-          <p>Create link</p>
-        </TooltipContent>
-      </Tooltip>
 
       <Tooltip>
         <TooltipTrigger asChild>
