@@ -30,7 +30,7 @@
     "vite": "^6.3.6"
   },
   "dependencies": {
-    "@annotorious/plugin-arrows-react": "^0.1.1",
+    "@annotorious/plugin-arrows-react": "^0.1.2",
     "@annotorious/plugin-broadcast-channel-sync": "^0.0.3",
     "@annotorious/plugin-magnetic-outline": "^0.1.7",
     "@annotorious/plugin-tools": "^1.4.5",
