@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { ArrowsPluginMode, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
+import { ArrowsPluginMode, OSDArrowPopup, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
@@ -14,6 +14,7 @@ import { AvatarStack } from '@/components/avatar-stack';
 import { Toolbar } from './toolbar';
 import { ShapeToolbar } from './shape-toolbar';
 import { useInfoJson } from './use-info-json';
+import { LinkToolbar } from './link-toolbar';
 import { 
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
@@ -207,7 +208,14 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <OSDArrowsPlugin 
             enabled={true} 
-            mode={arrowsMode} />
+            mode={arrowsMode}>
+          </OSDArrowsPlugin>
+
+          <OSDArrowPopup
+            arrow
+            popup={popupProps => (
+              <LinkToolbar {...popupProps} />
+            )} />
           
           {title && (
             <BroadcastChannelSync channelName={title} />
