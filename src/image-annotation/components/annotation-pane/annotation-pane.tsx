@@ -30,6 +30,7 @@ import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
+import { HoverTooltip } from './hover-tooltip';
 
 interface AnnotationPaneProps {
 
@@ -152,7 +153,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <div className="flex gap-1 items-center">
             <AvatarStack />
+
             <Separator orientation="vertical" className="mx-2" />
+
             <Toolbar 
               arrowsMode={arrowsMode}
               arrowsVisibility={arrowsVisibility}
@@ -184,11 +187,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             plugin={MagneticOutlinePlugin} />
 
           <OpenSeadragonHoverTooltip 
-            tooltip={() => (
-              <div className="text-xs bg-white/15 backdrop-blur-xs p-2 rounded">
-                MyConcept
-              </div>
-            )}/>
+            tooltip={props => <HoverTooltip {...props} /> } />
 
           <OpenSeadragonAnnotationPopup
             arrow
