@@ -1,5 +1,5 @@
-import { getCategoryColor } from '@/image-annotation/colors';
 import type { ImageAnnotation } from '@annotorious/react';
+import { getCategoryColor } from '@/image-annotation/colors';
 
 export const HoverTooltip = ({ annotation }: { annotation: ImageAnnotation }) => {
 
