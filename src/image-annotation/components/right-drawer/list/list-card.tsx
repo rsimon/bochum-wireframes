@@ -1,5 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
-import { ImageAnnotation, Store, useAnnotationStore } from '@annotorious/react';
+import { ImageAnnotation } from '@annotorious/react';
+import { useArrows } from '@annotorious/plugin-arrows-react';
+import { isArrowAnchor } from '@annotorious/plugin-arrows';
 import { CozyCanvas } from 'cozy-iiif';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -24,8 +26,6 @@ interface ListCardProps {
 
 export const ListCard = (props: ListCardProps) => {
 
-  const store = useAnnotationStore<Store<ImageAnnotation>>();
-
   const category = useMemo(() => 
     props.annotation.bodies.find(b => b.purpose === 'classifying')?.value, [props.annotation]);
 
@@ -34,18 +34,7 @@ export const ListCard = (props: ListCardProps) => {
 
   const messages = useMemo(() => Math.floor(Math.random() * 4), []);
 
-  // const connections = useConnections();
-
-  const links = useMemo(() => {
-    if (!store) return [];
-
-    const { id } = props.annotation;
-
-    return []; /*connections.filter(c => {
-      const { from, to } = c.target.selector;
-      return from === id || to === id;
-    });*/
-  }, [store, props.annotation]) //, connections])
+  const arrows = useArrows(props.annotation.id);
 
   return (
     <Card className={cn(
@@ -68,21 +57,25 @@ export const ListCard = (props: ListCardProps) => {
           )}
         </div>
 
-        {(props.canvas && links.length > 0) && (
+        {(props.canvas && arrows.length > 0) && (
           <div className="mt-3 space-y-2">
-            {links.map(l => (
+            {arrows.map(arrow => (
               <div 
-                key={`${l.target.selector.from}:${l.target.selector.to}`}
+                key={arrow.id}
                 className="flex justify-between items-center gap-2">
-                <AnnotationSnippet 
-                  annotation={l.target.selector.from} 
-                  canvas={props.canvas} />
+                {isArrowAnchor(arrow.target.selector.start) && (
+                  <AnnotationSnippet 
+                    annotation={arrow.target.selector.start.annotationId} 
+                    canvas={props.canvas} />
+                )}
 
                 <span className="grow border-t border-slate-400 border-dashed h-[1px]" />
 
-                <AnnotationSnippet 
-                  annotation={l.target.selector.to} 
-                  canvas={props.canvas} />
+                {isArrowAnchor(arrow.target.selector.end) && (
+                  <AnnotationSnippet 
+                    annotation={arrow.target.selector.end.annotationId} 
+                    canvas={props.canvas} />
+                )}
               </div>
             ))}
           </div>

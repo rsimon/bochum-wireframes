@@ -11,10 +11,9 @@ interface AnnotationSnippetProps {
 }
 
 export const AnnotationSnippet = (props: AnnotationSnippetProps) => {
-
+  
   const annotation = useAnnotation(props.annotation);
 
-  // TODO
   const image = props.canvas.images[0];
   if (image.type !== 'dynamic') return null;
 

@@ -18,7 +18,7 @@ export const List = (props: ListProps) => {
   const unfiltered = useAnnotations<ImageAnnotation>(250);
 
   const annotations = useMemo(() =>
-    unfiltered.filter(a => !('motivation' in a) || a.motivation !== 'linking')
+    unfiltered.filter(a => !('motivation' in a) || a.motivation !== 'pointing')
   , [unfiltered]);
 
   const { selected } = useSelection<ImageAnnotation>();
