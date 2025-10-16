@@ -1,16 +1,15 @@
-import { useMemo } from 'react';
 import { GitCompareArrows, Microscope, Shapes, SquareMousePointer, Trash2 } from 'lucide-react';
 import { CozyCanvas } from 'cozy-iiif';
-import { useSelection } from '@annotorious/react';
-import { TEIAnnotation } from '@recogito/react-text-annotator';
+import { ImageAnnotation, useSelection } from '@annotorious/react';
+import { useArrows } from '@annotorious/plugin-arrows-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { AnnotationSnippet } from '../../shared/annotation-snippet';
+import { RelationPreview } from '@/image-annotation/components/shared';
 
 interface SelectedAnnotationDetailsProps {
 
-  annotation: TEIAnnotation;
+  annotation: ImageAnnotation;
 
   canvas?: CozyCanvas;
 
@@ -18,16 +17,7 @@ interface SelectedAnnotationDetailsProps {
 
 const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
-  // const connections = useConnections();
-
-  const connectedWires = useMemo(() => {
-    // const { id } = props.annotation
-    // return connections.filter(({ target: { selector } }) => selector.from === id || selector.to === id)
-    return [];
-  }, [/*connections */, props.annotation]);
-
-  const tagCount = useMemo(() => 
-    props.annotation.bodies.filter(b => b.purpose === 'tagging').length, [props.annotation]);
+  const arrows = useArrows(props.annotation.id);
 
   return (
     <div className="grow flex flex-col">
@@ -48,29 +38,21 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               <div className="flex gap-2 items-center">
                 <GitCompareArrows className="size-4" /> 
                 Relations
-                {connectedWires.length > 0 && (
+                {arrows.length > 0 && (
                   <Badge variant="secondary">
-                    {connectedWires.length }
+                    {arrows.length }
                   </Badge>
                 )}
               </div>
             </AccordionTrigger>
 
             <AccordionContent className="pb-12 space-y-3">
-              {connectedWires.map(w => (
-                <div 
-                  key={`${w.target.selector.from}:${w.target.selector.to}`}
-                  className="flex justify-between items-center gap-2">
-                  <AnnotationSnippet 
-                    annotation={w.target.selector.from} 
-                    canvas={props.canvas} />
-  
-                  <span className="grow border-t border-slate-400 border-dashed h-[1px]" />
-  
-                  <AnnotationSnippet 
-                    annotation={w.target.selector.to} 
-                    canvas={props.canvas} />
-                </div>
+              {props.canvas && arrows.map(arrow => (
+                <RelationPreview
+                  key={arrow.id}
+                  arrow={arrow} 
+                  canvas={props.canvas} 
+                  referenceAnnotationId={props.annotation.id} />
               ))}
             </AccordionContent>
           </AccordionItem>
@@ -80,11 +62,6 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               <div className="flex gap-2 items-center">
                 <Microscope className="size-4" /> 
                 Analysis
-                {tagCount > 0 && (
-                  <Badge variant="secondary">
-                    {tagCount}
-                  </Badge>
-                )}
               </div>
             </AccordionTrigger>
 
@@ -115,7 +92,7 @@ interface SelectedProps {
 
 export const Selected = (props: SelectedProps) => {
 
-  const { selected } = useSelection<TEIAnnotation>();
+  const { selected } = useSelection<ImageAnnotation>();
 
   return selected.length === 0 ? (
     <div className="p-4 h-full flex items-center justify-center">
@@ -130,6 +107,6 @@ export const Selected = (props: SelectedProps) => {
     <SelectedAnnotationDetails
       annotation={selected[0].annotation} 
       canvas={props.canvas} />
-  )
+  );
 
 }

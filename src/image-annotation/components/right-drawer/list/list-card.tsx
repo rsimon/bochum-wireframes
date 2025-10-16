@@ -9,8 +9,7 @@ import { getAvatarColor } from '@/utils';
 import { MessagesSquare } from 'lucide-react';
 import { useMemo } from 'react';
 import { getCategoryColor } from '@/image-annotation/colors';
-import { RelationPreview } from './relation-preview';
-import { AnnotationSnippet } from '../../shared/annotation-snippet';
+import { AnnotationSnippet, RelationPreview } from '@/image-annotation/components/shared';
 
 interface ListCardProps {
 
