@@ -8,20 +8,7 @@ import { getAvatarColor } from '@/utils';
 import { MessagesSquare, Shapes } from 'lucide-react';
 import { useMemo } from 'react';
 import { AnnotationSnippet } from '../../shared/annotation-snippet';
-
-const CLASSES = [
-  undefined,
-  'MyConcept',
-  'AnotherConcept',
-  'SomeConcept'
-];
-
-const COLORS = [
-  undefined,
-  'bg-fuchsia-500',
-  'bg-amber-500',
-  'bg-emerald-500'
-]
+import { getCategoryColor } from '@/image-annotation/colors';
 
 interface ListCardProps {
 
@@ -39,7 +26,8 @@ export const ListCard = (props: ListCardProps) => {
 
   const store = useAnnotationStore<Store<ImageAnnotation>>();
 
-  const clazz = useMemo(() => CLASSES[Math.floor(Math.random() * 4)], []);
+  const category = useMemo(() => 
+    props.annotation.bodies.find(b => b.purpose === 'classifying')?.value, [props.annotation]);
 
   const timestamp =
     formatDistanceToNow(props.annotation.target.created, { addSuffix: true });
@@ -67,12 +55,11 @@ export const ListCard = (props: ListCardProps) => {
     )}>
       <CardContent className="p-2 leading-relaxed relative">
         <div className="flex text-xs">
-          {clazz ? (
+          {category ? (
             <div className={cn(
               'text-white py-1 px-2 rounded mb-2',
-              clazz ? COLORS[CLASSES.indexOf(clazz)] : undefined
-            )}>
-              {clazz}
+              getCategoryColor(category))}>
+              {category}
             </div>
           ) : (
             <div className="border flex gap-1 py-1 px-2 bg-muted border-muted-foreground/30 text-muted-foreground/70 rounded">
