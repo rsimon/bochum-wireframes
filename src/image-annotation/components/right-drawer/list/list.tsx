@@ -29,7 +29,7 @@ export const List = (props: ListProps) => {
     selected.some(t => t.annotation.id === annotation.id);
 
   return (
-    <ScrollArea className="h-full p-1">
+    <ScrollArea className="h-full p-1 bg-muted">
       <div className="flex justify-between items-center text-muted-foreground mb-2">
         <div className="flex items-center">
           <Button

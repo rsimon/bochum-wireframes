@@ -38,11 +38,11 @@ export const ListCard = (props: ListCardProps) => {
 
   return (
     <Card className={cn(
-      'p-1 mt-4 rounded',
+      'p-1.5 mt-4 rounded-md bg-white shadow-xs',
       props.deemphasize && 'opacity-25',
       props.emphasize && 'ring-4 ring-offset-0 ring-blue-500/35'
     )}>
-      <CardContent className="py-2 px-1 leading-relaxed relative">
+      <CardContent className="p-1 leading-relaxed relative">
         <div className="flex gap-1 text-xs items-stretch">
           {props.canvas && (
             <AnnotationSnippet 
@@ -53,7 +53,7 @@ export const ListCard = (props: ListCardProps) => {
 
           {category && (
             <div className={cn(
-              'text-white px-2 flex items-center rounded-md',
+              'text-white font-medium px-2 flex items-center rounded-md',
               getCategoryColor(category))}>
               {category}
             </div>
