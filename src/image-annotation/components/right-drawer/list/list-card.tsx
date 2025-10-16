@@ -59,13 +59,12 @@ export const ListCard = (props: ListCardProps) => {
           )}
         </div>
 
-        {(props.canvas && arrows.length > 0) && (
+        {arrows.length > 0 && (
           <div className="mt-4 space-y-2">
             {arrows.map(arrow => (
               <RelationPreview
                 key={arrow.id}
                 arrow={arrow}
-                canvas={props.canvas} 
                 referenceAnnotationId={props.annotation.id} />
             ))}
           </div>

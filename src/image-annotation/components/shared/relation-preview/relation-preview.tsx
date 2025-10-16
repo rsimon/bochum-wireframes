@@ -1,18 +1,18 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import { CozyCanvas } from 'cozy-iiif';
 import { Annotation, useAnnotationStore } from '@annotorious/react';
 import { ArrowAnnotation } from '@annotorious/plugin-arrows-react';
 import { isArrowAnchor } from '@annotorious/plugin-arrows';
 import { getCategoryColor } from '@/image-annotation/colors';
+import { cn } from '@/lib/utils';
 
 interface RelationPreviewProps {
 
   arrow: ArrowAnnotation;
 
-  canvas: CozyCanvas;
+  className?: string;
 
-  referenceAnnotationId: string;
+  referenceAnnotationId?: string;
 
 }
 
@@ -22,9 +22,10 @@ export const RelationPreview = (props: RelationPreviewProps) => {
 
   const { start, end } = props.arrow.target.selector;
 
-  const isArrowLTR = useMemo(() =>
-    isArrowAnchor(start) && start.annotationId === props.referenceAnnotationId
-  , [start, end, props.referenceAnnotationId]);
+  const isArrowLTR = useMemo(() => {
+    if (!props.referenceAnnotationId) return true;
+    return (isArrowAnchor(start) && start.annotationId === props.referenceAnnotationId)
+  }, [start, end, props.referenceAnnotationId]);
 
   const [startAnnotation, endAnnotation] = useMemo(() => {
     if (!store) return [null, null];
@@ -48,18 +49,18 @@ export const RelationPreview = (props: RelationPreviewProps) => {
           {category}
         </div>
       ) : (
-        <div className="size-2 mx-1 bg-gray-400 rounded-full" />
+        <div className="size-2 mx-1 my-1.5 bg-gray-400 rounded-full " />
       )
     } else {
       return (
-        <div className="size-2 mx-1 border border-gray-400 rounded-full" />
+        <div className="size-2 mx-1 border border-gray-400 rounded-full my-1.5" />
       )
     }
   }
 
   return (
     <div 
-      className="flex justify-between bg-gray-50 items-center gap-1 border p-1 rounded-full shadow-xs">
+      className={cn('flex justify-between bg-gray-50 items-center gap-1 border p-1 rounded-full shadow-xs', props.className)}>
       {isArrowLTR ? renderEdge(startAnnotation) : renderEdge(endAnnotation)}
 
       <div className="grow relative self-stretch mb-0.5">

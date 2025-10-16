@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { Tag } from 'lucide-react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ReactNode, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -13,6 +11,8 @@ import {
 } from '@/components/ui/dialog';
 
 interface AddConceptTagProps {
+
+  children: ReactNode;
 
   onSetCategory(tag: string): void;
 
@@ -35,20 +35,7 @@ export const SetCategory = (props: AddConceptTagProps) => {
       onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative">
-                <Tag className="size-3.5" />
-              </Button>
-            </TooltipTrigger>
-
-            <TooltipContent>
-              <p>Add concept tag</p>
-            </TooltipContent>
-          </Tooltip>
+          {props.children}
         </div>
       </DialogTrigger>
       

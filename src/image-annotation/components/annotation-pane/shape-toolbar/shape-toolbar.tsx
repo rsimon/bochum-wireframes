@@ -5,8 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Separator } from '@/components/ui/separator';
-import { SetCategory } from './set-category';
-import clsx from 'clsx';
+import { SetCategory } from '@/image-annotation/components/shared';
 import { getCategoryColor } from '@/image-annotation/colors';
 
 interface ShapeToolbarProps extends PopupProps {
@@ -28,16 +27,16 @@ export const ShapeToolbar = (props: ShapeToolbarProps) => {
     return props.annotation.bodies.find(b => b.purpose === 'classifying')?.value
   }, [props.annotation]);
 
-  const onClearCategory = () => {
-    const categoryBody = props.annotation.bodies.find(b => b.purpose === 'classifying');
-    store.deleteBody(categoryBody);
-  }
-
   const onSetCategory = (value: string) =>
     store.addBody(createBody(props.annotation, {
       purpose: 'classifying',
       value
     }));
+
+  const onClearCategory = () => {
+    const categoryBody = props.annotation.bodies.find(b => b.purpose === 'classifying');
+    store.deleteBody(categoryBody);
+  }
 
   return (
     <div className="bg-white p-1 rounded-lg flex gap-0.5
@@ -57,8 +56,22 @@ export const ShapeToolbar = (props: ShapeToolbarProps) => {
           </Button>
         </div>
       ) : (
-        <SetCategory 
-          onSetCategory={onSetCategory} />
+        <SetCategory onSetCategory={onSetCategory}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative">
+                <Tag className="size-3.5" />
+              </Button>
+            </TooltipTrigger>
+
+            <TooltipContent>
+              <p>Add concept tag</p>
+            </TooltipContent>
+          </Tooltip>
+        </SetCategory>
       )}
 
       <div className="flex items-center mx-0.5"> 
