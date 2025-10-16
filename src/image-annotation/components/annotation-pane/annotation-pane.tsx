@@ -11,6 +11,7 @@ import { MyAccount } from '@/components/my-account';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarStack } from '@/components/avatar-stack';
+import { ArrowsVisibility } from '@/image-annotation/types';
 import { Toolbar } from './toolbar';
 import { ShapeToolbar } from './shape-toolbar';
 import { useInfoJson } from './use-info-json';
@@ -71,13 +72,9 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   const [title, setTitle] = useState<string | undefined>();
 
-  const [arrowsEnabled, setArrowsEnabled] = useState(false);
-
   const [arrowsMode, setArrowsMode] = useState<ArrowsPluginMode>('select');
 
-  const [wiresEnabled, setWiresEnabled] = useState(false);
-
-  // const [wiresVisibility, setWiresVisibility] = useState<WiresVisibility>('ALWAYS');
+  const [arrowsVisibility, setArrowsVisibility] = useState<ArrowsVisibility>('ALWAYS');
 
   // Patches broken HeidICON info.json (points to HTTTP images)
   const tileSources = useInfoJson((props.canvas?.images[0] as DynamicImageServiceResource)?.serviceUrl);
@@ -85,7 +82,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   useEffect(() => {    
     if (!anno) return;
 
-    const onCreateAnnotation = () => setWiresEnabled(false);
+    const onCreateAnnotation = () => setArrowsMode('select');
     anno.on('createAnnotation', onCreateAnnotation);
 
     return () => {
@@ -157,13 +154,11 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
             <AvatarStack />
             <Separator orientation="vertical" className="mx-2" />
             <Toolbar 
-              arrowsEnabled={arrowsEnabled}
               arrowsMode={arrowsMode}
+              arrowsVisibility={arrowsVisibility}
               collapsed={props.rightDrawerOpen || props.leftDrawerOpen} 
-              onSetArrowsEnabled={setArrowsEnabled}
               onSetArrowsMode={setArrowsMode}
-              wiresVisibility={true}
-              onSetWiresVisibility={() => {}} />
+              onSetArrowsVisibility={setArrowsVisibility} />
           </div>
 
           <MyAccount />
@@ -208,7 +203,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
           <OSDArrowsPlugin 
             enabled={true} 
-            mode={arrowsMode}>
+            mode={arrowsMode}
+            showArrows={arrowsVisibility}>
           </OSDArrowsPlugin>
 
           <OSDArrowPopup

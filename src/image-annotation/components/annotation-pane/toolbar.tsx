@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { ClipboardCopy, Minus, Plus, Redo2, RotateCcwSquare, RotateCwSquare, RouteOff, Undo2, ZoomIn, ZoomOut } from 'lucide-react';
 import { AnnotoriousOpenSeadragonAnnotator, useAnnotator, useViewer } from '@annotorious/react';
 import { ArrowsPluginMode } from '@annotorious/plugin-arrows-react';
-import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Tool } from '@/image-annotation/types';
+import { ArrowsVisibility, Tool } from '@/image-annotation/types';
 import { ToolSelector } from './tool-selector';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MoreTools } from './more-tools';
@@ -15,19 +14,15 @@ import { ArrowsTool } from './arrows-tool';
 
 interface ToolbarProps {
 
-  arrowsEnabled: boolean;
+  arrowsVisibility: ArrowsVisibility;
   
   arrowsMode: ArrowsPluginMode;
 
   collapsed?: boolean;
 
-  wiresVisibility: WiresVisibility;
-
-  onSetArrowsEnabled(enabled: boolean): void;
-
   onSetArrowsMode(mode: ArrowsPluginMode): void;
 
-  onSetWiresVisibility(visibility: WiresVisibility): void;
+  onSetArrowsVisibility(visibility: ArrowsVisibility): void;
 
 }
 
@@ -82,9 +77,9 @@ export const Toolbar = (props: ToolbarProps) => {
           onChangeTool={setTool} />
 
         <ArrowsTool 
-          enabled={props.arrowsEnabled}
+          enabled={props.arrowsMode === 'draw'}
           mode={props.arrowsMode}
-          onSetEnabled={props.onSetArrowsEnabled} 
+          onSetEnabled={enabled => props.onSetArrowsMode(enabled ? 'draw' : 'select')} 
           onSetMode={props.onSetArrowsMode} />
       </div>
 
@@ -161,8 +156,8 @@ export const Toolbar = (props: ToolbarProps) => {
             <TooltipTrigger asChild>
               <div>
                 <Toggle
-                  pressed={props.wiresVisibility !== 'ALWAYS'}
-                  onPressedChange={p => props.onSetWiresVisibility(p ? 'HOVER_OR_SELECT' : 'ALWAYS')}>
+                  pressed={props.arrowsVisibility !== 'ALWAYS'}
+                  onPressedChange={p => props.onSetArrowsVisibility(p ? 'HOVER_OR_SELECT' : 'ALWAYS')}>
                   <RouteOff />
                 </Toggle>
               </div>
@@ -250,8 +245,8 @@ export const Toolbar = (props: ToolbarProps) => {
 
       {props.collapsed && (
         <MoreTools
-          wiresVisibility={props.wiresVisibility}
-          onSetWiresVisibility={props.onSetWiresVisibility} />
+          arrowsVisibility={props.arrowsVisibility}
+          onSetArrowsVisibility={props.onSetArrowsVisibility} />
       )}
     </div>
   ) : null;

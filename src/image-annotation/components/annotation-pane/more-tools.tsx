@@ -1,10 +1,10 @@
-import type { WiresVisibility } from '@annotorious/plugin-wires-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { PrivacySelector } from '@/components/privacy-selector';
 import { Separator } from '@/components/ui/separator';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { ArrowsVisibility } from '@/image-annotation/types';
 import { 
   ClipboardCopy, 
   EllipsisVertical, 
@@ -19,9 +19,9 @@ import {
 
 interface MoreToolsProps {
 
-  wiresVisibility: WiresVisibility;
+  arrowsVisibility: ArrowsVisibility;
 
-  onSetWiresVisibility(visibility: WiresVisibility): void;
+  onSetArrowsVisibility(visibility: ArrowsVisibility): void;
 
 }
 
@@ -104,8 +104,8 @@ export const MoreTools = (props: MoreToolsProps) => {
           <TooltipTrigger asChild>
             <div>
               <Toggle
-                pressed={props.wiresVisibility !== 'ALWAYS'}
-                onPressedChange={p => props.onSetWiresVisibility(p ? 'HOVER_OR_SELECT' : 'ALWAYS')}>
+                pressed={props.arrowsVisibility !== 'ALWAYS'}
+                onPressedChange={p => props.onSetArrowsVisibility(p ? 'HOVER_OR_SELECT' : 'ALWAYS')}>
                 <RouteOff />
               </Toggle>
             </div>
