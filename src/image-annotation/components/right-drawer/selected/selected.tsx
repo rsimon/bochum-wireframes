@@ -46,7 +46,7 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               </div>
             </AccordionTrigger>
 
-            <AccordionContent className="pb-12 space-y-3">
+            <AccordionContent className="pt-3 pb-7 space-y-3">
               {props.canvas && arrows.map(arrow => (
                 <RelationPreview
                   key={arrow.id}
