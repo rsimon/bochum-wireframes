@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { GitCompareArrows, Shapes, Tags, TextCursorInput, Trash2 } from 'lucide-react';
+import { GitCompareArrows, Microscope, Shapes, SquareMousePointer, Trash2 } from 'lucide-react';
 import { CozyCanvas } from 'cozy-iiif';
 import { useSelection } from '@annotorious/react';
 import { TEIAnnotation } from '@recogito/react-text-annotator';
@@ -78,8 +78,8 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           <AccordionItem value="metaphor-tags">
             <AccordionTrigger>
               <div className="flex gap-2 items-center">
-                <Tags className="size-4" /> 
-                Tags
+                <Microscope className="size-4" /> 
+                Analysis
                 {tagCount > 0 && (
                   <Badge variant="secondary">
                     {tagCount}
@@ -120,7 +120,7 @@ export const Selected = (props: SelectedProps) => {
   return selected.length === 0 ? (
     <div className="p-4 h-full flex items-center justify-center">
       <div className="text-center text-muted-foreground">
-        <TextCursorInput 
+        <SquareMousePointer 
           className="h-12 w-12 mx-auto mb-4" 
           strokeWidth={1.25} />
         <p className="text-sm">Select Annotation</p>

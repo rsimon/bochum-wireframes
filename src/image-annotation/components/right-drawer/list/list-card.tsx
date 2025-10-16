@@ -1,7 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import { ImageAnnotation } from '@annotorious/react';
 import { useArrows } from '@annotorious/plugin-arrows-react';
-import { isArrowAnchor } from '@annotorious/plugin-arrows';
 import { CozyCanvas } from 'cozy-iiif';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -9,8 +8,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getAvatarColor } from '@/utils';
 import { MessagesSquare, Shapes } from 'lucide-react';
 import { useMemo } from 'react';
-import { AnnotationSnippet } from '../../shared/annotation-snippet';
 import { getCategoryColor } from '@/image-annotation/colors';
+import { RelationPreview } from './relation-preview';
 
 interface ListCardProps {
 
@@ -60,23 +59,11 @@ export const ListCard = (props: ListCardProps) => {
         {(props.canvas && arrows.length > 0) && (
           <div className="mt-3 space-y-2">
             {arrows.map(arrow => (
-              <div 
+              <RelationPreview
                 key={arrow.id}
-                className="flex justify-between items-center gap-2">
-                {isArrowAnchor(arrow.target.selector.start) && (
-                  <AnnotationSnippet 
-                    annotation={arrow.target.selector.start.annotationId} 
-                    canvas={props.canvas} />
-                )}
-
-                <span className="grow border-t border-slate-400 border-dashed h-[1px]" />
-
-                {isArrowAnchor(arrow.target.selector.end) && (
-                  <AnnotationSnippet 
-                    annotation={arrow.target.selector.end.annotationId} 
-                    canvas={props.canvas} />
-                )}
-              </div>
+                arrow={arrow}
+                canvas={props.canvas} 
+                referenceAnnotationId={props.annotation.id} />
             ))}
           </div>
         )}
