@@ -1,8 +1,10 @@
-import { ArrowAnnotation } from '@annotorious/plugin-arrows-react';
-import { ArrowAnchor, isArrowAnchor, Point } from '@annotorious/plugin-arrows';
-import { CozyCanvas } from 'cozy-iiif';
-import { AnnotationSnippet } from '../../shared/annotation-snippet';
 import { useMemo } from 'react';
+import clsx from 'clsx';
+import { CozyCanvas } from 'cozy-iiif';
+import { Annotation, useAnnotationStore } from '@annotorious/react';
+import { ArrowAnnotation } from '@annotorious/plugin-arrows-react';
+import { isArrowAnchor } from '@annotorious/plugin-arrows';
+import { getCategoryColor } from '@/image-annotation/colors';
 
 interface RelationPreviewProps {
 
@@ -16,22 +18,43 @@ interface RelationPreviewProps {
 
 export const RelationPreview = (props: RelationPreviewProps) => {
 
+  const store = useAnnotationStore();
+
   const { start, end } = props.arrow.target.selector;
 
   const isArrowLTR = useMemo(() =>
     isArrowAnchor(start) && start.annotationId === props.referenceAnnotationId
   , [start, end, props.referenceAnnotationId]);
 
-  const renderEdge = (a: Point | ArrowAnchor) => isArrowAnchor(a) ? (
-    <AnnotationSnippet 
-      annotation={a.annotationId} 
-      canvas={props.canvas} />
-  ) : null;
+  const [startAnnotation, endAnnotation] = useMemo(() => {
+    if (!store) return [null, null];
+
+    const startAnnotation = isArrowAnchor(start) ? store.getAnnotation(start.annotationId) : null;
+    const endAnnotation = isArrowAnchor(end) ? store.getAnnotation(end.annotationId) : null;
+
+    return [startAnnotation, endAnnotation];
+  }, [store, start, end]);
+
+  const renderEdge = (annotation?: Annotation) => {
+    if (annotation) {
+      const category = annotation.bodies.find(b => b.purpose === 'classifying')?.value;
+      return (
+        <div className="rounded-full text-xs py-0.5 px-1 flex items-center gap-1.5">
+          <div className={clsx('size-2 rounded-full', getCategoryColor(category))} />
+          {category}
+        </div>
+      )
+    } else {
+      return (
+        <div className="size-4 bg-black rounded-full" />
+      )
+    }
+  }
 
   return (
     <div 
-      className="flex justify-between items-center gap-2">
-      {isArrowLTR ? renderEdge(start) : renderEdge(end)}
+      className="flex justify-between items-center gap-2 border p-1 rounded-full">
+      {isArrowLTR ? renderEdge(startAnnotation) : renderEdge(endAnnotation)}
 
       <div className="grow relative self-stretch mb-0.5">
         <div className="absolute w-full left-0 top-1/2 h-[1px] border-dashed border-t border-gray-400" />
@@ -46,7 +69,7 @@ export const RelationPreview = (props: RelationPreviewProps) => {
         )}
       </div>
 
-      {isArrowLTR ? renderEdge(end) : renderEdge(start)}
+      {isArrowLTR ? renderEdge(endAnnotation) : renderEdge(startAnnotation)}
     </div>
   )
 

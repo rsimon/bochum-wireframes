@@ -1,8 +1,11 @@
-import { useAnnotation } from '@annotorious/react';
-import { CozyCanvas } from 'cozy-iiif';
 import { useMemo } from 'react';
+import clsx from 'clsx';
+import { CozyCanvas } from 'cozy-iiif';
+import { useAnnotation } from '@annotorious/react';
 
 interface AnnotationSnippetProps {
+
+  className?: string;
 
   annotation: string;
 
@@ -33,7 +36,7 @@ export const AnnotationSnippet = (props: AnnotationSnippetProps) => {
   return (
     <img 
       src={url} 
-      className="size-10 rounded-sm object-cover border border-input shadow-xs" />
+      className={clsx('object-cover', props.className)} />
   )
 
 }

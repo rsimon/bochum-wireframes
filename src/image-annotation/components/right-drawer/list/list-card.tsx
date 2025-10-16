@@ -6,10 +6,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getAvatarColor } from '@/utils';
-import { MessagesSquare, Shapes } from 'lucide-react';
+import { MessagesSquare } from 'lucide-react';
 import { useMemo } from 'react';
 import { getCategoryColor } from '@/image-annotation/colors';
 import { RelationPreview } from './relation-preview';
+import { AnnotationSnippet } from '../../shared/annotation-snippet';
 
 interface ListCardProps {
 
@@ -41,23 +42,26 @@ export const ListCard = (props: ListCardProps) => {
       props.deemphasize && 'opacity-25',
       props.emphasize && 'ring-4 ring-offset-0 ring-blue-500/35'
     )}>
-      <CardContent className="p-2 leading-relaxed relative">
-        <div className="flex text-xs">
-          {category ? (
+      <CardContent className="py-2 px-1 leading-relaxed relative">
+        <div className="flex gap-1 text-xs items-stretch">
+          {props.canvas && (
+            <AnnotationSnippet 
+              annotation={props.annotation.id} 
+              canvas={props.canvas} 
+              className="size-7 rounded-md shadow" />
+          )}
+
+          {category && (
             <div className={cn(
-              'text-white py-1 px-2 rounded mb-2',
+              'text-white px-2 flex items-center rounded-md',
               getCategoryColor(category))}>
               {category}
-            </div>
-          ) : (
-            <div className="border flex gap-1 py-1 px-2 bg-muted border-muted-foreground/30 text-muted-foreground/70 rounded">
-              <Shapes className="size-3.5" /> No class
             </div>
           )}
         </div>
 
         {(props.canvas && arrows.length > 0) && (
-          <div className="mt-3 space-y-2">
+          <div className="mt-4 space-y-2">
             {arrows.map(arrow => (
               <RelationPreview
                 key={arrow.id}
@@ -68,7 +72,7 @@ export const ListCard = (props: ListCardProps) => {
           </div>
         )}
 
-        <div className="relative">
+        <div className="relative px-0.5 mt-4">
           <div className="mt-3 flex gap-1.5 text-xs items-center">
             <Avatar className="size-5">
               <AvatarFallback
