@@ -36,6 +36,11 @@ export const VocabularySearch = (props: VocabularySearchProps) => {
     setOpen(false);
   }
 
+  const onSave = () => props.onSelect({
+    id: query,
+    label: query
+  });
+
   return (
     <Dialog 
       open={open}
@@ -62,7 +67,7 @@ export const VocabularySearch = (props: VocabularySearchProps) => {
 
             <Input 
               className="w-full border-none shadow-none focus-visible:ring-0 pl-0" 
-              placeholder="Search..." 
+              placeholder="Search or type a tag..." 
               value={query}
               onChange={evt => setQuery(evt.target.value)} />
           </div>
@@ -94,12 +99,18 @@ export const VocabularySearch = (props: VocabularySearchProps) => {
           </div>
         </div>
 
-        <DialogFooter className="px-3 py-1 border-t">
+        <DialogFooter className="p-2 border-t">
           <DialogClose asChild>
             <Button 
               variant="link"
               className="h-auto p-2">Cancel</Button>
           </DialogClose>
+
+          <Button
+            disabled={!query}
+            onClick={onSave}>
+            Ok
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

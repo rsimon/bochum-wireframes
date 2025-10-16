@@ -33,12 +33,11 @@ export const ShapeToolbar = (props: ShapeToolbarProps) => {
     store.deleteBody(categoryBody);
   }
 
-  const onSetCategory = (value: string) => {
+  const onSetCategory = (value: string) =>
     store.addBody(createBody(props.annotation, {
       purpose: 'classifying',
       value
     }));
-  }
 
   return (
     <div className="bg-white p-1 rounded-lg flex gap-0.5
