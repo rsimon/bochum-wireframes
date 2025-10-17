@@ -5,6 +5,7 @@ import { AnnotationPane } from './components/annotation-pane';
 import { MockStorage } from '@/components/mock-storage';
 import { useIIIF } from './hooks/use-iiif';
 import { CozyCanvas } from 'cozy-iiif';
+import { AnnotoriousPlugin } from '@annotorious/react';
 
 interface ImageAnnotationProps {
 

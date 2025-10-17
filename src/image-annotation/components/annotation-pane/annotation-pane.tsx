@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
+import { mountPlugin as LocalStoragePlugin } from '@annotorious/plugin-localstorage';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
@@ -79,6 +80,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const anno = useAnnotator<AnnotoriousOpenSeadragonAnnotator>();
 
   const [title, setTitle] = useState<string | undefined>();
+
+  const storageOpts = useMemo(() => ({ storeName: title }), [title]);
 
   const [arrowsMode, setArrowsMode] = useState<ArrowsPluginMode>('select');
 
@@ -229,6 +232,12 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
           )}
         </main>
       </OpenSeadragonAnnotator>
+
+      {title && (
+        <AnnotoriousPlugin
+          plugin={LocalStoragePlugin} 
+          opts={storageOpts} />
+      )}
     </div>
   )
 
