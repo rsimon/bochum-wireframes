@@ -1,7 +1,7 @@
 import { SquareMousePointer } from 'lucide-react';
 import { CozyCanvas } from 'cozy-iiif';
 import { ImageAnnotation, useSelection } from '@annotorious/react';
-import { ArrowAnnotation, isArrowAnnotation } from '@annotorious/plugin-arrows';
+import { ArrowAnnotation, isArrowAnnotation } from '@annotorious/plugin-arrows-react';
 import { SelectedImageAnnotationDetails } from './selected-image-annotation';
 import { SelectedArrowAnnotationDetails } from './selected-arrow-annotation';
 

@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.8.1",
     "@types/openseadragon": "^4.1.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
@@ -30,7 +30,7 @@
     "vite": "^6.4.0"
   },
   "dependencies": {
-    "@annotorious/plugin-arrows-react": "^0.2.1",
+    "@annotorious/plugin-arrows-react": "^0.2.2",
     "@annotorious/plugin-broadcast-channel-sync": "^0.0.3",
     "@annotorious/plugin-magnetic-outline": "^0.1.7",
     "@annotorious/plugin-tools": "^1.4.5",
@@ -60,7 +60,7 @@
     "cozy-iiif": "^0.5.1",
     "date-fns": "^4.1.0",
     "fuse.js": "^7.1.0",
-    "lucide-react": "^0.545.0",
+    "lucide-react": "^0.546.0",
     "openseadragon": "^5.0.1",
     "react": "^19.2.0",
     "react-autosuggest": "^10.1.0",

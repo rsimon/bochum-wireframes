@@ -2,8 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { ArrowAnnotation, ArrowsPluginMode, OSDArrowPopup, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
-import { isArrowAnnotation} from '@annotorious/plugin-arrows';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
@@ -17,6 +15,7 @@ import { Toolbar } from './toolbar';
 import { ShapeToolbar } from './shape-toolbar';
 import { useInfoJson } from './use-info-json';
 import { LinkToolbar } from './link-toolbar';
+import { HoverTooltip } from './hover-tooltip';
 import { 
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
@@ -27,12 +26,18 @@ import {
   OpenSeadragonViewer, 
   useAnnotator 
 } from '@annotorious/react';
+import { 
+  ArrowAnnotation, 
+  ArrowsPluginMode, 
+  isArrowAnnotation,
+  OSDArrowPopup, 
+  OSDArrowsPlugin 
+} from '@annotorious/plugin-arrows-react';
 
 import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
 import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
-import { HoverTooltip } from './hover-tooltip';
 
 interface AnnotationPaneProps {
 

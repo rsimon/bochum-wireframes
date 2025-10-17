@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { Annotation, useAnnotation } from '@annotorious/react';
-import { ArrowAnnotation } from '@annotorious/plugin-arrows-react';
-import { isArrowAnchor } from '@annotorious/plugin-arrows';
+import { ArrowAnnotation, isArrowAnchor } from '@annotorious/plugin-arrows-react';
 import { getCategoryColor } from '@/image-annotation/colors';
 import { cn } from '@/lib/utils';
 
