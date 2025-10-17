@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight } from 'lucide-react';
 import OpenSeadragon from 'openseadragon';
 import { CozyCanvas, DynamicImageServiceResource } from 'cozy-iiif';
-import { ArrowsPluginMode, OSDArrowPopup, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
+import { ArrowAnnotation, ArrowsPluginMode, OSDArrowPopup, OSDArrowsPlugin } from '@annotorious/plugin-arrows-react';
+import { isArrowAnnotation} from '@annotorious/plugin-arrows';
 import { mountPlugin as ToolsPlugin } from '@annotorious/plugin-tools';
 import { mountPlugin as MagneticOutlinePlugin } from '@annotorious/plugin-magnetic-outline';
 import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
@@ -19,6 +20,7 @@ import { LinkToolbar } from './link-toolbar';
 import { 
   AnnotoriousOpenSeadragonAnnotator, 
   AnnotoriousPlugin, 
+  ImageAnnotation, 
   OpenSeadragonAnnotationPopup,
   OpenSeadragonAnnotator, 
   OpenSeadragonHoverTooltip, 
@@ -83,7 +85,12 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   useEffect(() => {    
     if (!anno) return;
 
-    const onCreateAnnotation = () => setArrowsMode('select');
+    const onCreateAnnotation = (a: ImageAnnotation | ArrowAnnotation) => {
+      setArrowsMode('select');
+
+      if (isArrowAnnotation(a)) anno.setSelected(a.id);
+    }
+
     anno.on('createAnnotation', onCreateAnnotation);
 
     return () => {

@@ -1,7 +1,7 @@
 import { GitCompareArrows } from 'lucide-react';
+import { ArrowsPluginMode } from '@annotorious/plugin-arrows-react';
 import { Toggle } from '@/components/ui/toggle';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { ArrowsPluginMode } from '@/image-annotation/types';
 
 interface ArrowsToolProps {
 
