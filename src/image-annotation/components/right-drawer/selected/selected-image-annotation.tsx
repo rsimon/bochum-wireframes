@@ -10,6 +10,7 @@ import { RelationPreview, SetCategory } from '@/image-annotation/components/shar
 import { Badge } from '@/components/ui/badge';
 import { SelectedAnnotationDetailsProps } from './selected';
 import { Conversation } from '@/components/conversation';
+import { ImageAnnotationProperties } from './components';
 
 export const SelectedImageAnnotationDetails = (props: SelectedAnnotationDetailsProps<ImageAnnotation>) => {
 
@@ -60,6 +61,12 @@ export const SelectedImageAnnotationDetails = (props: SelectedAnnotationDetailsP
           </SetCategory>
         )}
       </div>
+
+      <div className="px-4">
+        <ImageAnnotationProperties 
+          annotation={props.annotation} />
+      </div>
+        
       <div className="grow p-3 pt-0">
         <Accordion 
           type="multiple"

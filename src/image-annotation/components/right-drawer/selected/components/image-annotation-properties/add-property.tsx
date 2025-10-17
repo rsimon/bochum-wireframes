@@ -1,4 +1,5 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
+import { CirclePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -10,22 +11,20 @@ import {
   DialogTrigger 
 } from '@/components/ui/dialog';
 
-interface AddConceptTagProps {
+interface AddProperty {
 
-  children: ReactNode;
-
-  onSetCategory(tag: string): void;
+  onAddProperty(property: string): void;
 
 }
 
-export const SetCategory = (props: AddConceptTagProps) => {
+export const AddProperty = (props: AddProperty) => {
 
   const [open, setOpen] = useState(false);
 
   const [value, setValue] = useState('');
 
   const onSave = () => {
-    props.onSetCategory(value);
+    props.onAddProperty(value);
     setOpen(false);
   }
 
@@ -34,16 +33,19 @@ export const SetCategory = (props: AddConceptTagProps) => {
       open={open}
       onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div>
-          {props.children}
-        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="shadow-none text-xs rounded-full mt-2">
+          <CirclePlus className="size-3.5" /> Add property 
+        </Button>
       </DialogTrigger>
       
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Enter Concept</DialogTitle>
+          <DialogTitle>Add Property</DialogTitle>
           <DialogDescription className="sr-only">
-            Type a concept and press Enter to add it to the annotation.
+            Type a property to add it to this annotation.
           </DialogDescription>
         </DialogHeader>
         
