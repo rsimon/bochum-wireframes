@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import { Annotation, useAnnotationStore } from '@annotorious/react';
+import { Annotation, useAnnotation } from '@annotorious/react';
 import { ArrowAnnotation } from '@annotorious/plugin-arrows-react';
 import { isArrowAnchor } from '@annotorious/plugin-arrows';
 import { getCategoryColor } from '@/image-annotation/colors';
@@ -18,8 +18,6 @@ interface RelationPreviewProps {
 
 export const RelationPreview = (props: RelationPreviewProps) => {
 
-  const store = useAnnotationStore();
-
   const { start, end } = props.arrow.target.selector;
 
   const isArrowLTR = useMemo(() => {
@@ -27,14 +25,8 @@ export const RelationPreview = (props: RelationPreviewProps) => {
     return (isArrowAnchor(start) && start.annotationId === props.referenceAnnotationId)
   }, [start, end, props.referenceAnnotationId]);
 
-  const [startAnnotation, endAnnotation] = useMemo(() => {
-    if (!store) return [null, null];
-
-    const startAnnotation = isArrowAnchor(start) ? store.getAnnotation(start.annotationId) : null;
-    const endAnnotation = isArrowAnchor(end) ? store.getAnnotation(end.annotationId) : null;
-
-    return [startAnnotation, endAnnotation];
-  }, [store, start, end]);
+  const startAnnotation = isArrowAnchor(start) ? useAnnotation(start.annotationId) : null;
+  const endAnnotation = isArrowAnchor(end) ? useAnnotation(end.annotationId) : null;
 
   const category = useMemo(() =>
     props.arrow.bodies.find(b => b.purpose === 'classifying')?.value
