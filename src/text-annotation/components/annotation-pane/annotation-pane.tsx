@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FolderCheck, FolderSync, PanelLeft, PanelRight, Redo2, Undo2 } from 'lucide-react';
+import { AnnotoriousPlugin } from '@annotorious/react';
+import { mountPlugin as LocalStoragePlugin } from '@annotorious/plugin-localstorage';
 import { BroadcastChannelSync } from '@/components/broadcast-channel-sync';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -36,6 +38,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [title, setTitle] = useState<string | undefined>();
+
+  const storageOpts = useMemo(() => ({ storeName: title }), [title]);
 
   useEffect(() => {
     if (!props.tei || !ref.current) return;
@@ -140,6 +144,12 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
       {title && (
         <BroadcastChannelSync channelName={title} />
+      )}
+
+      {title && (
+        <AnnotoriousPlugin
+          plugin={LocalStoragePlugin} 
+          opts={storageOpts} />
       )}
     </div>
   )
