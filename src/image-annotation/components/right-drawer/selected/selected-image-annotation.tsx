@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import { GitCompareArrows, Microscope, Shapes, Trash2, X } from 'lucide-react';
+import { GitCompareArrows, MessagesSquare, Microscope, Shapes, Trash2, X } from 'lucide-react';
 import { createBody, ImageAnnotation, useAnnotationStore } from '@annotorious/react';
 import { useArrows } from '@annotorious/plugin-arrows-react';
 import { getCategoryColor } from '@/image-annotation/colors';
@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { RelationPreview, SetCategory } from '@/image-annotation/components/shared';
 import { Badge } from '@/components/ui/badge';
 import { SelectedAnnotationDetailsProps } from './selected';
+import { Conversation } from '@/components/conversation';
 
 export const SelectedImageAnnotationDetails = (props: SelectedAnnotationDetailsProps<ImageAnnotation>) => {
 
@@ -97,6 +98,19 @@ export const SelectedImageAnnotationDetails = (props: SelectedAnnotationDetailsP
 
             <AccordionContent className="pb-12">
               
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="conversation">
+            <AccordionTrigger>
+              <div className="flex gap-2 items-center">
+                <MessagesSquare className="size-4" /> Conversation
+                <Badge variant="secondary">2</Badge>
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent className="pb-12">
+              <Conversation />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
