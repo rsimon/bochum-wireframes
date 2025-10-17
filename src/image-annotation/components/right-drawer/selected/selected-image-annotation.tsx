@@ -90,6 +90,7 @@ export const SelectedImageAnnotationDetails = (props: SelectedAnnotationDetailsP
                 <RelationPreview
                   key={arrow.id}
                   arrow={arrow}
+                  canvas={props.canvas}
                   referenceAnnotationId={props.annotation.id} />
               ))}
             </AccordionContent>

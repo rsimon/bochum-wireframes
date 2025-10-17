@@ -65,6 +65,7 @@ export const ListCard = (props: ListCardProps) => {
               <RelationPreview
                 key={arrow.id}
                 arrow={arrow}
+                canvas={props.canvas}
                 referenceAnnotationId={props.annotation.id} />
             ))}
           </div>

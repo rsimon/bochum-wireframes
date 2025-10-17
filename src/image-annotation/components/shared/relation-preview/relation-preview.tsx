@@ -1,13 +1,18 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
+import { CozyCanvas } from 'cozy-iiif';
 import { Annotation, useAnnotation } from '@annotorious/react';
 import { ArrowAnnotation, isArrowAnchor } from '@annotorious/plugin-arrows-react';
 import { getCategoryColor } from '@/image-annotation/colors';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { cn } from '@/lib/utils';
+import { AnnotationSnippet } from '../annotation-snippet';
 
 interface RelationPreviewProps {
 
   arrow: ArrowAnnotation;
+
+  canvas?: CozyCanvas;
 
   className?: string;
 
@@ -34,13 +39,31 @@ export const RelationPreview = (props: RelationPreviewProps) => {
   const renderEdge = (annotation?: Annotation) => {
     if (annotation) {
       const category = annotation.bodies.find(b => b.purpose === 'classifying')?.value;
-      return category ? (
-        <div className="rounded-full text-xs font-medium py-0.5 px-1 flex items-center gap-1.5">
-          <div className={clsx('size-2 rounded-full', getCategoryColor(category))} />
-          {category}
-        </div>
-      ) : (
-        <div className="size-2 mx-1 my-1.5 bg-gray-400 rounded-full " />
+      return (
+        <HoverCard 
+          openDelay={100}> 
+          <HoverCardTrigger className="cursor-pointer">
+            {category ? (
+              <div className="rounded-full text-xs font-medium py-0.5 px-1 flex items-center gap-1.5">
+                <div className={clsx('size-2 rounded-full', getCategoryColor(category))} />
+                {category}
+              </div>
+            ) : (
+              <div className="size-2 mx-1 my-1.5 bg-gray-400 rounded-full " />
+            )}
+          </HoverCardTrigger>
+
+          <HoverCardContent
+            side="top"
+            className="p-1.5 relative shadow-xl rounded-lg w-auto">
+            {props.canvas && (
+              <AnnotationSnippet
+                annotation={annotation.id} 
+                canvas={props.canvas} 
+                className="rounded-md size-24" />
+            )}
+          </HoverCardContent>
+        </HoverCard>
       )
     } else {
       return (
