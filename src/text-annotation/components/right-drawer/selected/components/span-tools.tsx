@@ -30,7 +30,7 @@ export const SpanTools = () => {
         </TooltipTrigger>
 
         <TooltipContent>
-          <p>Add span</p>
+          <p>Add or extend span</p>
         </TooltipContent>
       </Tooltip>
     </div>
