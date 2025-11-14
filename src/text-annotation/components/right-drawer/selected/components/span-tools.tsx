@@ -1,13 +1,13 @@
 import { Replace, ReplaceAll } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { AnnotatingMode } from '@recogito/react-text-annotator';
 import { Toggle } from '@/components/ui/toggle';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface SpanToolsProps {
 
-  extendEnabled: boolean;
+  mode: AnnotatingMode;
 
-  onSetExtendEnabled(enabled: boolean): void;
+  onChangeMode(mode: AnnotatingMode): void;
 
 }
 
@@ -17,11 +17,13 @@ export const SpanTools = (props: SpanToolsProps) => {
     <div className="flex">
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button 
-            variant="ghost"
-            size="icon">
-            <Replace className="size-4" />
-          </Button>
+          <div>
+            <Toggle 
+              pressed={props.mode === 'REPLACE_CURRENT'}
+              onPressedChange={pressed => props.onChangeMode(pressed ? 'REPLACE_CURRENT' : 'CREATE_NEW')}>
+              <Replace className="size-4" />
+            </Toggle>
+          </div>
         </TooltipTrigger>
 
         <TooltipContent>
@@ -33,8 +35,8 @@ export const SpanTools = (props: SpanToolsProps) => {
         <TooltipTrigger asChild>
           <div>
             <Toggle
-              pressed={props.extendEnabled}
-              onPressedChange={props.onSetExtendEnabled}>
+              pressed={props.mode === 'ADD_TO_CURRENT'}
+              onPressedChange={pressed => props.onChangeMode(pressed ? 'ADD_TO_CURRENT' : 'CREATE_NEW')}>
               <ReplaceAll className="size-4" />
             </Toggle>
           </div>

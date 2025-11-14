@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { GitCompareArrows, MessagesSquare, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
 import { useAnnotationStore, useAnnotator, useSelection } from '@annotorious/react';
-import { RecogitoTextAnnotator, TEIAnnotation } from '@recogito/react-text-annotator';
+import { AnnotatingMode, RecogitoTextAnnotator, TEIAnnotation } from '@recogito/react-text-annotator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -31,11 +31,11 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
 
   const anno = useAnnotator<RecogitoTextAnnotator>();
 
-  const [annotatingMode, setAnnotingMode] = useState('CREATE_NEW');
+  const [annotatingMode, setAnnotingMode] = useState<AnnotatingMode>('CREATE_NEW');
 
   useEffect(() => {
     if (!anno) return;
-    anno.setAnnotatingMode(annotatingMode as 'CREATE_NEW' | 'ADD_TO_CURRENT');
+    anno.setAnnotatingMode(annotatingMode);
   }, [anno, annotatingMode]);
 
   useEffect(() => {
@@ -76,8 +76,8 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
           </div>
 
           <SpanTools 
-            extendEnabled={annotatingMode === 'ADD_TO_CURRENT'}
-            onSetExtendEnabled={enabled => setAnnotingMode(enabled ? 'ADD_TO_CURRENT' : 'CREATE_NEW')} />
+            mode={annotatingMode}
+            onChangeMode={setAnnotingMode} />
         </div>
 
         <div>
