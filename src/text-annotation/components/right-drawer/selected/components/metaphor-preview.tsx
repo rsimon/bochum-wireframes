@@ -34,7 +34,7 @@ export const MetaphorPreview = (props: MetaphorPreviewProps) => {
           key={`${value}:${index}`}
           className={
             type === 'word' ? 'bg-pink-200 py-0.5 px-1 rounded-xs' : ''
-          }>{value}</span>
+          }>{value}{'\u00A0'}</span> 
       ))}
     </div>
   )

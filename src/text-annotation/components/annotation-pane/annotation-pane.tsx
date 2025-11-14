@@ -58,7 +58,7 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
 
   return (
     <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-      <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="flex gap-4 items-center justify-between p-4 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
         <Button
           variant="outline"
           size="icon"

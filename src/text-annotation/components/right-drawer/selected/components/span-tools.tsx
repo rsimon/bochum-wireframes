@@ -1,8 +1,17 @@
 import { Replace, ReplaceAll } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Toggle } from '@/components/ui/toggle';
 
-export const SpanTools = () => {
+interface SpanToolsProps {
+
+  extendEnabled: boolean;
+
+  onSetExtendEnabled(enabled: boolean): void;
+
+}
+
+export const SpanTools = (props: SpanToolsProps) => {
 
   return (
     <div className="flex">
@@ -22,11 +31,13 @@ export const SpanTools = () => {
 
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button 
-            variant="ghost"
-            size="icon">
-            <ReplaceAll className="size-4" />
-          </Button>
+          <div>
+            <Toggle
+              pressed={props.extendEnabled}
+              onPressedChange={props.onSetExtendEnabled}>
+              <ReplaceAll className="size-4" />
+            </Toggle>
+          </div>
         </TooltipTrigger>
 
         <TooltipContent>

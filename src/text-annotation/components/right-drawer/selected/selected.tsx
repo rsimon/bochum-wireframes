@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { GitCompareArrows, MessagesSquare, Microscope, Tags, TextCursorInput, Trash2 } from 'lucide-react';
-import { useAnnotationStore, useSelection } from '@annotorious/react';
-import { TEIAnnotation } from '@recogito/react-text-annotator';
+import { useAnnotationStore, useAnnotator, useSelection } from '@annotorious/react';
+import { RecogitoTextAnnotator, TEIAnnotation } from '@recogito/react-text-annotator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -28,6 +28,25 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
   const store = useAnnotationStore();
 
   const type = getAnnotationType(props.annotation);
+
+  const anno = useAnnotator<RecogitoTextAnnotator>();
+
+  const [annotatingMode, setAnnotingMode] = useState('CREATE_NEW');
+
+  useEffect(() => {
+    if (!anno) return;
+    anno.setAnnotatingMode(annotatingMode as 'CREATE_NEW' | 'ADD_TO_CURRENT');
+  }, [anno, annotatingMode]);
+
+  useEffect(() => {
+    // Reset the annotatingMode each time an annotation is created
+    const onCreate = () => setAnnotingMode('CREATE_NEW');
+    anno.on('createAnnotation', onCreate);
+
+    return () => {
+      anno.off('createAnnotation', onCreate);
+    }
+  }, []);
 
   const linked = useMemo(() => 
     props.annotation.bodies.filter(b => b.purpose === 'linking' && b.value).map(b => b.value)
@@ -56,7 +75,9 @@ const SelectedAnnotationDetails = (props: SelectedAnnotationDetailsProps) => {
               onChangeType={onChangeType} />
           </div>
 
-          <SpanTools />
+          <SpanTools 
+            extendEnabled={annotatingMode === 'ADD_TO_CURRENT'}
+            onSetExtendEnabled={enabled => setAnnotingMode(enabled ? 'ADD_TO_CURRENT' : 'CREATE_NEW')} />
         </div>
 
         <div>
