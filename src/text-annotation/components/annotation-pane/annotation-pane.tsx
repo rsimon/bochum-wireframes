@@ -12,6 +12,7 @@ import { MyAccount } from '@/components/my-account';
 import { InlineToolbar } from './inline-toolbar';
 
 import '@recogito/react-text-annotator/react-text-annotator.css';
+import { RightDrawerTab } from '../right-drawer';
 
 interface AnnotationPaneProps {
 
@@ -27,7 +28,7 @@ interface AnnotationPaneProps {
 
   setRightDrawerOpen(open: boolean): void;
 
-  onFocusRightDrawer(): void;
+  onFocusRightDrawer(tab: RightDrawerTab): void;
 
   onLoad?(element: Element): void;
 
@@ -139,7 +140,8 @@ export const AnnotationPane = (props: AnnotationPaneProps) => {
         </div>
 
         <InlineToolbar 
-          onClickAdvanced={props.onFocusRightDrawer} />
+          onOpenListSidebar={() => props.onFocusRightDrawer('list')}
+          onOpenSelectedSidebar={() => props.onFocusRightDrawer('selected')} />
       </main>
 
       {title && (

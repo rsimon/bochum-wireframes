@@ -1,17 +1,20 @@
 import { useCallback } from 'react';
 import { RecogitoTEIAnnotator, TEIAnnotation, TextAnnotationPopup } from '@recogito/react-text-annotator';
 import { useSelection, useAnnotator } from '@annotorious/react';
-import { InlineToolbarContent } from './inline-toolbar-content';
+import { ToolbarStateChoice } from './toolbar-state-choice';
+import { ToolbarStateSelected } from './toolbar-state-selected';
 
 interface InlineToolbarProps {
 
-  onClickAdvanced(): void;
+  onOpenSelectedSidebar(): void;
+
+  onOpenListSidebar(): void;
 
 }
 
 export const InlineToolbar = (props: InlineToolbarProps) => {
 
-  const { onClickAdvanced } = props;
+  const { onOpenSelectedSidebar, onOpenListSidebar } = props;
 
   const anno = useAnnotator<RecogitoTEIAnnotator>();
 
@@ -28,17 +31,22 @@ export const InlineToolbar = (props: InlineToolbarProps) => {
       anno.removeAnnotation(previous[0].annotation);
   }, [selection]);
 
+  const onSelectChoice = (annotation: TEIAnnotation) =>
+    anno?.setSelected(annotation.id);
+
   return (
     <TextAnnotationPopup
       placement="bottom"
       popup={
-        props => (
-          <div className="bg-white p-1.5 rounded-xl 
-            border border-[#e5e5e5] shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
-            <InlineToolbarContent 
-              {...props} 
-              onClickAdvanced={onClickAdvanced} />
-          </div>
+        props => props.selected.length > 1 ? (
+          <ToolbarStateChoice 
+            {...props} 
+            onSelect={onSelectChoice} 
+            onOpenList={onOpenListSidebar} />
+        ) : (
+          <ToolbarStateSelected 
+            {...props} 
+            onClickAdvanced={onOpenSelectedSidebar} />
         )
       } 
       onClose={onClose} />

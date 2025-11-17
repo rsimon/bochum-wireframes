@@ -44,7 +44,7 @@ export const ListCard = (props: ListCardProps) => {
   return (
     <Card className={cn(
       'p-0.5 mt-4 rounded',
-      type === 'metaphor' ? undefined : 'bg-green-600/15 border-green-600/30 opacity-50',
+      type === 'metaphor' ? undefined : 'bg-green-600/15 border-green-600/30',
       props.deemphasize && 'opacity-25',
       props.emphasize && 'ring-4 ring-offset-0 ring-blue-500/35'
     )}>

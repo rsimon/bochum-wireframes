@@ -50,9 +50,8 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
     });
   }, [props.url]);
 
-  const onFocusRightDrawer = () => {
-    setRightDrawer('selected');
-  }
+  const onFocusRightDrawer = (tab: RightDrawerTab) =>
+    setRightDrawer(tab);
 
   return (
     <div className="flex h-screen bg-background">
@@ -63,6 +62,7 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
 
       <TEIAnnotator
         style={style}
+        selectionMode="all"
         mergeHighlights={{ horizontalTolerance: 24 }}
         renderer={props.useMarkerRenderer ? InlineMarkerRenderer : undefined}>
         <AnnotationPane

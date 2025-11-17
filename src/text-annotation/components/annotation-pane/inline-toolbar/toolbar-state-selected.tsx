@@ -1,0 +1,215 @@
+import { useEffect, useMemo } from 'react';
+import { createBody, useAnnotationStore } from '@annotorious/react';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Toggle } from '@/components/ui/toggle';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Ellipsis, GitCompareArrows, MessagesSquare, Trash2 } from 'lucide-react';
+import { AnnotationType } from '@/text-annotation/types';
+import { getAnnotationType, getQuote, setAnnotationType } from '@/text-annotation/utils';
+import type { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
+import { useIntersectingAnnotations } from '@/text-annotation/hooks';
+import { Badge } from '@/components/ui/badge';
+
+interface ToolbarStateSelectedProps extends TextAnnotationPopupContentProps {
+
+  onClickAdvanced(): void;
+
+}
+
+// Trivial heuristic for "suggesting" initial annotation type
+const getSuggestedType = (annotation: TEIAnnotation): AnnotationType =>
+  getQuote(annotation).includes(' ') ? 'metaphor' : 'mrw';
+
+export const ToolbarStateSelected = (props: ToolbarStateSelectedProps) => {
+
+  const store = useAnnotationStore();
+
+  const currentType = getAnnotationType(props.annotation as TEIAnnotation);
+
+  const suggestedType = currentType ? null : getSuggestedType(props.annotation as TEIAnnotation);
+
+  const { getIntersecting } = useIntersectingAnnotations();
+
+  useEffect(() => {
+    if (!store || !suggestedType) return;
+
+    // Apply the suggested type if the annotation doesn't yet have one
+    const updated = setAnnotationType(props.annotation as TEIAnnotation, suggestedType);
+    store.updateAnnotation(updated);
+  }, [store, suggestedType, props.annotation]);
+
+  const onToggleType = (type: AnnotationType) => (pressed: boolean) => {
+    if (!store) return;
+
+    // No-op
+    if (currentType === type && pressed) return;
+
+    // Should never happen
+    if (currentType !== type && !pressed) return;
+    
+    if (currentType === type) {
+      // Remove type
+      const next: TEIAnnotation = {
+        ...(props.annotation as TEIAnnotation),
+        bodies: (props.annotation.bodies || []).filter(b => b.purpose !== 'classifying')
+      }
+
+      store.updateAnnotation(next);
+    } else if (pressed) {
+      const next = setAnnotationType(props.annotation as TEIAnnotation, type);
+      store.updateAnnotation(next);
+    }
+  }
+
+  const onDelete = () => {
+    store.deleteAnnotation(props.annotation.id);
+    window.getSelection().empty();
+  }
+
+  const canLinkAll = useMemo(() => {
+    const type = getAnnotationType(props.annotation as TEIAnnotation);
+    if (type === 'mrw') return false;
+
+    const intersecting = getIntersecting(props.annotation as TEIAnnotation);
+
+    const linked = new Set(props.annotation.bodies
+      .filter(b => b.purpose === 'linking' && b.value)
+      .map(b => b.value));
+
+    const linkable = intersecting.filter(a => !linked.has(a.id));
+    return linkable.length > 0;
+  }, [getIntersecting, props.annotation])
+
+  const onLinkAll = () => {
+    const intersecting = getIntersecting(props.annotation as TEIAnnotation);
+
+    const updated = {
+      ...props.annotation,
+      bodies: [
+        ...props.annotation.bodies.filter(b => b.purpose !== 'linking'),
+        ...intersecting.map(a => createBody(props.annotation, {
+          purpose: 'linking', 
+          value: a.id
+        }))
+      ]
+    } as TEIAnnotation;
+
+    store.updateAnnotation(updated);
+  }
+
+  return (
+    <div className="bg-white p-1.5 rounded-xl 
+      border border-[#e5e5e5] shadow-[0_4px_12px_rgba(0,0,0,0.1),0_20px_40px_rgba(0,0,0,0.06)]">
+      <div 
+        className="flex items-center gap-1.5"
+        onFocusCapture={evt => evt.stopPropagation()}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {/** https://github.com/shadcn-ui/ui/issues/1988 **/}
+            <div>
+              <Toggle
+                pressed={currentType === 'metaphor'}
+                onPressedChange={onToggleType('metaphor')}>
+                <div className="text-xs h-5 flex items-center justify-center underline underline-offset-2 mb-px">
+                  Metaphor
+                </div>
+              </Toggle>
+            </div>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Mark as Metaphor</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div>
+              <Toggle
+                pressed={currentType === 'mrw'}
+                onPressedChange={onToggleType('mrw')}>
+                <div className="text-xs rounded flex items-center justify-center tracking-wide">
+                  Word
+                </div>
+              </Toggle>
+            </div>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Mark as Metaphor-Related Word</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Separator orientation="vertical" />
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              disabled={!canLinkAll}
+              variant="ghost"
+              size="icon"
+              onClick={onLinkAll}>
+              <GitCompareArrows className="size-3.5" />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Link all intersecting words to this metaphor</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative">
+              <MessagesSquare className="size-3.5" />
+
+              <Badge 
+                className="absolute z-10 top-px right-0 text-[9px] font-semibold rounded-full aspect-square p-1 bg-slate-800 pointer-none:">
+                2
+              </Badge>
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Comment</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onDelete}>
+              <Trash2 className="size-3.5 text-destructive" />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>Delete annotation</p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={props.onClickAdvanced}>
+              <Ellipsis className="size-3.5" />
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <p>More</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </div>
+  )
+
+}
