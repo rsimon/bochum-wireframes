@@ -27,6 +27,14 @@ export const Start = () => {
 
         <li>
           <Link 
+            to="text-3"
+            className="hover:underline text-sky-700">
+            Text annotation with experimental marker renderer (Sample Reddit Thread)
+          </Link>
+        </li>
+
+        <li>
+          <Link 
             to="image"
             className="hover:underline text-sky-700">
             Image annotation interface

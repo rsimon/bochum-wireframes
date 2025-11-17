@@ -6,11 +6,16 @@ import { LeftDrawer } from '@/text-annotation/components/left-drawer';
 import { RightDrawer, RightDrawerTab } from '@/text-annotation/components/right-drawer';
 import { AnnotationPane, useAnnotationsStyle } from '@/text-annotation/components/annotation-pane';
 
+// Experimental...
+import { InlineMarkerRenderer } from '@recogito/text-annotator-plugin-inline-markers';
+
 import './text-annotation.css';
 
 interface TextAnnotationProps {
 
   url: string;
+
+  useMarkerRenderer?: boolean;
 
   theme?: 'ORANGE' | 'CYAN';
 
@@ -58,7 +63,8 @@ export const TextAnnotation = (props: TextAnnotationProps) => {
 
       <TEIAnnotator
         style={style}
-        mergeHighlights={{ horizontalTolerance: 24 }}>
+        mergeHighlights={{ horizontalTolerance: 24 }}
+        renderer={props.useMarkerRenderer ? InlineMarkerRenderer : undefined}>
         <AnnotationPane
           tei={tei}
           saving={saving}

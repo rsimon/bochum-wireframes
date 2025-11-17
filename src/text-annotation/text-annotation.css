@@ -1,3 +1,21 @@
+marker {
+  pointer-events: none;
+  padding-right: 2px;
+}
+
+marker > span:before {
+  display: inline;
+  position:relative;
+  border-right: 1.5px solid oklch(72.772% 0.16103 237.871);
+  color: oklch(59.211% 0.12645 235.471);
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  content: attr(data-count);
+  padding-right: 2px;
+  bottom: 1px;
+}
+
 tei-div * {
   /* line-height: normal; */
 }

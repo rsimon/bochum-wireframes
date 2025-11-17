@@ -39,6 +39,16 @@ ReactDOM.createRoot(document.getElementById('app')!).render(
         </Annotorious>
       } />
 
+      <Route path="text-3" element={
+        <Annotorious>
+          <TextAnnotation 
+            // isRTL
+            theme="CYAN"
+            url={TEI_URL_2} 
+            useMarkerRenderer />
+        </Annotorious>
+      } />
+
       <Route path="image" element={
         <Annotorious>
           <ImageAnnotation 
