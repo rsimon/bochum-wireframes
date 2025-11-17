@@ -1,14 +1,10 @@
-import { formatDistanceToNow } from 'date-fns';
 import { Ellipsis, MessagesSquare } from 'lucide-react';
+import { TEIAnnotation, TextAnnotationPopupContentProps } from '@recogito/react-text-annotator';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { getAvatarColor } from '@/utils';
-import { 
-  TEIAnnotation, 
-  TextAnnotation, 
-  TextAnnotationPopupContentProps
-} from '@recogito/react-text-annotator';
+import { getQuote } from '@/text-annotation/utils';
 
 interface ToolbarStateChoiceProps extends TextAnnotationPopupContentProps {
 
@@ -19,9 +15,6 @@ interface ToolbarStateChoiceProps extends TextAnnotationPopupContentProps {
 }
 
 export const ToolbarStateChoice = (props: ToolbarStateChoiceProps) => {
-
-  const getTimestamp = (annotation: TextAnnotation) =>
-      formatDistanceToNow(annotation.target.created, { addSuffix: true });
 
   return (
     <div className="bg-white p-1.5 rounded-xl text-sm relative
@@ -49,7 +42,7 @@ export const ToolbarStateChoice = (props: ToolbarStateChoiceProps) => {
       <div className="py-1">
         {props.selected.map(({ annotation }) => (
           <button 
-            className="relative p-2 w-full hover:bg-muted rounded-md cursor-pointer flex gap-8 items-center"
+            className="relative p-2 w-full hover:bg-muted rounded-md cursor-pointer flex justify-between items-center"
             onClick={() => props.onSelect(annotation as TEIAnnotation)}>
             <div className="flex gap-1.5 text-xs items-center">
               <Avatar className="size-5">
@@ -60,7 +53,9 @@ export const ToolbarStateChoice = (props: ToolbarStateChoiceProps) => {
                 </AvatarFallback>
               </Avatar>
 
-              <span className="font-medium">Rainer</span><span className="text-muted-foreground"> · {getTimestamp(annotation)}</span>
+              <span className="font-medium font-serif text-sm italic max-w-48 text-muted-foreground truncate">
+                {getQuote(annotation as TEIAnnotation)}
+              </span>
             </div>
 
             <div className="text-muted-foreground/80 cursor-pointer hover:text-primary text-xs font-medium flex gap-1 items-center">
