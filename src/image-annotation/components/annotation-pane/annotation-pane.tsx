@@ -38,7 +38,7 @@ import {
 import '@annotorious/react/annotorious-react.css';
 import '@annotorious/plugin-arrows-react/annotorious-arrows.css';
 import '@annotorious/plugin-tools/annotorious-plugin-tools.css';
-import '@annotorious/plugin-magnetic-outline/plugin-magnetic-polyline.css';
+import '@annotorious/plugin-magnetic-outline/plugin-magnetic-outline.css';
 
 interface AnnotationPaneProps {
 
